@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="WA音祭（WAON FES）- 和と洋が交錯する、音の祭典。202X年7月14日、新宿HOLIDAYで開催。">
+    <title>WA音祭（WAON FES）| 和と洋が交錯する、音の祭典</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700;900&family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <!-- Header / Hero Area -->
+    <header class="hero" id="home">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <div class="logo">
+                <h1 id="heroTitle">WA音祭</h1>
+                <p class="logo-subtitle" id="heroSubtitle">WAON FES</p>
+            </div>
+            <p class="catchphrase" id="heroCatchphrase">和と洋が交錯する、音の祭典。</p>
+            <div class="event-info">
+                <p class="event-date" id="heroDate">202X年7月14日（土）</p>
+                <p class="event-venue" id="heroVenue">新宿HOLIDAY</p>
+            </div>
+            <div class="hero-decoration">音</div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <ul class="nav-list">
+            <li><a href="#home">HOME</a></li>
+            <li><a href="#concept">CONCEPT</a></li>
+            <li><a href="#information">INFO</a></li>
+            <li><a href="#entry">ENTRY</a></li>
+            <li><a href="#artist">ARTIST</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Concept Section -->
+        <section class="section concept" id="concept">
+            <div class="container">
+                <h2 class="section-title">
+                    <span class="title-en">CONCEPT</span>
+                    <span class="title-ja">開催趣旨</span>
+                </h2>
+                <div class="concept-content">
+                    <div class="concept-text">
+                        <p class="concept-lead" id="conceptLead">
+                            和（WA）とA（Alpha）が出会う場所。
+                        </p>
+                        <p id="conceptText1">
+                            WA音祭は、日本の「和」の美意識と、西洋音楽の「A」（アルファベット）が融合する、ジャンルレスな音楽フェスティバルです。
+                        </p>
+                        <p id="conceptText2">
+                            伝統と革新、静と動、東洋と西洋——相反する要素が調和し、新たな「音」の可能性を生み出す場所。それがWA音祭です。
+                        </p>
+                        <p id="conceptText3">
+                            ロック、ジャズ、和楽器、エレクトロニカ。あらゆるジャンルのアーティストが集い、境界を超えた音楽体験をお届けします。
+                        </p>
+                    </div>
+                    <div class="concept-decoration">
+                        <span class="vertical-text">和洋折衷</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Information Section -->
+        <section class="section information" id="information">
+            <div class="container">
+                <h2 class="section-title">
+                    <span class="title-en">INFORMATION</span>
+                    <span class="title-ja">開催概要</span>
+                </h2>
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h3 class="info-title">日時</h3>
+                        <p class="info-detail">
+                            <span id="infoDate">202X年7月14日（土）</span><br>
+                            <span id="infoTime">OPEN 18:00 / START 18:30</span>
+                        </p>
+                    </div>
+                    <div class="info-card">
+                        <h3 class="info-title">会場</h3>
+                        <p class="info-detail">
+                            <span id="infoVenueName">新宿HOLIDAY</span><br>
+                            <span id="infoVenueAddress" style="white-space: pre-line;">〒160-0021
+東京都新宿区歌舞伎町1-2-3
+新宿ビル B1F</span>
+                        </p>
+                    </div>
+                    <div class="info-card">
+                        <h3 class="info-title">料金</h3>
+                        <p class="info-detail">
+                            前売：<span id="infoPriceAdvance">¥2,500</span><br>
+                            当日：<span id="infoPriceDay">¥3,000</span><br>
+                            （ドリンク代別途<span id="infoPriceDrink">¥600</span>）
+                        </p>
+                    </div>
+                    <div class="info-card">
+                        <h3 class="info-title">お問い合わせ</h3>
+                        <p class="info-detail">
+                            Email: <span id="infoEmail">info@waonfes.jp</span><br>
+                            Tel: <span id="infoTel">03-XXXX-XXXX</span>
+                        </p>
+                    </div>
+                </div>
+                <div class="map-container">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3240.206406934638!2d139.69854931525893!3d35.694003980192975!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60188cd0d6b1ba1f%3A0x1c32a1f665e6db8c!2z5paw5a6_!5e0!3m2!1sja!2sjp!4v1234567890123!5m2!1sja!2sjp" 
+                        width="100%" 
+                        height="400" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy"
+                        title="新宿HOLIDAY 地図">
+                    </iframe>
+                </div>
+            </div>
+        </section>
+
+        <!-- Entry Section -->
+        <section class="section entry" id="entry">
+            <div class="container">
+                <h2 class="section-title">
+                    <span class="title-en">ENTRY</span>
+                    <span class="title-ja">出演者募集</span>
+                </h2>
+                <div class="entry-content">
+                    <p class="entry-lead" id="entryLead" style="white-space: pre-line;">
+                        WA音祭では、ジャンルを問わず幅広いアーティストを募集しています。
+和楽器、ロック、ポップス、ジャズ、エレクトロニカ…あなたの音楽を響かせてください。
+                    </p>
+                    <div class="entry-requirements">
+                        <h3>募集要項</h3>
+                        <ul class="requirements-list">
+                            <li><span id="entryRequirement1">応募資格：プロ・アマチュア問わず</span></li>
+                            <li><span id="entryRequirement2">演奏時間：1組 20分〜30分</span></li>
+                            <li><span id="entryRequirement3">チケットノルマ：10枚（前売¥2,500×10枚 = ¥25,000）</span></li>
+                            <li><span id="entryRequirement4">機材：アンプ、ドラムセット、PA完備</span></li>
+                            <li><span id="entryRequirement5">応募締切：202X年6月30日（金）</span></li>
+                        </ul>
+                    </div>
+                    <div class="entry-cta">
+                        <a href="#" id="entryButton" class="btn btn-primary">応募フォームはこちら</a>
+                    </div>
+                    <p class="entry-note" id="entryNote" style="white-space: pre-line;">
+※応募多数の場合は選考とさせていただきます。
+※詳細は応募後、メールにてご連絡いたします。
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Artist Section (Dynamic) -->
+        <section class="section artist" id="artist">
+            <div class="container">
+                <h2 class="section-title">
+                    <span class="title-en">ARTIST</span>
+                    <span class="title-ja">出演者</span>
+                </h2>
+                <div id="artist-list" class="artist-list">
+                    <!-- JavaScriptで動的に生成 -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h3 id="footerLogo">WA音祭</h3>
+                    <p id="footerSubtitle">WAON FES</p>
+                </div>
+                <div class="footer-links">
+                    <a href="#home">HOME</a>
+                    <a href="#concept">CONCEPT</a>
+                    <a href="#information">INFO</a>
+                    <a href="#entry">ENTRY</a>
+                    <a href="#artist">ARTIST</a>
+                </div>
+                <div class="footer-contact">
+                    <p>Email: <span id="footerEmail">info@waonfes.jp</span></p>
+                    <p>Tel: <span id="footerTel">03-XXXX-XXXX</span></p>
+                </div>
+            </div>
+            <div class="footer-copyright">
+                <p id="footerCopyright">&copy; 2026 WA音祭（WAON FES）All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="assets/js/main.js"></script>
+</body>
+</html>
+        <div class="artist-info">
+          <h4>Artist A</h4>
+          <span>和太鼓 × Drumstep</span>
+        </div>
+        <div class="socials"><a href="#">Follow</a></div>
+      </div>
+      <div class="artist">
+        <img src="assets/media/artist-b.jpg" alt="Artist B" />
+        <div class="artist-info">
+          <h4>Artist B</h4>
+          <span>尺八 × Future Bass</span>
+        </div>
+        <div class="socials"><a href="#">Follow</a></div>
+      </div>
+      <div class="artist">
+        <img src="assets/media/artist-c.jpg" alt="Artist C" />
+        <div class="artist-info">
+          <h4>Artist C</h4>
+          <span>琴 × Techno</span>
+        </div>
+        <div class="socials"><a href="#">Follow</a></div>
+      </div>
+    </div>
+
+    <h3 class="subhead gold">TIMETABLE</h3>
+    <div class="grid" id="timetable">
+      <div class="timetable" data-start="18:00">
+        <div class="time">18:00</div><div class="act">Opening Ceremonies</div>
+      </div>
+      <div class="timetable" data-start="19:00">
+        <div class="time">19:00</div><div class="act">Artist A</div>
+      </div>
+      <div class="timetable" data-start="20:00">
+        <div class="time">20:00</div><div class="act">Artist B</div>
+      </div>
+      <div class="timetable" data-start="21:00">
+        <div class="time">21:00</div><div class="act">Artist C</div>
+      </div>
+      <div class="timetable" data-start="22:00">
+        <div class="time">22:00</div><div class="act">All-Star Session</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="tickets" class="section">
+    <h2 class="section-title pink">TICKETS & ACCESS</h2>
+    <div class="grid ticket-grid">
+      <div class="ticket">
+        <h3>一般</h3>
+        <p>スタンディング / 再入場1回</p>
+        <p class="price">¥8,000</p>
+      </div>
+      <div class="ticket">
+        <h3>学生</h3>
+        <p>要学生証 / ドリンク1杯付き</p>
+        <p class="price">¥6,000</p>
+      </div>
+      <div class="ticket vip">
+        <h3>VIP（限定特典）</h3>
+        <p>前方リザーブ / バックステージ見学 / 記念ノベルティ</p>
+        <p class="price">¥15,000</p>
+      </div>
+    </div>
+    <div class="access">
+      <h4 class="subhead cyan">ACCESS</h4>
+      <p class="access-copy">SHINJUKU SPECIAL STAGE（新宿駅から徒歩5分）</p>
+      <div class="map">
+        <!-- 差し替え: Google Maps iframe をモノトーンスタイルに（例: &style=feature:all|saturation:-100） -->
+        <!-- <iframe src="https://www.google.com/maps/embed?...&style=feature:all|saturation:-100" width="100%" height="100%" style="border:0; filter: grayscale(1) contrast(1.1);" loading="lazy"></iframe> -->
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">© 2026 WA音祭. All Rights Reserved.</footer>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

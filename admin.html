@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WA音祭 - 管理画面</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700;900&family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="assets/css/admin.css">
+</head>
+<body>
+    <!-- ヘッダー -->
+    <header class="admin-header">
+        <div class="admin-container">
+            <h1 class="admin-title">WA音祭 管理画面</h1>
+            <div class="admin-actions">
+                <a href="index.html" class="btn btn-secondary" target="_blank">プレビューを開く</a>
+                <button id="resetBtn" class="btn btn-danger">データをリセット</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- メインコンテンツ -->
+    <main class="admin-main">
+        <div class="admin-container">
+            <!-- サイドバー -->
+            <aside class="admin-sidebar">
+                <nav class="admin-nav">
+                    <h2 class="nav-title">編集項目</h2>
+                    <ul class="nav-list">
+                        <li><a href="#hero" class="nav-link active" data-section="hero">ヘロー</a></li>
+                        <li><a href="#concept" class="nav-link" data-section="concept">コンセプト</a></li>
+                        <li><a href="#info" class="nav-link" data-section="info">開催情報</a></li>
+                        <li><a href="#entry" class="nav-link" data-section="entry">出演者募集</a></li>
+                        <li><a href="#artists" class="nav-link" data-section="artists">アーティスト</a></li>
+                        <li><a href="#footer" class="nav-link" data-section="footer">フッター</a></li>
+                    </ul>
+                </nav>
+            </aside>
+
+            <!-- 編集パネル -->
+            <section class="admin-content">
+                <!-- ヘロー編集 -->
+                <div class="edit-panel active" id="hero" data-section="hero">
+                    <h2 class="panel-title">ヘロー（トップバナー）編集</h2>
+                    
+                    <div class="form-group">
+                        <label for="heroTitle">イベント名</label>
+                        <input type="text" id="heroTitle" class="form-input" placeholder="例：WA音祭">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="heroSubtitle">サブタイトル</label>
+                        <input type="text" id="heroSubtitle" class="form-input" placeholder="例：WAON FES">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="heroCatchphrase">キャッチコピー</label>
+                        <input type="text" id="heroCatchphrase" class="form-input" placeholder="例：和と洋が交錯する、音の祭典。">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="heroDate">開催日</label>
+                        <input type="text" id="heroDate" class="form-input" placeholder="例：202X年7月14日（土）">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="heroVenue">会場名</label>
+                        <input type="text" id="heroVenue" class="form-input" placeholder="例：新宿HOLIDAY">
+                    </div>
+
+                    <button class="btn btn-primary" onclick="saveSection('hero')">保存</button>
+                </div>
+
+                <!-- コンセプト編集 -->
+                <div class="edit-panel" id="concept" data-section="concept">
+                    <h2 class="panel-title">コンセプト編集</h2>
+                    
+                    <div class="form-group">
+                        <label for="conceptLead">リード文</label>
+                        <input type="text" id="conceptLead" class="form-input" placeholder="例：和（WA）とA（Alpha）が出会う場所。">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="conceptText1">説明1</label>
+                        <textarea id="conceptText1" class="form-textarea" rows="3" placeholder="コンセプトの説明文1"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="conceptText2">説明2</label>
+                        <textarea id="conceptText2" class="form-textarea" rows="3" placeholder="コンセプトの説明文2"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="conceptText3">説明3</label>
+                        <textarea id="conceptText3" class="form-textarea" rows="3" placeholder="コンセプトの説明文3"></textarea>
+                    </div>
+
+                    <button class="btn btn-primary" onclick="saveSection('concept')">保存</button>
+                </div>
+
+                <!-- 開催情報編集 -->
+                <div class="edit-panel" id="info" data-section="info">
+                    <h2 class="panel-title">開催情報編集</h2>
+                    
+                    <h3 class="subsection-title">日時情報</h3>
+                    <div class="form-group">
+                        <label for="infoDate">開催日</label>
+                        <input type="text" id="infoDate" class="form-input" placeholder="例：202X年7月14日（土）">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="infoTime">開催時間</label>
+                        <input type="text" id="infoTime" class="form-input" placeholder="例：OPEN 18:00 / START 18:30">
+                    </div>
+
+                    <h3 class="subsection-title">会場情報</h3>
+                    <div class="form-group">
+                        <label for="infoVenueName">会場名</label>
+                        <input type="text" id="infoVenueName" class="form-input" placeholder="例：新宿HOLIDAY">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="infoVenueAddress">住所</label>
+                        <textarea id="infoVenueAddress" class="form-textarea" rows="3" placeholder="例：〒160-0021&#10;東京都新宿区歌舞伎町1-2-3"></textarea>
+                    </div>
+
+                    <h3 class="subsection-title">料金情報</h3>
+                    <div class="form-group">
+                        <label for="infoPriceAdvance">前売価格</label>
+                        <input type="text" id="infoPriceAdvance" class="form-input" placeholder="例：¥2,500">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="infoPriceDay">当日価格</label>
+                        <input type="text" id="infoPriceDay" class="form-input" placeholder="例：¥3,000">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="infoPriceDrink">ドリンク代</label>
+                        <input type="text" id="infoPriceDrink" class="form-input" placeholder="例：¥600">
+                    </div>
+
+                    <h3 class="subsection-title">お問い合わせ</h3>
+                    <div class="form-group">
+                        <label for="infoEmail">メールアドレス</label>
+                        <input type="email" id="infoEmail" class="form-input" placeholder="例：info@waonfes.jp">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="infoTel">電話番号</label>
+                        <input type="text" id="infoTel" class="form-input" placeholder="例：03-XXXX-XXXX">
+                    </div>
+
+                    <button class="btn btn-primary" onclick="saveSection('info')">保存</button>
+                </div>
+
+                <!-- 出演者募集編集 -->
+                <div class="edit-panel" id="entry" data-section="entry">
+                    <h2 class="panel-title">出演者募集情報編集</h2>
+                    
+                    <div class="form-group">
+                        <label for="entryLead">リード文</label>
+                        <textarea id="entryLead" class="form-textarea" rows="3" placeholder="募集のリード文"></textarea>
+                    </div>
+
+                    <h3 class="subsection-title">募集要項</h3>
+                    <div class="form-group">
+                        <label for="entryRequirement1">要項1</label>
+                        <input type="text" id="entryRequirement1" class="form-input" placeholder="例：応募資格：プロ・アマチュア問わず">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="entryRequirement2">要項2</label>
+                        <input type="text" id="entryRequirement2" class="form-input" placeholder="例：演奏時間：1組 20分〜30分">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="entryRequirement3">要項3</label>
+                        <input type="text" id="entryRequirement3" class="form-input" placeholder="例：チケットノルマ：10枚（前売¥2,500×10枚 = ¥25,000）">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="entryRequirement4">要項4</label>
+                        <input type="text" id="entryRequirement4" class="form-input" placeholder="例：機材：アンプ、ドラムセット、PA完備">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="entryRequirement5">要項5</label>
+                        <input type="text" id="entryRequirement5" class="form-input" placeholder="例：応募締切：202X年6月30日（金）">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="entryButtonText">ボタンテキスト</label>
+                        <input type="text" id="entryButtonText" class="form-input" placeholder="例：応募フォームはこちら">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="entryButtonLink">ボタンリンク</label>
+                        <input type="text" id="entryButtonLink" class="form-input" placeholder="例：https://form.example.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="entryNote">注釈</label>
+                        <textarea id="entryNote" class="form-textarea" rows="3" placeholder="例：※応募多数の場合は選考とさせていただきます。"></textarea>
+                    </div>
+
+                    <button class="btn btn-primary" onclick="saveSection('entry')">保存</button>
+                </div>
+
+                <!-- アーティスト編集 -->
+                <div class="edit-panel" id="artists" data-section="artists">
+                    <h2 class="panel-title">アーティスト情報編集</h2>
+                    <p class="panel-description">各アーティストの情報を編集してください。右下の「追加」ボタンで新しいアーティストを追加できます。</p>
+                    
+                    <div id="artistsContainer" class="artists-container"></div>
+                    
+                    <button class="btn btn-success" onclick="addArtist()">+ アーティストを追加</button>
+                    <button class="btn btn-primary" onclick="saveSection('artists')">保存</button>
+                </div>
+
+                <!-- フッター編集 -->
+                <div class="edit-panel" id="footer" data-section="footer">
+                    <h2 class="panel-title">フッター編集</h2>
+                    
+                    <h3 class="subsection-title">フッターロゴ</h3>
+                    <div class="form-group">
+                        <label for="footerLogo">ロゴテキスト</label>
+                        <input type="text" id="footerLogo" class="form-input" placeholder="例：WA音祭">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="footerSubtitle">サブタイトル</label>
+                        <input type="text" id="footerSubtitle" class="form-input" placeholder="例：WAON FES">
+                    </div>
+
+                    <h3 class="subsection-title">お問い合わせ</h3>
+                    <div class="form-group">
+                        <label for="footerEmail">メールアドレス</label>
+                        <input type="email" id="footerEmail" class="form-input" placeholder="例：info@waonfes.jp">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="footerTel">電話番号</label>
+                        <input type="text" id="footerTel" class="form-input" placeholder="例：03-XXXX-XXXX">
+                    </div>
+
+                    <h3 class="subsection-title">著作権</h3>
+                    <div class="form-group">
+                        <label for="footerCopyright">著作権表示</label>
+                        <input type="text" id="footerCopyright" class="form-input" placeholder="例：&copy; 2026 WA音祭（WAON FES）All Rights Reserved.">
+                    </div>
+
+                    <button class="btn btn-primary" onclick="saveSection('footer')">保存</button>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- JavaScript -->
+    <script src="assets/js/admin.js"></script>
+</body>
+</html>
