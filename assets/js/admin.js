@@ -7,80 +7,45 @@ const defaultData = {
     hero: {
         title: "WA音祭",
         subtitle: "WAON FES",
-        catchphrase: "和と洋が交錯する、音の祭典。",
-        date: "202X年7月14日（土）",
-        venue: "新宿HOLIDAY"
+        catchphrase: "いい大人の、本気のエンタメ・チャレンジ",
+        date: "2026年7月12日（日）",
+        venue: "東京都新宿 HOLIDAY SHINJUKU"
     },
     concept: {
-        lead: "和（WA）とA（Alpha）が出会う場所。",
-        text1: "WA音祭は、日本の「和」の美意識と、西洋音楽の「A」（アルファベット）が融合する、ジャンルレスな音楽フェスティバルです。",
-        text2: "伝統と革新、静と動、東洋と西洋——相反する要素が調和し、新たな「音」の可能性を生み出す場所。それがWA音祭です。",
-        text3: "ロック、ジャズ、和楽器、エレクトロニカ。あらゆるジャンルのアーティストが集い、境界を超えた音楽体験をお届けします。"
+        lead: "ダンス・歌を中心にそれ以外の出し物も検討中です",
+        text1: "7月開催のWA音祭の出演応募方法と詳細についてアナウンスします。",
+        text2: "「自分の可能性を試してみたい」「仲間と共創したい」という方、ぜひこの機会に挑戦の旗を立ててください！",
+        text3: "コミュニティ大連携！報酬も大事！中長期継続への実験集客として、観客・出演者・スタッフ・運営経験・プロの技術者など様々な参加形態があります。"
     },
     info: {
-        date: "202X年7月14日（土）",
-        time: "OPEN 18:00 / START 18:30",
-        venueName: "新宿HOLIDAY",
-        venueAddress: "〒160-0021\n東京都新宿区歌舞伎町1-2-3\n新宿ビル B1F",
-        priceAdvance: "¥2,500",
-        priceDay: "¥3,000",
-        priceDrink: "¥600",
+        date: "2026年7月12日（日）",
+        time: "詳細はお決まり次第発表予定",
+        venueName: "東京都新宿 HOLIDAY SHINJUKU",
+        venueAddress: "アクセス：JR新宿駅東口から徒歩8〜10分",
+        priceAdvance: "詳細は決定次第発表予定",
+        priceDay: "グッズ販売あり",
+        priceDrink: "参加費 5,000円",
         email: "info@waonfes.jp",
         tel: "03-XXXX-XXXX"
     },
     entry: {
-        lead: "WA音祭では、ジャンルを問わず幅広いアーティストを募集しています。\n和楽器、ロック、ポップス、ジャズ、エレクトロニカ…あなたの音楽を響かせてください。",
-        requirement1: "応募資格：プロ・アマチュア問わず",
-        requirement2: "演奏時間：1組 20分〜30分",
-        requirement3: "チケットノルマ：10枚（前売¥2,500×10枚 = ¥25,000）",
-        requirement4: "機材：アンプ、ドラムセット、PA完備",
-        requirement5: "応募締切：202X年6月30日（金）",
-        buttonText: "応募フォームはこちら",
-        buttonLink: "#",
-        note: "※応募多数の場合は選考とさせていただきます。\n※詳細は応募後、メールにてご連絡いたします。"
+        lead: "みんなで作る大人の音楽祭！！\n出演募集ジャンル：歌・ダンス、バンド・大道芸、コメディ・映像・演劇など",
+        requirement1: "出演枠：8〜9組",
+        requirement2: "持ち時間：10〜20分",
+        requirement3: "形態：1〜6名のチーム",
+        requirement4: "備考：地方＆海外オンライン出演OK！",
+        requirement5: "応募締切：2月28日（土）",
+        buttonText: "応募フォーム",
+        buttonLink: "https://forms.gle/BRV8vJiQ9vdCodnL9",
+        note: "応募方法：専用フォームより\n必要事項：PR動画 2〜3分\nオーディション：3月上旬開催"
     },
     artists: [
         {
             id: "1",
-            name: "和音楽団",
-            image: "https://placehold.jp/30/C3002F/ffffff/300x300.png?text=和音楽団",
-            description: "伝統的な和楽器とロックサウンドを融合させた革新的なバンド。三味線とエレキギターが奏でる新しい音楽を体験してください。",
-            sns: "https://twitter.com/waon_gakudan"
-        },
-        {
-            id: "2",
-            name: "ALPHA WAVES",
-            image: "https://placehold.jp/30/D4AF37/000000/300x300.png?text=ALPHA+WAVES",
-            description: "エレクトロニカとジャズの要素を取り入れた実験的なサウンドが特徴。独自の世界観で聴衆を魅了します。",
-            sns: "https://twitter.com/alpha_waves_jp"
-        },
-        {
-            id: "3",
-            name: "紅蓮",
-            image: "https://placehold.jp/30/C3002F/ffffff/300x300.png?text=紅蓮",
-            description: "激しくも美しい、和風メタルバンド。尺八とデスボイスが織りなす唯一無二のステージをお届けします。",
-            sns: "https://twitter.com/guren_official"
-        },
-        {
-            id: "4",
-            name: "Moonlight Session",
-            image: "https://placehold.jp/30/333333/ffffff/300x300.png?text=Moonlight",
-            description: "アコースティックギターとピアノを中心とした叙情的なサウンド。心に染み入るメロディーをお楽しみください。",
-            sns: "https://twitter.com/moonlight_sess"
-        },
-        {
-            id: "5",
-            name: "雅-MIYABI-",
-            image: "https://placehold.jp/30/D4AF37/000000/300x300.png?text=雅-MIYABI-",
-            description: "琴と箏を現代的にアレンジした演奏スタイルで注目を集める女性デュオ。和の美しさを再発見できるパフォーマンス。",
-            sns: "https://twitter.com/miyabi_koto"
-        },
-        {
-            id: "6",
-            name: "The Harmonic Blend",
-            image: "https://placehold.jp/30/666666/ffffff/300x300.png?text=Harmonic",
-            description: "ジャズ、ブルース、R&Bを融合させたクロスオーバーバンド。即興演奏の妙技をぜひ生で体感してください。",
-            sns: "https://twitter.com/harmonic_blend"
+            name: "出演者募集中",
+            image: "https://placehold.jp/30/C3002F/ffffff/300x300.png?text=出演者募集",
+            description: "WA音祭では様々なジャンルの出演者を募集しています。歌、ダンス、バンド、コメディ、映像、演劇など、あなたの才能を発揮できるチャンスです！",
+            sns: "https://forms.gle/BRV8vJiQ9vdCodnL9"
         }
     ],
     footer: {
