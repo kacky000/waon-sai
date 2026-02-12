@@ -77,7 +77,7 @@ function loadContentFromStorage() {
         if (heroVenue) heroVenue.textContent = hero.venue;
         if (heroElement) {
             if (hero.image && hero.image.trim() !== '') {
-                heroElement.style.backgroundImage = `linear-gradient(135deg, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0.85) 100%), url("${hero.image}")`;
+                heroElement.style.backgroundImage = `url("${hero.image}")`;
                 heroElement.style.backgroundPosition = 'center';
                 heroElement.style.backgroundSize = 'cover';
                 heroElement.style.backgroundRepeat = 'no-repeat';
@@ -102,6 +102,10 @@ function loadContentFromStorage() {
                 : [concept.text1, concept.text2, concept.text3].filter(Boolean);
             conceptTextList.innerHTML = texts.map(text => `<p>${text}</p>`).join('');
         }
+        const verticalText = document.querySelector('.vertical-text');
+        if (verticalText && concept.decoration) {
+            verticalText.textContent = concept.decoration;
+        }
     }
 
     // 情報
@@ -122,41 +126,25 @@ function loadContentFromStorage() {
     // エントリー
     if (data.entry) {
         const entry = data.entry;
-        const ticketsList = document.getElementById('ticketsList');
-        if (ticketsList) {
-            ticketsList.innerHTML = (tickets.items || []).map(item => `
-                <div class="ticket">
-                    <h3>${item.title || ''}</h3>
-                    <p>${item.desc || ''}</p>
-                    <p class="price">${item.price || ''}</p>
-                </div>
-            `).join('');
+        const entryLead = document.getElementById('entryLead');
+        if (entryLead) entryLead.textContent = entry.lead;
+        const requirementsList = document.getElementById('entryRequirementsList');
+        if (requirementsList) {
+            const requirements = Array.isArray(entry.requirements)
+                ? entry.requirements
+                : [entry.requirement1, entry.requirement2, entry.requirement3, entry.requirement4, entry.requirement5].filter(Boolean);
+            requirementsList.innerHTML = requirements.map(item => `<li>${item}</li>`).join('');
         }
-        const accessCopy = document.getElementById('accessCopy');
-        if (accessCopy) accessCopy.textContent = tickets.accessCopy || '';
-
-
-    // Coming Soon
-    if (data.sectionFlags) {
-        setSectionComingSoon(document.getElementById('home'), data.sectionFlags.hero);
-        setSectionComingSoon(document.getElementById('concept'), data.sectionFlags.concept);
-        setSectionComingSoon(document.getElementById('entry'), data.sectionFlags.entry);
-        setSectionComingSoon(document.getElementById('timetable'), data.sectionFlags.timetable);
-        setSectionComingSoon(document.getElementById('artist'), data.sectionFlags.artists);
-        setSectionComingSoon(document.getElementById('tickets'), data.sectionFlags.tickets);
-        setSectionComingSoon(document.getElementById('information'), data.sectionFlags.info);
-        setSectionComingSoon(document.querySelector('.footer'), data.sectionFlags.footer);
+        const entryButton = document.getElementById('entryButton');
+        if (entryButton) {
+            entryButton.textContent = entry.buttonText;
+            entryButton.href = entry.buttonLink;
+        }
+        const entryNote = document.getElementById('entryNote');
+        if (entryNote) entryNote.textContent = entry.note;
     }
+
     // タイムテーブル
-
-function setSectionComingSoon(sectionElement, isComingSoon) {
-    if (!sectionElement) return;
-    if (isComingSoon) {
-        sectionElement.classList.add('is-coming-soon');
-    } else {
-        sectionElement.classList.remove('is-coming-soon');
-    }
-}
     if (data.timetable) {
         const timetableList = document.getElementById('timetableList');
         if (timetableList) {
@@ -176,23 +164,18 @@ function setSectionComingSoon(sectionElement, isComingSoon) {
     // チケット
     if (data.tickets) {
         const tickets = data.tickets;
-        const setText = (id, value) => {
-            const el = document.getElementById(id);
-            if (el && value !== undefined && value !== null) {
-                el.textContent = value;
-            }
-        };
-        const items = tickets.items || [];
-        setText('ticketTitle1', items[0]?.title);
-        setText('ticketDesc1', items[0]?.desc);
-        setText('ticketPrice1', items[0]?.price);
-        setText('ticketTitle2', items[1]?.title);
-        setText('ticketDesc2', items[1]?.desc);
-        setText('ticketPrice2', items[1]?.price);
-        setText('ticketTitle3', items[2]?.title);
-        setText('ticketDesc3', items[2]?.desc);
-        setText('ticketPrice3', items[2]?.price);
-        setText('accessCopy', tickets.accessCopy);
+        const ticketsList = document.getElementById('ticketsList');
+        if (ticketsList) {
+            ticketsList.innerHTML = (tickets.items || []).map(item => `
+                <div class="ticket">
+                    <h3>${item.title || ''}</h3>
+                    <p>${item.desc || ''}</p>
+                    <p class="price">${item.price || ''}</p>
+                </div>
+            `).join('');
+        }
+        const accessCopy = document.getElementById('accessCopy');
+        if (accessCopy) accessCopy.textContent = tickets.accessCopy || '';
     }
 
     // フッター
@@ -208,9 +191,81 @@ function setSectionComingSoon(sectionElement, isComingSoon) {
         if (footerTel) footerTel.textContent = footer.tel;
         const footerCopyright = document.getElementById('footerCopyright');
         if (footerCopyright) {
-            // HTMLをそのまま使う（著作権記号など）
             footerCopyright.innerHTML = footer.copyright;
         }
+    }
+
+    // Coming Soon
+    if (data.sectionFlags) {
+        setSectionComingSoon(document.getElementById('home'), data.sectionFlags.hero);
+        setSectionComingSoon(document.getElementById('concept'), data.sectionFlags.concept);
+        setSectionComingSoon(document.getElementById('entry'), data.sectionFlags.entry);
+        setSectionComingSoon(document.getElementById('timetable'), data.sectionFlags.timetable);
+        setSectionComingSoon(document.getElementById('artist'), data.sectionFlags.artists);
+        setSectionComingSoon(document.getElementById('tickets'), data.sectionFlags.tickets);
+        setSectionComingSoon(document.getElementById('information'), data.sectionFlags.info);
+        setSectionComingSoon(document.querySelector('.footer'), data.sectionFlags.footer);
+    }
+
+    if (data.sectionOrder) {
+        applySectionOrder(data.sectionOrder);
+    }
+}
+
+const SECTION_LABELS = {
+    home: 'HOME',
+    concept: 'CONCEPT',
+    entry: 'ENTRY',
+    timetable: 'TIMETABLE',
+    artist: 'ARTIST',
+    tickets: 'TICKETS',
+    information: 'INFO'
+};
+
+function applySectionOrder(order) {
+    if (!Array.isArray(order) || order.length === 0) return;
+
+    const main = document.querySelector('main');
+    if (main) {
+        const sections = new Map();
+        main.querySelectorAll('[data-section-key]').forEach(section => {
+            sections.set(section.dataset.sectionKey, section);
+        });
+
+        order.forEach(key => {
+            if (key === 'home') return;
+            const section = sections.get(key);
+            if (section) {
+                main.appendChild(section);
+            }
+        });
+    }
+
+    const navMenu = document.getElementById('navMenu');
+    if (navMenu) {
+        navMenu.innerHTML = order.map(key => {
+            const label = SECTION_LABELS[key] || key;
+            const href = key === 'home' ? '#home' : `#${key}`;
+            return `<li><a href="${href}">${label}</a></li>`;
+        }).join('');
+    }
+
+    const footerLinks = document.getElementById('footerLinks');
+    if (footerLinks) {
+        footerLinks.innerHTML = order.map(key => {
+            const label = SECTION_LABELS[key] || key;
+            const href = key === 'home' ? '#home' : `#${key}`;
+            return `<a href="${href}">${label}</a>`;
+        }).join('');
+    }
+}
+
+function setSectionComingSoon(sectionElement, isComingSoon) {
+    if (!sectionElement) return;
+    if (isComingSoon) {
+        sectionElement.classList.add('is-coming-soon');
+    } else {
+        sectionElement.classList.remove('is-coming-soon');
     }
 }
 

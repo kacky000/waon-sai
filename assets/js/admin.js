@@ -14,6 +14,15 @@ const defaultData = {
         info: false,
         footer: false
     },
+    sectionOrder: [
+        "home",
+        "concept",
+        "entry",
+        "timetable",
+        "artist",
+        "tickets",
+        "information"
+    ],
     hero: {
         title: "WA音祭",
         subtitle: "WAON FES",
@@ -24,6 +33,7 @@ const defaultData = {
     },
     concept: {
         lead: "ダンス・歌を中心にそれ以外の出し物も検討中です",
+        decoration: "いい大人の、本気のエンタメ・チャレンジ",
         texts: [
             "7月開催のWA音祭の出演応募方法と詳細についてアナウンスします。",
             "「自分の可能性を試してみたい」「仲間と共創したい」という方、ぜひこの機会に挑戦の旗を立ててください！",
@@ -121,6 +131,10 @@ function getStorageData() {
 
     if (!data.sectionFlags) {
         data.sectionFlags = JSON.parse(JSON.stringify(defaultData.sectionFlags));
+    }
+
+    if (!Array.isArray(data.sectionOrder)) {
+        data.sectionOrder = JSON.parse(JSON.stringify(defaultData.sectionOrder));
     }
 
     if (data.concept && !Array.isArray(data.concept.texts)) {
@@ -246,6 +260,7 @@ function loadSection(section) {
         if (flag) flag.checked = !!data.sectionFlags.hero;
     } else if (section === 'concept') {
         document.getElementById('conceptLead').value = data.concept.lead;
+        document.getElementById('conceptDecoration').value = data.concept.decoration || '';
         renderConceptTexts(data.concept.texts || []);
         const flag = document.getElementById('comingSoon-concept');
         if (flag) flag.checked = !!data.sectionFlags.concept;
@@ -271,6 +286,8 @@ function loadSection(section) {
         document.getElementById('accessCopy').value = data.tickets?.accessCopy || '';
         const flag = document.getElementById('comingSoon-tickets');
         if (flag) flag.checked = !!data.sectionFlags.tickets;
+    } else if (section === 'order') {
+        renderSectionOrder(data.sectionOrder || []);
     } else if (section === 'artists') {
         renderArtistCards(data.artists);
         const flag = document.getElementById('comingSoon-artists');
@@ -328,6 +345,7 @@ function saveSection(section) {
         } else if (section === 'concept') {
             data.concept = {
                 lead: document.getElementById('conceptLead').value,
+                decoration: document.getElementById('conceptDecoration').value,
                 texts: collectConceptTexts()
             };
             data.sectionFlags.concept = document.getElementById('comingSoon-concept')?.checked || false;
@@ -356,6 +374,8 @@ function saveSection(section) {
                 accessCopy: document.getElementById('accessCopy').value
             };
             data.sectionFlags.tickets = document.getElementById('comingSoon-tickets')?.checked || false;
+        } else if (section === 'order') {
+            data.sectionOrder = collectSectionOrder();
         } else if (section === 'artists') {
             data.artists = collectArtists();
             data.sectionFlags.artists = document.getElementById('comingSoon-artists')?.checked || false;
@@ -622,6 +642,57 @@ function removeTicket(index) {
     data.tickets.items.splice(index, 1);
     saveToStorage(data);
     renderTickets(data.tickets.items);
+}
+
+// ===================================
+// セクション順管理
+// ===================================
+const SECTION_LABELS = {
+    home: 'HOME',
+    concept: 'CONCEPT',
+    entry: 'ENTRY',
+    timetable: 'TIMETABLE',
+    artist: 'ARTIST',
+    tickets: 'TICKETS',
+    information: 'INFO'
+};
+
+function renderSectionOrder(order) {
+    const container = document.getElementById('sectionOrderContainer');
+    if (!container) return;
+    container.innerHTML = '';
+
+    order.forEach((key, index) => {
+        const row = document.createElement('div');
+        row.className = 'section-order-row';
+        row.dataset.sectionKey = key;
+        row.innerHTML = `
+            <div class="section-order-label">${SECTION_LABELS[key] || key}</div>
+            <div class="section-order-actions">
+                <button type="button" class="btn btn-secondary btn-small" onclick="moveSectionOrder(${index}, -1)">↑</button>
+                <button type="button" class="btn btn-secondary btn-small" onclick="moveSectionOrder(${index}, 1)">↓</button>
+            </div>
+        `;
+        container.appendChild(row);
+    });
+}
+
+function moveSectionOrder(index, delta) {
+    const data = getStorageData();
+    const order = data.sectionOrder || [];
+    const newIndex = index + delta;
+    if (newIndex < 0 || newIndex >= order.length) return;
+    const [item] = order.splice(index, 1);
+    order.splice(newIndex, 0, item);
+    data.sectionOrder = order;
+    saveToStorage(data);
+    renderSectionOrder(order);
+}
+
+function collectSectionOrder() {
+    return Array.from(document.querySelectorAll('.section-order-row'))
+        .map(row => row.dataset.sectionKey)
+        .filter(Boolean);
 }
 
 // ===================================

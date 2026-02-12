@@ -348,8 +348,7 @@ ul {
 }
 
 .vertical-text {
-    writing-mode: vertical-rl;
-    font-size: clamp(1rem, 2vw + 0.5rem, 2rem);
+    font-size: clamp(0.9rem, 1.3vw + 0.4rem, 1.6rem);
     font-weight: 900;
     letter-spacing: 0.15em;
     color: rgba(212, 175, 55, 0.3);

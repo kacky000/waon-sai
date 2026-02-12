@@ -40,6 +40,7 @@
                         <li><a href="#artists" class="nav-link" data-section="artists">アーティスト</a></li>
                         <li><a href="#tickets" class="nav-link" data-section="tickets">チケット</a></li>
                         <li><a href="#info" class="nav-link" data-section="info">開催情報</a></li>
+                        <li><a href="#order" class="nav-link" data-section="order">表示順</a></li>
                         <li><a href="#footer" class="nav-link" data-section="footer">フッター</a></li>
                     </ul>
                 </nav>
@@ -106,6 +107,11 @@
                     <div class="form-group">
                         <label for="conceptLead">リード文</label>
                         <input type="text" id="conceptLead" class="form-input" placeholder="例：和（WA）とA（Alpha）が出会う場所。">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="conceptDecoration">装飾テキスト</label>
+                        <input type="text" id="conceptDecoration" class="form-input" placeholder="例：いい大人の、本気のエンタメ・チャレンジ">
                     </div>
 
                     <div id="conceptTextContainer"></div>
@@ -222,6 +228,14 @@
                     <button class="btn btn-success" type="button" onclick="addInfoCard()">+ カードを追加</button>
 
                     <button class="btn btn-primary" onclick="saveSection('info')">保存</button>
+                </div>
+
+                <!-- 表示順編集 -->
+                <div class="edit-panel" id="order" data-section="order">
+                    <h2 class="panel-title">表示順の編集</h2>
+                    <p class="panel-description">上下ボタンで順番を変更できます。ヘッダーメニューと表示順に反映されます。</p>
+                    <div id="sectionOrderContainer"></div>
+                    <button class="btn btn-primary" onclick="saveSection('order')">保存</button>
                 </div>
 
                 <!-- フッター編集 -->
