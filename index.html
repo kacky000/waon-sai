@@ -18,30 +18,29 @@
     <!-- Header / Hero Area -->
     <header class="hero" id="home">
         <div class="hero-overlay"></div>
-        <div class="hero-content">
-            <div class="logo">
-                <h1 id="heroTitle">WA音祭</h1>
-                <p class="logo-subtitle" id="heroSubtitle">WAON FES</p>
-            </div>
-            <p class="catchphrase" id="heroCatchphrase">いい大人の、本気のエンタメ・チャレンジ</p>
-            <div class="event-info">
-                <p class="event-date" id="heroDate">2026年7月12日（日）</p>
-                <p class="event-venue" id="heroVenue">東京都新宿 HOLIDAY SHINJUKU</p>
-            </div>
-            <div class="hero-decoration">音</div>
-        </div>
+                <div class="hero-content section-body"></div>
+                <div class="section-coming-soon" data-section="home">Coming Soon</div>
     </header>
 
     <!-- Navigation -->
     <nav class="nav">
-        <ul class="nav-list">
-            <li><a href="#home">HOME</a></li>
-            <li><a href="#concept">CONCEPT</a></li>
-            <li><a href="#information">INFO</a></li>
-            <li><a href="#entry">ENTRY</a></li>
-            <li><a href="#artist">ARTIST</a></li>
-        </ul>
+        <div class="container nav-container">
+            <button class="nav-toggle" id="navToggle" aria-label="メニューを開く" aria-expanded="false" aria-controls="navMenu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-list" id="navMenu">
+                <li><a href="#home">HOME</a></li>
+                <li><a href="#concept">CONCEPT</a></li>
+                <li><a href="#entry">ENTRY</a></li>
+                <li><a href="#artist">ARTIST</a></li>
+                <li><a href="#tickets">TICKETS</a></li>
+                <li><a href="#information">INFO</a></li>
+            </ul>
+        </div>
     </nav>
+    <div class="nav-backdrop" id="navBackdrop" aria-hidden="true"></div>
 
     <!-- Main Content -->
     <main>
@@ -52,23 +51,134 @@
                     <span class="title-en">CONCEPT</span>
                     <span class="title-ja">開催趣旨</span>
                 </h2>
-                <div class="concept-content">
-                    <div class="concept-text">
-                        <p class="concept-lead" id="conceptLead">
-                            ダンス・歌を中心にそれ以外の出し物も検討中です
+                <div class="section-coming-soon" data-section="concept">Coming Soon</div>
+                <div class="section-body">
+                    <div class="concept-content">
+                        <div class="concept-text">
+                            <p class="concept-lead" id="conceptLead">
+                                ダンス・歌を中心にそれ以外の出し物も検討中です
+                            </p>
+                            <div class="concept-text-list" id="conceptTextList"></div>
+                        </div>
+                        <div class="concept-decoration">
+                            <span class="vertical-text">いい大人の、本気のエンタメ・チャレンジ</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Entry Section -->
+        <section class="section entry" id="entry">
+            <div class="container">
+                <h2 class="section-title">
+                    <span class="title-en">ENTRY</span>
+                    <span class="title-ja">出演者募集</span>
+                </h2>
+                <div class="section-coming-soon" data-section="entry">Coming Soon</div>
+                <div class="section-body">
+                    <div class="entry-content">
+                        <p class="entry-lead" id="entryLead" style="white-space: pre-line;">
+                            みんなで作る大人の音楽祭！！
+出演募集ジャンル：歌・ダンス、バンド・大道芸、コメディ・映像・演劇など
                         </p>
-                        <p id="conceptText1">
-                            7月開催のWA音祭の出演応募方法と詳細についてアナウンスします。
-                        </p>
-                        <p id="conceptText2">
-                            「自分の可能性を試してみたい」「仲間と共創したい」という方、ぜひこの機会に挑戦の旗を立ててください！
-                        </p>
-                        <p id="conceptText3">
-                            コミュニティ大連携！報酬も大事！中長期継続への実験集客として、観客、出演者、スタッフ、運営経験、プロの技術者など様々な参加形態があります。
+                        <div class="entry-requirements">
+                            <h3>募集要項</h3>
+                            <ul class="requirements-list" id="entryRequirementsList">
+                                <li>出演枠：8〜9組</li>
+                                <li>持ち時間：10〜20分</li>
+                                <li>形態：1〜6名のチーム</li>
+                                <li>備考：地方＆海外オンライン出演OK！</li>
+                                <li>応募締切：2月28日（土）</li>
+                            </ul>
+                        </div>
+                        <div class="entry-cta">
+                            <a href="https://forms.gle/BRV8vJiQ9vdCodnL9" id="entryButton" class="btn btn-primary">応募フォーム</a>
+                        </div>
+                        <p class="entry-note" id="entryNote" style="white-space: pre-line;">
+応募方法：専用フォーム（https://forms.gle/BRV8vJiQ9vdCodnL9）より
+必要事項：PR動画 2〜3分
+オーディション：3月上旬開催
+参加費：5,000円
                         </p>
                     </div>
-                    <div class="concept-decoration">
-                        <span class="vertical-text">和洋折衷</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Timetable Section -->
+        <section class="section" id="timetable">
+            <div class="container">
+                <h2 class="section-title">
+                    <span class="title-en">TIMETABLE</span>
+                    <span class="title-ja">タイムテーブル</span>
+                </h2>
+                <div class="section-coming-soon" data-section="timetable">Coming Soon</div>
+                <div class="section-body">
+                    <div class="timetable-container" id="timetableList">
+                        <!-- JavaScriptで動的に生成 -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Artist Section (Dynamic) -->
+        <section class="section artist" id="artist">
+            <div class="container">
+                <h2 class="section-title">
+                    <span class="title-en">ARTIST</span>
+                    <span class="title-ja">出演者</span>
+                </h2>
+                <div class="section-coming-soon" data-section="artists">Coming Soon</div>
+                <div class="section-body">
+                    <div id="artist-list" class="artist-list">
+                        <!-- JavaScriptで動的に生成 -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="tickets" class="section">
+            <div class="container">
+                <h2 class="section-title">
+                    <span class="title-en">TICKETS</span>
+                    <span class="title-ja">チケット</span>
+                </h2>
+                <div class="section-coming-soon" data-section="tickets">Coming Soon</div>
+                <div class="section-body">
+                    <div class="grid ticket-grid" id="ticketsList"></div>
+                    <div class="access">
+                        <h4 class="subhead cyan">ACCESS</h4>
+                        <p class="access-copy" id="accessCopy">SHINJUKU SPECIAL STAGE（新宿駅から徒歩5分）</p>
+                        <div class="map">
+                            <!-- 差し替え: Google Maps iframe をモノトーンスタイルに（例: &style=feature:all|saturation:-100） -->
+                            <!-- <iframe src="https://www.google.com/maps/embed?...&style=feature:all|saturation:-100" width="100%" height="100%" style="border:0; filter: grayscale(1) contrast(1.1);" loading="lazy"></iframe> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Information Section -->
+        <section class="section information" id="information">
+            <div class="container">
+                <h2 class="section-title">
+                    <span class="title-en">INFORMATION</span>
+                    <span class="title-ja">開催概要</span>
+                </h2>
+                <div class="section-coming-soon" data-section="info">Coming Soon</div>
+                <div class="section-body">
+                    <div class="info-grid" id="infoGrid"></div>
+                    <div class="map-container">
+                        <iframe 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3240.206406934638!2d139.69854931525893!3d35.694003980192975!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60188cd0d6b1ba1f%3A0x1c32a1f665e6db8c!2z5paw5a6_!5e0!3m2!1sja!2sjp!4v1234567890123!5m2!1sja!2sjp" 
+                            width="100%" 
+                            height="400" 
+                            style="border:0;" 
+                            allowfullscreen="" 
+                            loading="lazy"
+                            title="新宿HOLIDAY 地図">
+                        </iframe>
                     </div>
                 </div>
             </div>
@@ -124,192 +234,39 @@
                 </div>
             </div>
         </section>
-
-        <!-- Entry Section -->
-        <section class="section entry" id="entry">
-            <div class="container">
-                <h2 class="section-title">
-                    <span class="title-en">ENTRY</span>
-                    <span class="title-ja">出演者募集</span>
-                </h2>
-                <div class="entry-content">
-                    <p class="entry-lead" id="entryLead" style="white-space: pre-line;">
-                        みんなで作る大人の音楽祭！！
-出演募集ジャンル：歌・ダンス、バンド・大道芸、コメディ・映像・演劇など
-                    </p>
-                    <div class="entry-requirements">
-                        <h3>募集要項</h3>
-                        <ul class="requirements-list">
-                            <li><span id="entryRequirement1">出演枠：8〜9組</span></li>
-                            <li><span id="entryRequirement2">持ち時間：10〜20分</span></li>
-                            <li><span id="entryRequirement3">形態：1〜6名のチーム</span></li>
-                            <li><span id="entryRequirement4">備考：地方＆海外オンライン出演OK！</span></li>
-                            <li><span id="entryRequirement5">応募締切：2月28日（土）</span></li>
-                        </ul>
-                    </div>
-                    <div class="entry-cta">
-                        <a href="https://forms.gle/BRV8vJiQ9vdCodnL9" id="entryButton" class="btn btn-primary">応募フォーム</a>
-                    </div>
-                    <p class="entry-note" id="entryNote" style="white-space: pre-line;">
-応募方法：専用フォーム（https://forms.gle/BRV8vJiQ9vdCodnL9）より
-必要事項：PR動画 2〜3分
-オーディション：3月上旬開催
-参加費：5,000円
-                    </p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Artist Section (Dynamic) -->
-        <section class="section artist" id="artist">
-            <div class="container">
-                <h2 class="section-title">
-                    <span class="title-en">ARTIST</span>
-                    <span class="title-ja">出演者</span>
-                </h2>
-                <div id="artist-list" class="artist-list">
-                    <!-- JavaScriptで動的に生成 -->
-                </div>
-            </div>
-        </section>
     </main>
 
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <div class="footer-content">
-                <div class="footer-logo">
-                    <h3 id="footerLogo">WA音祭</h3>
-                    <p id="footerSubtitle">WAON FES</p>
+            <div class="section-coming-soon" data-section="footer">Coming Soon</div>
+            <div class="section-body">
+                <div class="footer-content">
+                    <div class="footer-logo">
+                        <h3 id="footerLogo">WA音祭</h3>
+                        <p id="footerSubtitle">WAON FES</p>
+                    </div>
+                    <div class="footer-links">
+                        <a href="#home">HOME</a>
+                        <a href="#concept">CONCEPT</a>
+                        <a href="#entry">ENTRY</a>
+                        <a href="#artist">ARTIST</a>
+                        <a href="#tickets">TICKETS</a>
+                        <a href="#information">INFO</a>
+                    </div>
+                    <div class="footer-contact">
+                        <p>Email: <span id="footerEmail">info@waonfes.jp</span></p>
+                        <p>Tel: <span id="footerTel">03-XXXX-XXXX</span></p>
+                    </div>
                 </div>
-                <div class="footer-links">
-                    <a href="#home">HOME</a>
-                    <a href="#concept">CONCEPT</a>
-                    <a href="#information">INFO</a>
-                    <a href="#entry">ENTRY</a>
-                    <a href="#artist">ARTIST</a>
+                <div class="footer-copyright">
+                    <p id="footerCopyright">&copy; 2026 WA音祭（WAON FES）All Rights Reserved.</p>
                 </div>
-                <div class="footer-contact">
-                    <p>Email: <span id="footerEmail">info@waonfes.jp</span></p>
-                    <p>Tel: <span id="footerTel">03-XXXX-XXXX</span></p>
-                </div>
-            </div>
-            <div class="footer-copyright">
-                <p id="footerCopyright">&copy; 2026 WA音祭（WAON FES）All Rights Reserved.</p>
             </div>
         </div>
     </footer>
 
     <!-- JavaScript -->
     <script src="assets/js/main.js"></script>
-</body>
-</html>
-        <div class="artist-info">
-          <h4>Artist A</h4>
-          <span>和太鼓 × Drumstep</span>
-        </div>
-        <div class="socials"><a href="#">Follow</a></div>
-      </div>
-      <div class="artist">
-        <img src="assets/media/artist-b.jpg" alt="Artist B" />
-        <div class="artist-info">
-          <h4>Artist B</h4>
-          <span>尺八 × Future Bass</span>
-        </div>
-        <div class="socials"><a href="#">Follow</a></div>
-      </div>
-      <div class="artist">
-        <img src="assets/media/artist-c.jpg" alt="Artist C" />
-        <div class="artist-info">
-          <h4>Artist C</h4>
-          <span>琴 × Techno</span>
-        </div>
-        <div class="socials"><a href="#">Follow</a></div>
-      </div>
-    </div>
-
-    <!-- Timetable -->
-    <div class="timetable-header">
-      <h3>TIMETABLE</h3>
-      <p>当日のタイムスケジュール</p>
-    </div>
-    <div class="timetable-container">
-      <div class="timetable-item">
-        <div class="timetable-time">18:00</div>
-        <div class="timetable-act">
-          <div class="timetable-act-name">Opening Ceremonies</div>
-          <div class="timetable-act-detail">開場・オープニングセレモニー</div>
-        </div>
-      </div>
-      <div class="timetable-item">
-        <div class="timetable-time">18:30</div>
-        <div class="timetable-act">
-          <div class="timetable-act-name">Artist A</div>
-          <div class="timetable-act-detail">和太鼓 × Drumstep</div>
-        </div>
-      </div>
-      <div class="timetable-item">
-        <div class="timetable-time">19:30</div>
-        <div class="timetable-act">
-          <div class="timetable-act-name">Artist B</div>
-          <div class="timetable-act-detail">尺八 × Future Bass</div>
-        </div>
-      </div>
-      <div class="timetable-item">
-        <div class="timetable-time">20:30</div>
-        <div class="timetable-act">
-          <div class="timetable-act-name">Artist C</div>
-          <div class="timetable-act-detail">琴 × Techno</div>
-        </div>
-      </div>
-      <div class="timetable-item">
-        <div class="timetable-time">21:30</div>
-        <div class="timetable-act">
-          <div class="timetable-act-name">All-Star Session</div>
-          <div class="timetable-act-detail">出演者全員によるコラボレーション</div>
-        </div>
-      </div>
-      <div class="timetable-item">
-        <div class="timetable-time">22:30</div>
-        <div class="timetable-act">
-          <div class="timetable-act-name">Closing</div>
-          <div class="timetable-act-detail">クロージング</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="tickets" class="section">
-    <h2 class="section-title pink">TICKETS & ACCESS</h2>
-    <div class="grid ticket-grid">
-      <div class="ticket">
-        <h3>一般</h3>
-        <p>スタンディング / 再入場1回</p>
-        <p class="price">¥8,000</p>
-      </div>
-      <div class="ticket">
-        <h3>学生</h3>
-        <p>要学生証 / ドリンク1杯付き</p>
-        <p class="price">¥6,000</p>
-      </div>
-      <div class="ticket vip">
-        <h3>VIP（限定特典）</h3>
-        <p>前方リザーブ / バックステージ見学 / 記念ノベルティ</p>
-        <p class="price">¥15,000</p>
-      </div>
-    </div>
-    <div class="access">
-      <h4 class="subhead cyan">ACCESS</h4>
-      <p class="access-copy">SHINJUKU SPECIAL STAGE（新宿駅から徒歩5分）</p>
-      <div class="map">
-        <!-- 差し替え: Google Maps iframe をモノトーンスタイルに（例: &style=feature:all|saturation:-100） -->
-        <!-- <iframe src="https://www.google.com/maps/embed?...&style=feature:all|saturation:-100" width="100%" height="100%" style="border:0; filter: grayscale(1) contrast(1.1);" loading="lazy"></iframe> -->
-      </div>
-    </div>
-  </section>
-
-  <footer class="footer">© 2026 WA音祭. All Rights Reserved.</footer>
-
-  <script src="assets/js/main.js"></script>
 </body>
 </html>

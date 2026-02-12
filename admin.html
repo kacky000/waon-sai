@@ -35,9 +35,11 @@
                     <ul class="nav-list">
                         <li><a href="#hero" class="nav-link active" data-section="hero">ヘロー</a></li>
                         <li><a href="#concept" class="nav-link" data-section="concept">コンセプト</a></li>
-                        <li><a href="#info" class="nav-link" data-section="info">開催情報</a></li>
                         <li><a href="#entry" class="nav-link" data-section="entry">出演者募集</a></li>
+                        <li><a href="#timetable" class="nav-link" data-section="timetable">タイムテーブル</a></li>
                         <li><a href="#artists" class="nav-link" data-section="artists">アーティスト</a></li>
+                        <li><a href="#tickets" class="nav-link" data-section="tickets">チケット</a></li>
+                        <li><a href="#info" class="nav-link" data-section="info">開催情報</a></li>
                         <li><a href="#footer" class="nav-link" data-section="footer">フッター</a></li>
                     </ul>
                 </nav>
@@ -48,6 +50,13 @@
                 <!-- ヘロー編集 -->
                 <div class="edit-panel active" id="hero" data-section="hero">
                     <h2 class="panel-title">ヘロー（トップバナー）編集</h2>
+
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="comingSoon-hero">
+                            このセクションをComing Soonにする
+                        </label>
+                    </div>
                     
                     <div class="form-group">
                         <label for="heroTitle">イベント名</label>
@@ -74,95 +83,47 @@
                         <input type="text" id="heroVenue" class="form-input" placeholder="例：新宿HOLIDAY">
                     </div>
 
+                    <div class="form-group">
+                        <label for="heroImage">ヘッダー画像（アップロード）</label>
+                        <input type="file" id="heroImage" class="form-input" accept="image/*">
+                        <p class="form-hint">現在の画像：<span id="heroImageCurrent">未設定</span></p>
+                    </div>
+
                     <button class="btn btn-primary" onclick="saveSection('hero')">保存</button>
                 </div>
 
                 <!-- コンセプト編集 -->
                 <div class="edit-panel" id="concept" data-section="concept">
                     <h2 class="panel-title">コンセプト編集</h2>
+
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="comingSoon-concept">
+                            このセクションをComing Soonにする
+                        </label>
+                    </div>
                     
                     <div class="form-group">
                         <label for="conceptLead">リード文</label>
                         <input type="text" id="conceptLead" class="form-input" placeholder="例：和（WA）とA（Alpha）が出会う場所。">
                     </div>
 
-                    <div class="form-group">
-                        <label for="conceptText1">説明1</label>
-                        <textarea id="conceptText1" class="form-textarea" rows="3" placeholder="コンセプトの説明文1"></textarea>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="conceptText2">説明2</label>
-                        <textarea id="conceptText2" class="form-textarea" rows="3" placeholder="コンセプトの説明文2"></textarea>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="conceptText3">説明3</label>
-                        <textarea id="conceptText3" class="form-textarea" rows="3" placeholder="コンセプトの説明文3"></textarea>
-                    </div>
+                    <div id="conceptTextContainer"></div>
+                    <button class="btn btn-success" type="button" onclick="addConceptText()">+ 説明を追加</button>
 
                     <button class="btn btn-primary" onclick="saveSection('concept')">保存</button>
-                </div>
-
-                <!-- 開催情報編集 -->
-                <div class="edit-panel" id="info" data-section="info">
-                    <h2 class="panel-title">開催情報編集</h2>
-                    
-                    <h3 class="subsection-title">日時情報</h3>
-                    <div class="form-group">
-                        <label for="infoDate">開催日</label>
-                        <input type="text" id="infoDate" class="form-input" placeholder="例：202X年7月14日（土）">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="infoTime">開催時間</label>
-                        <input type="text" id="infoTime" class="form-input" placeholder="例：OPEN 18:00 / START 18:30">
-                    </div>
-
-                    <h3 class="subsection-title">会場情報</h3>
-                    <div class="form-group">
-                        <label for="infoVenueName">会場名</label>
-                        <input type="text" id="infoVenueName" class="form-input" placeholder="例：新宿HOLIDAY">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="infoVenueAddress">住所</label>
-                        <textarea id="infoVenueAddress" class="form-textarea" rows="3" placeholder="例：〒160-0021&#10;東京都新宿区歌舞伎町1-2-3"></textarea>
-                    </div>
-
-                    <h3 class="subsection-title">料金情報</h3>
-                    <div class="form-group">
-                        <label for="infoPriceAdvance">前売価格</label>
-                        <input type="text" id="infoPriceAdvance" class="form-input" placeholder="例：¥2,500">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="infoPriceDay">当日価格</label>
-                        <input type="text" id="infoPriceDay" class="form-input" placeholder="例：¥3,000">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="infoPriceDrink">ドリンク代</label>
-                        <input type="text" id="infoPriceDrink" class="form-input" placeholder="例：¥600">
-                    </div>
-
-                    <h3 class="subsection-title">お問い合わせ</h3>
-                    <div class="form-group">
-                        <label for="infoEmail">メールアドレス</label>
-                        <input type="email" id="infoEmail" class="form-input" placeholder="例：info@waonfes.jp">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="infoTel">電話番号</label>
-                        <input type="text" id="infoTel" class="form-input" placeholder="例：03-XXXX-XXXX">
-                    </div>
-
-                    <button class="btn btn-primary" onclick="saveSection('info')">保存</button>
                 </div>
 
                 <!-- 出演者募集編集 -->
                 <div class="edit-panel" id="entry" data-section="entry">
                     <h2 class="panel-title">出演者募集情報編集</h2>
+
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="comingSoon-entry">
+                            このセクションをComing Soonにする
+                        </label>
+                    </div>
                     
                     <div class="form-group">
                         <label for="entryLead">リード文</label>
@@ -170,30 +131,8 @@
                     </div>
 
                     <h3 class="subsection-title">募集要項</h3>
-                    <div class="form-group">
-                        <label for="entryRequirement1">要項1</label>
-                        <input type="text" id="entryRequirement1" class="form-input" placeholder="例：応募資格：プロ・アマチュア問わず">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="entryRequirement2">要項2</label>
-                        <input type="text" id="entryRequirement2" class="form-input" placeholder="例：演奏時間：1組 20分〜30分">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="entryRequirement3">要項3</label>
-                        <input type="text" id="entryRequirement3" class="form-input" placeholder="例：チケットノルマ：10枚（前売¥2,500×10枚 = ¥25,000）">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="entryRequirement4">要項4</label>
-                        <input type="text" id="entryRequirement4" class="form-input" placeholder="例：機材：アンプ、ドラムセット、PA完備">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="entryRequirement5">要項5</label>
-                        <input type="text" id="entryRequirement5" class="form-input" placeholder="例：応募締切：202X年6月30日（金）">
-                    </div>
+                    <div id="entryRequirementsContainer"></div>
+                    <button class="btn btn-success" type="button" onclick="addEntryRequirement()">+ 要項を追加</button>
 
                     <div class="form-group">
                         <label for="entryButtonText">ボタンテキスト</label>
@@ -217,6 +156,13 @@
                 <div class="edit-panel" id="artists" data-section="artists">
                     <h2 class="panel-title">アーティスト情報編集</h2>
                     <p class="panel-description">各アーティストの情報を編集してください。右下の「追加」ボタンで新しいアーティストを追加できます。</p>
+
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="comingSoon-artists">
+                            このセクションをComing Soonにする
+                        </label>
+                    </div>
                     
                     <div id="artistsContainer" class="artists-container"></div>
                     
@@ -224,9 +170,70 @@
                     <button class="btn btn-primary" onclick="saveSection('artists')">保存</button>
                 </div>
 
+                <!-- タイムテーブル編集 -->
+                <div class="edit-panel" id="timetable" data-section="timetable">
+                    <h2 class="panel-title">タイムテーブル編集</h2>
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="comingSoon-timetable">
+                            このセクションをComing Soonにする
+                        </label>
+                    </div>
+                    <div id="timetableContainer"></div>
+                    <button class="btn btn-success" type="button" onclick="addTimetableItem()">+ 追加</button>
+                    <button class="btn btn-primary" onclick="saveSection('timetable')">保存</button>
+                </div>
+
+                <!-- チケット編集 -->
+                <div class="edit-panel" id="tickets" data-section="tickets">
+                    <h2 class="panel-title">チケット情報編集</h2>
+
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="comingSoon-tickets">
+                            このセクションをComing Soonにする
+                        </label>
+                    </div>
+
+                    <div id="ticketsContainer"></div>
+                    <button class="btn btn-success" type="button" onclick="addTicket()">+ チケットを追加</button>
+
+                    <h3 class="subsection-title">アクセス</h3>
+                    <div class="form-group">
+                        <label for="accessCopy">アクセス文</label>
+                        <input type="text" id="accessCopy" class="form-input" placeholder="例：SHINJUKU SPECIAL STAGE（新宿駅から徒歩5分）">
+                    </div>
+
+                    <button class="btn btn-primary" onclick="saveSection('tickets')">保存</button>
+                </div>
+
+                <!-- 開催情報編集 -->
+                <div class="edit-panel" id="info" data-section="info">
+                    <h2 class="panel-title">開催情報編集</h2>
+
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="comingSoon-info">
+                            このセクションをComing Soonにする
+                        </label>
+                    </div>
+
+                    <div id="infoCardsContainer"></div>
+                    <button class="btn btn-success" type="button" onclick="addInfoCard()">+ カードを追加</button>
+
+                    <button class="btn btn-primary" onclick="saveSection('info')">保存</button>
+                </div>
+
                 <!-- フッター編集 -->
                 <div class="edit-panel" id="footer" data-section="footer">
                     <h2 class="panel-title">フッター編集</h2>
+
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="comingSoon-footer">
+                            このセクションをComing Soonにする
+                        </label>
+                    </div>
                     
                     <h3 class="subsection-title">フッターロゴ</h3>
                     <div class="form-group">

@@ -64,6 +64,7 @@ function loadContentFromStorage() {
     // ヘロー
     if (data.hero) {
         const hero = data.hero;
+        const heroElement = document.querySelector('.hero');
         const heroTitle = document.getElementById('heroTitle');
         if (heroTitle) heroTitle.textContent = hero.title;
         const heroSubtitle = document.getElementById('heroSubtitle');
@@ -74,6 +75,19 @@ function loadContentFromStorage() {
         if (heroDate) heroDate.textContent = hero.date;
         const heroVenue = document.getElementById('heroVenue');
         if (heroVenue) heroVenue.textContent = hero.venue;
+        if (heroElement) {
+            if (hero.image && hero.image.trim() !== '') {
+                heroElement.style.backgroundImage = `linear-gradient(135deg, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0.85) 100%), url("${hero.image}")`;
+                heroElement.style.backgroundPosition = 'center';
+                heroElement.style.backgroundSize = 'cover';
+                heroElement.style.backgroundRepeat = 'no-repeat';
+            } else {
+                heroElement.style.backgroundImage = '';
+                heroElement.style.backgroundPosition = '';
+                heroElement.style.backgroundSize = '';
+                heroElement.style.backgroundRepeat = '';
+            }
+        }
     }
 
     // コンセプト
@@ -81,59 +95,104 @@ function loadContentFromStorage() {
         const concept = data.concept;
         const conceptLead = document.getElementById('conceptLead');
         if (conceptLead) conceptLead.textContent = concept.lead;
-        const conceptText1 = document.getElementById('conceptText1');
-        if (conceptText1) conceptText1.textContent = concept.text1;
-        const conceptText2 = document.getElementById('conceptText2');
-        if (conceptText2) conceptText2.textContent = concept.text2;
-        const conceptText3 = document.getElementById('conceptText3');
-        if (conceptText3) conceptText3.textContent = concept.text3;
+        const conceptTextList = document.getElementById('conceptTextList');
+        if (conceptTextList) {
+            const texts = Array.isArray(concept.texts)
+                ? concept.texts
+                : [concept.text1, concept.text2, concept.text3].filter(Boolean);
+            conceptTextList.innerHTML = texts.map(text => `<p>${text}</p>`).join('');
+        }
     }
 
     // 情報
     if (data.info) {
         const info = data.info;
-        const infoDate = document.getElementById('infoDate');
-        if (infoDate) infoDate.textContent = info.date;
-        const infoTime = document.getElementById('infoTime');
-        if (infoTime) infoTime.textContent = info.time;
-        const infoVenueName = document.getElementById('infoVenueName');
-        if (infoVenueName) infoVenueName.textContent = info.venueName;
-        const infoVenueAddress = document.getElementById('infoVenueAddress');
-        if (infoVenueAddress) infoVenueAddress.textContent = info.venueAddress;
-        const infoPriceAdvance = document.getElementById('infoPriceAdvance');
-        if (infoPriceAdvance) infoPriceAdvance.textContent = info.priceAdvance;
-        const infoPriceDay = document.getElementById('infoPriceDay');
-        if (infoPriceDay) infoPriceDay.textContent = info.priceDay;
-        const infoPriceDrink = document.getElementById('infoPriceDrink');
-        if (infoPriceDrink) infoPriceDrink.textContent = info.priceDrink;
-        const infoEmail = document.getElementById('infoEmail');
-        if (infoEmail) infoEmail.textContent = info.email;
-        const infoTel = document.getElementById('infoTel');
-        if (infoTel) infoTel.textContent = info.tel;
+        const infoGrid = document.getElementById('infoGrid');
+        if (infoGrid && Array.isArray(info.cards)) {
+            const toHtml = (text) => (text || '').replace(/\n/g, '<br>');
+            infoGrid.innerHTML = info.cards.map(card => `
+                <div class="info-card">
+                    <h3 class="info-title">${card.title || ''}</h3>
+                    <p class="info-detail">${toHtml(card.detail)}</p>
+                </div>
+            `).join('');
+        }
     }
 
     // エントリー
     if (data.entry) {
         const entry = data.entry;
-        const entryLead = document.getElementById('entryLead');
-        if (entryLead) entryLead.textContent = entry.lead;
-        const entryRequirement1 = document.getElementById('entryRequirement1');
-        if (entryRequirement1) entryRequirement1.textContent = entry.requirement1;
-        const entryRequirement2 = document.getElementById('entryRequirement2');
-        if (entryRequirement2) entryRequirement2.textContent = entry.requirement2;
-        const entryRequirement3 = document.getElementById('entryRequirement3');
-        if (entryRequirement3) entryRequirement3.textContent = entry.requirement3;
-        const entryRequirement4 = document.getElementById('entryRequirement4');
-        if (entryRequirement4) entryRequirement4.textContent = entry.requirement4;
-        const entryRequirement5 = document.getElementById('entryRequirement5');
-        if (entryRequirement5) entryRequirement5.textContent = entry.requirement5;
-        const entryButton = document.getElementById('entryButton');
-        if (entryButton) {
-            entryButton.textContent = entry.buttonText;
-            entryButton.href = entry.buttonLink;
+        const ticketsList = document.getElementById('ticketsList');
+        if (ticketsList) {
+            ticketsList.innerHTML = (tickets.items || []).map(item => `
+                <div class="ticket">
+                    <h3>${item.title || ''}</h3>
+                    <p>${item.desc || ''}</p>
+                    <p class="price">${item.price || ''}</p>
+                </div>
+            `).join('');
         }
-        const entryNote = document.getElementById('entryNote');
-        if (entryNote) entryNote.textContent = entry.note;
+        const accessCopy = document.getElementById('accessCopy');
+        if (accessCopy) accessCopy.textContent = tickets.accessCopy || '';
+
+
+    // Coming Soon
+    if (data.sectionFlags) {
+        setSectionComingSoon(document.getElementById('home'), data.sectionFlags.hero);
+        setSectionComingSoon(document.getElementById('concept'), data.sectionFlags.concept);
+        setSectionComingSoon(document.getElementById('entry'), data.sectionFlags.entry);
+        setSectionComingSoon(document.getElementById('timetable'), data.sectionFlags.timetable);
+        setSectionComingSoon(document.getElementById('artist'), data.sectionFlags.artists);
+        setSectionComingSoon(document.getElementById('tickets'), data.sectionFlags.tickets);
+        setSectionComingSoon(document.getElementById('information'), data.sectionFlags.info);
+        setSectionComingSoon(document.querySelector('.footer'), data.sectionFlags.footer);
+    }
+    // タイムテーブル
+
+function setSectionComingSoon(sectionElement, isComingSoon) {
+    if (!sectionElement) return;
+    if (isComingSoon) {
+        sectionElement.classList.add('is-coming-soon');
+    } else {
+        sectionElement.classList.remove('is-coming-soon');
+    }
+}
+    if (data.timetable) {
+        const timetableList = document.getElementById('timetableList');
+        if (timetableList) {
+            const items = data.timetable.items || [];
+            timetableList.innerHTML = items.map(item => `
+                <div class="timetable-item">
+                    <div class="timetable-time">${item.time || ''}</div>
+                    <div class="timetable-act">
+                        <div class="timetable-act-name">${item.title || ''}</div>
+                        <div class="timetable-act-detail">${item.detail || ''}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+    }
+
+    // チケット
+    if (data.tickets) {
+        const tickets = data.tickets;
+        const setText = (id, value) => {
+            const el = document.getElementById(id);
+            if (el && value !== undefined && value !== null) {
+                el.textContent = value;
+            }
+        };
+        const items = tickets.items || [];
+        setText('ticketTitle1', items[0]?.title);
+        setText('ticketDesc1', items[0]?.desc);
+        setText('ticketPrice1', items[0]?.price);
+        setText('ticketTitle2', items[1]?.title);
+        setText('ticketDesc2', items[1]?.desc);
+        setText('ticketPrice2', items[1]?.price);
+        setText('ticketTitle3', items[2]?.title);
+        setText('ticketDesc3', items[2]?.desc);
+        setText('ticketPrice3', items[2]?.price);
+        setText('accessCopy', tickets.accessCopy);
     }
 
     // フッター
@@ -178,16 +237,16 @@ function renderArtists(data) {
     }
 
     // HTMLを生成
-    const html = data.map(artist => {
+    const html = data
+        .filter(artist => !artist.hidden)
+        .map(artist => {
         return `
             <article class="artist-card" data-artist-id="${artist.id}">
                 <img src="${artist.image}" alt="${artist.name}" class="artist-image" loading="lazy">
                 <div class="artist-info">
                     <h3 class="artist-name">${artist.name}</h3>
+                    ${(artist.member || artist.area) ? `<p class="artist-area">メンバー：${artist.member || artist.area}</p>` : ''}
                     <p class="artist-description">${artist.description}</p>
-                    <div class="artist-sns">
-                        <a href="${artist.sns}" target="_blank" rel="noopener noreferrer">X (Twitter)</a>
-                    </div>
                 </div>
             </article>
         `;
@@ -258,6 +317,44 @@ function initScrollAnimation() {
 }
 
 // ===================================
+// ハンバーガーメニュー
+// ===================================
+function initHamburgerMenu() {
+    const nav = document.querySelector('.nav');
+    const toggle = document.getElementById('navToggle');
+    const menu = document.getElementById('navMenu');
+    const backdrop = document.getElementById('navBackdrop');
+
+    if (!nav || !toggle || !menu) return;
+
+    const closeMenu = () => {
+        nav.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+        if (backdrop) backdrop.classList.remove('active');
+    };
+
+    toggle.addEventListener('click', () => {
+        const isOpen = nav.classList.toggle('open');
+        toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        if (backdrop) backdrop.classList.toggle('active', isOpen);
+    });
+
+    menu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', closeMenu);
+    });
+
+    if (backdrop) {
+        backdrop.addEventListener('click', closeMenu);
+    }
+
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 768) {
+            closeMenu();
+        }
+    });
+}
+
+// ===================================
 // 初期化処理
 // ===================================
 document.addEventListener('DOMContentLoaded', () => {
@@ -274,6 +371,9 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // スクロールアニメーションを初期化
     initScrollAnimation();
+
+    // ハンバーガーメニューを初期化
+    initHamburgerMenu();
 
     console.log('WA音祭サイト初期化完了');
 });
