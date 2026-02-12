@@ -23,6 +23,15 @@ const defaultData = {
         "tickets",
         "information"
     ],
+    sectionTitles: {
+        concept: { en: "CONCEPT", ja: "開催趣旨" },
+        entry: { en: "ENTRY", ja: "出演者募集" },
+        timetable: { en: "TIMETABLE", ja: "タイムテーブル" },
+        artist: { en: "ARTIST", ja: "出演者" },
+        tickets: { en: "TICKETS", ja: "チケット" },
+        information: { en: "INFORMATION", ja: "開催概要" }
+    },
+    comingSoonText: "Coming Soon",
     hero: {
         title: "WA音祭",
         subtitle: "WAON FES",
@@ -91,6 +100,7 @@ const defaultData = {
                 price: "¥15,000"
             }
         ],
+        accessTitle: "ACCESS",
         accessCopy: "SHINJUKU SPECIAL STAGE（新宿駅から徒歩5分）"
     },
     timetable: {
@@ -192,6 +202,18 @@ function getStorageData() {
             }
             return artist;
         });
+    }
+
+    if (!data.sectionTitles) {
+        data.sectionTitles = JSON.parse(JSON.stringify(defaultData.sectionTitles));
+    }
+
+    if (!data.comingSoonText) {
+        data.comingSoonText = defaultData.comingSoonText;
+    }
+
+    if (data.tickets && !data.tickets.accessTitle) {
+        data.tickets.accessTitle = 'ACCESS';
     }
 
     return data;
@@ -300,6 +322,12 @@ function loadSection(section) {
         document.getElementById('footerCopyright').value = data.footer.copyright;
         const flag = document.getElementById('comingSoon-footer');
         if (flag) flag.checked = !!data.sectionFlags.footer;
+    } else if (section === 'titles') {
+        renderSectionTitles(data.sectionTitles || {});
+    } else if (section === 'settings') {
+        document.getElementById('comingSoonText').value = data.comingSoonText || 'Coming Soon';
+        const ticketsAccessTitle = document.getElementById('ticketsAccessTitle');
+        if (ticketsAccessTitle) ticketsAccessTitle.value = data.tickets?.accessTitle || 'ACCESS';
     }
 }
 
@@ -388,6 +416,13 @@ function saveSection(section) {
                 copyright: document.getElementById('footerCopyright').value
             };
             data.sectionFlags.footer = document.getElementById('comingSoon-footer')?.checked || false;
+        } else if (section === 'titles') {
+            data.sectionTitles = collectSectionTitles();
+        } else if (section === 'settings') {
+            data.comingSoonText = document.getElementById('comingSoonText').value;
+            if (data.tickets) {
+                data.tickets.accessTitle = document.getElementById('ticketsAccessTitle').value;
+            }
         }
         
         saveToStorage(data);
@@ -802,6 +837,50 @@ function removeArtist(index) {
         renderArtistCards(data.artists);
         showNotification('削除しました。', 'success');
     }
+}
+
+// ===================================
+// セクションタイトル管理
+// ===================================
+function renderSectionTitles(titles) {
+    const container = document.getElementById('sectionTitlesContainer');
+    if (!container) return;
+    container.innerHTML = '';
+
+    const sections = ['concept', 'entry', 'timetable', 'artist', 'tickets', 'information'];
+    sections.forEach(key => {
+        const title = titles[key] || { en: '', ja: '' };
+        const row = document.createElement('div');
+        row.className = 'form-group section-title-row';
+        row.innerHTML = `
+            <h4 class="subsection-title">${key.toUpperCase()}</h4>
+            <div class="form-group">
+                <label>英語タイトル</label>
+                <input type="text" class="form-input section-title-en" data-section="${key}" value="${title.en || ''}" placeholder="例：CONCEPT">
+            </div>
+            <div class="form-group">
+                <label>日本語タイトル</label>
+                <input type="text" class="form-input section-title-ja" data-section="${key}" value="${title.ja || ''}" placeholder="例：開催趣旨">
+            </div>
+        `;
+        container.appendChild(row);
+    });
+}
+
+function collectSectionTitles() {
+    const titles = {};
+    const sections = ['concept', 'entry', 'timetable', 'artist', 'tickets', 'information'];
+    
+    sections.forEach(key => {
+        const enInput = document.querySelector(`.section-title-en[data-section="${key}"]`);
+        const jaInput = document.querySelector(`.section-title-ja[data-section="${key}"]`);
+        titles[key] = {
+            en: enInput ? enInput.value : '',
+            ja: jaInput ? jaInput.value : ''
+        };
+    });
+    
+    return titles;
 }
 
 // ===================================

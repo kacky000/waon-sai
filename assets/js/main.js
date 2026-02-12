@@ -207,6 +207,24 @@ function loadContentFromStorage() {
         setSectionComingSoon(document.querySelector('.footer'), data.sectionFlags.footer);
     }
 
+    // セクションタイトル
+    if (data.sectionTitles) {
+        updateSectionTitles(data.sectionTitles);
+    }
+
+    // Coming Soonテキスト更新
+    if (data.comingSoonText) {
+        document.querySelectorAll('.section-coming-soon').forEach(el => {
+            el.textContent = data.comingSoonText;
+        });
+    }
+
+    // チケットアクセス見出し
+    if (data.tickets && data.tickets.accessTitle) {
+        const accessHeading = document.querySelector('.access h4');
+        if (accessHeading) accessHeading.textContent = data.tickets.accessTitle;
+    }
+
     if (data.sectionOrder) {
         applySectionOrder(data.sectionOrder);
     }
@@ -258,6 +276,30 @@ function applySectionOrder(order) {
             return `<a href="${href}">${label}</a>`;
         }).join('');
     }
+}
+
+function updateSectionTitles(titles) {
+    const sectionIdMap = {
+        concept: '#concept',
+        entry: '#entry',
+        timetable: '#timetable',
+        artist: '#artist',
+        tickets: '#tickets',
+        information: '#information'
+    };
+
+    Object.entries(titles).forEach(([key, title]) => {
+        const sectionId = sectionIdMap[key];
+        if (sectionId) {
+            const section = document.querySelector(sectionId);
+            if (section) {
+                const titleEn = section.querySelector('.title-en');
+                const titleJa = section.querySelector('.title-ja');
+                if (titleEn && title.en) titleEn.textContent = title.en;
+                if (titleJa && title.ja) titleJa.textContent = title.ja;
+            }
+        }
+    });
 }
 
 function setSectionComingSoon(sectionElement, isComingSoon) {

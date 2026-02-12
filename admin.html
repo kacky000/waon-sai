@@ -41,6 +41,8 @@
                         <li><a href="#tickets" class="nav-link" data-section="tickets">チケット</a></li>
                         <li><a href="#info" class="nav-link" data-section="info">開催情報</a></li>
                         <li><a href="#order" class="nav-link" data-section="order">表示順</a></li>
+                        <li><a href="#titles" class="nav-link" data-section="titles">セクションタイトル</a></li>
+                        <li><a href="#settings" class="nav-link" data-section="settings">その他設定</a></li>
                         <li><a href="#footer" class="nav-link" data-section="footer">フッター</a></li>
                     </ul>
                 </nav>
@@ -236,6 +238,32 @@
                     <p class="panel-description">上下ボタンで順番を変更できます。ヘッダーメニューと表示順に反映されます。</p>
                     <div id="sectionOrderContainer"></div>
                     <button class="btn btn-primary" onclick="saveSection('order')">保存</button>
+                </div>
+
+                <!-- セクションタイトル編集 -->
+                <div class="edit-panel" id="titles" data-section="titles">
+                    <h2 class="panel-title">セクションタイトル編集</h2>
+                    <p class="panel-description">各セクションのタイトルを編集できます。</p>
+                    <div id="sectionTitlesContainer"></div>
+                    <button class="btn btn-primary" onclick="saveSection('titles')">保存</button>
+                </div>
+
+                <!-- その他設定 -->
+                <div class="edit-panel" id="settings" data-section="settings">
+                    <h2 class="panel-title">その他設定</h2>
+                    
+                    <div class="form-group">
+                        <label for="comingSoonText">Coming Soon テキスト</label>
+                        <input type="text" id="comingSoonText" class="form-input" placeholder="例：Coming Soon">
+                    </div>
+
+                    <h3 class="subsection-title">チケットセクション設定</h3>
+                    <div class="form-group">
+                        <label for="ticketsAccessTitle">アクセス見出し</label>
+                        <input type="text" id="ticketsAccessTitle" class="form-input" placeholder="例：ACCESS">
+                    </div>
+
+                    <button class="btn btn-primary" onclick="saveSection('settings')">保存</button>
                 </div>
 
                 <!-- フッター編集 -->
