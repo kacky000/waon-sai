@@ -91,7 +91,7 @@ ul {
     font-size: 0.875rem;
     font-weight: bold;
     display: inline-block;
-    margin-top: 5px;
+    margin-top: 0;
     letter-spacing: 0.3em;
     color: transparent !important;
     background: linear-gradient(90deg, #7B8AE0, #B89CEC, #6EB0E8) !important;
