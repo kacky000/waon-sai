@@ -418,10 +418,10 @@ ul {
 }
 
 .entry .section-title .title-ja {
-    background: linear-gradient(90deg, #429ED7, #8366A1);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    background: linear-gradient(90deg, #429ED7, #8366A1) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
 }
 
 .entry-content {
@@ -527,7 +527,7 @@ ul {
 }
 
 .requirements-list li {
-    padding: 15px 0;
+    padding: 8px 0;
     color: rgba(255, 255, 255, 0.85);
     text-align: center;
     font-size: 1.1rem;
