@@ -67,6 +67,10 @@ function loadContentFromStorage() {
     // コンセプト
     if (data.concept) {
         const concept = data.concept;
+        const conceptCopyImg = document.getElementById('conceptCopyImg');
+        if (conceptCopyImg && concept.copyImage && concept.copyImage.trim() !== '') {
+            conceptCopyImg.src = concept.copyImage;
+        }
         const conceptLead = document.getElementById('conceptLead');
         if (conceptLead && concept.lead) {
             conceptLead.innerHTML = concept.lead.replace(/\n/g, '<br>');

@@ -40,12 +40,15 @@ const defaultData = {
     comingSoonText: "Coming Soon",
     hero: {},
     concept: {
-        lead: "ダンス・歌を中心にそれ以外の出し物も検討中です",
-        decoration: "いい大人の、本気のエンタメ・チャレンジ",
+        lead: "あなたの本気で、\nこの夜を動かそう。",
+        copyImage: "",
         texts: [
-            "7月開催のWA音祭の出演応募方法と詳細についてアナウンスします。",
-            "「自分の可能性を試してみたい」「仲間と共創したい」という方、ぜひこの機会に挑戦の旗を立ててください！",
-            "コミュニティ大連携！報酬も大事！中長期継続への実験集客として、観客・出演者・スタッフ・運営経験・プロの技術者など様々な参加形態があります。"
+            "オトナの皆さんへ。",
+            "あの時抱えていた衝動は、まだ燃えていますか。",
+            "祭りの輪をくぐれば、そこはもう",
+            "あなたの魂を解き放つ舞台です。",
+            "ここは、ダンス・歌を中心に、",
+            "コメディや映像作品など、幅広いエンタメに挑む場所。"
         ]
     },
     info: {
@@ -312,7 +315,10 @@ function loadSection(section) {
         if (flag) flag.checked = !!data.sectionFlags.hero;
     } else if (section === 'concept') {
         document.getElementById('conceptLead').value = data.concept.lead;
-        document.getElementById('conceptDecoration').value = data.concept.decoration || '';
+        const conceptCopyImageInput = document.getElementById('conceptCopyImage');
+        if (conceptCopyImageInput) conceptCopyImageInput.value = '';
+        const conceptCopyImageCurrent = document.getElementById('conceptCopyImageCurrent');
+        if (conceptCopyImageCurrent) conceptCopyImageCurrent.textContent = data.concept.copyImage ? '設定済み' : 'デフォルト';
         renderConceptTexts(data.concept.texts || []);
         const flag = document.getElementById('comingSoon-concept');
         if (flag) flag.checked = !!data.sectionFlags.concept;
@@ -385,11 +391,32 @@ function saveSection(section) {
         if (section === 'hero') {
             data.sectionFlags.hero = document.getElementById('comingSoon-hero')?.checked || false;
         } else if (section === 'concept') {
-            data.concept = {
+            const conceptCopyImageInput = document.getElementById('conceptCopyImage');
+            const conceptPayload = {
                 lead: document.getElementById('conceptLead').value,
-                decoration: document.getElementById('conceptDecoration').value,
+                copyImage: data.concept.copyImage || '',
                 texts: collectConceptTexts()
             };
+
+            if (conceptCopyImageInput && conceptCopyImageInput.files && conceptCopyImageInput.files[0]) {
+                const file = conceptCopyImageInput.files[0];
+                const reader = new FileReader();
+                reader.onload = () => {
+                    conceptPayload.copyImage = reader.result;
+                    data.concept = conceptPayload;
+                    data.sectionFlags.concept = document.getElementById('comingSoon-concept')?.checked || false;
+                    saveToStorage(data);
+                    showNotification('保存しました！', 'success');
+                    loadSection('concept');
+                };
+                reader.onerror = () => {
+                    showNotification('画像の読み込みに失敗しました。', 'error');
+                };
+                reader.readAsDataURL(file);
+                return;
+            }
+
+            data.concept = conceptPayload;
             data.sectionFlags.concept = document.getElementById('comingSoon-concept')?.checked || false;
         } else if (section === 'info') {
             data.info = {

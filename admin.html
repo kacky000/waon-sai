@@ -79,13 +79,14 @@
                     </div>
                     
                     <div class="form-group">
-                        <label for="conceptLead">リード文</label>
-                        <input type="text" id="conceptLead" class="form-input" placeholder="例：和（WA）とA（Alpha）が出会う場所。">
+                        <label for="conceptCopyImage">コピー画像（アップロード）</label>
+                        <input type="file" id="conceptCopyImage" class="form-input" accept="image/*">
+                        <p class="form-hint">現在の画像：<span id="conceptCopyImageCurrent">デフォルト</span></p>
                     </div>
 
                     <div class="form-group">
-                        <label for="conceptDecoration">装飾テキスト</label>
-                        <input type="text" id="conceptDecoration" class="form-input" placeholder="例：いい大人の、本気のエンタメ・チャレンジ">
+                        <label for="conceptLead">リード文</label>
+                        <textarea id="conceptLead" class="form-input" rows="3" placeholder="例：あなたの本気で、この夜を動かそう。"></textarea>
                     </div>
 
                     <div id="conceptTextContainer"></div>
