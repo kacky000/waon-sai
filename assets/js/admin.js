@@ -277,6 +277,8 @@ function getStorageData() {
 }
 
 function saveToStorage(data) {
+    // 保存時にタイムスタンプを付与（マージ時の判定に使用）
+    data._lastModified = Date.now();
     localStorage.setItem('waonfes-data', JSON.stringify(data));
 }
 
@@ -284,6 +286,135 @@ function resetToDefault() {
     if (confirm('本当にデータをリセットしますか？この操作は取り消せません。')) {
         localStorage.removeItem('waonfes-data');
         location.reload();
+    }
+}
+
+// ===================================
+// リモートデータ取得 & マージ
+// ===================================
+
+/**
+ * data.json を fetch して最新データを取得する。
+ * GitHub Pages / 任意サーバー上のファイルを読み込む。
+ */
+async function fetchRemoteData() {
+    try {
+        const res = await fetch('data.json?t=' + Date.now());
+        if (res.ok) {
+            return await res.json();
+        }
+    } catch (e) {
+        console.warn('data.json fetch failed:', e);
+    }
+    return null;
+}
+
+/**
+ * リモート（data.json）のデータをローカル（localStorage）にディープマージする。
+ * ローカルに値がなければリモートの値を採用。
+ * ローカルに値があればローカルを優先（ユーザーが編集した可能性があるため）。
+ */
+function deepMerge(local, remote) {
+    if (remote === null || remote === undefined) return local;
+    if (local === null || local === undefined) return JSON.parse(JSON.stringify(remote));
+    
+    // 配列はローカル優先（管理画面でアイテムの追加/削除/並び替えがあるため）
+    if (Array.isArray(local) || Array.isArray(remote)) {
+        return local !== undefined && local !== null ? local : remote;
+    }
+    
+    // オブジェクトの場合は各キーを再帰マージ
+    if (typeof local === 'object' && typeof remote === 'object') {
+        const merged = { ...remote };
+        for (const key of Object.keys(local)) {
+            if (key in remote) {
+                merged[key] = deepMerge(local[key], remote[key]);
+            } else {
+                merged[key] = local[key];
+            }
+        }
+        return merged;
+    }
+    
+    // プリミティブはローカル優先
+    return local;
+}
+
+/**
+ * 管理画面起動時に data.json を fetch し、ローカルの localStorage とマージする。
+ * - localStorage が空 → data.json の内容をそのまま採用
+ * - localStorage に既存データあり → ローカルのデータにリモートの不足分を補完
+ * - data.json が取得できない → localStorage のまま続行
+ */
+async function fetchLatestAndMerge() {
+    const remote = await fetchRemoteData();
+    if (!remote) {
+        console.log('リモートデータ取得スキップ（data.json なし or オフライン）');
+        return;
+    }
+
+    const stored = localStorage.getItem('waonfes-data');
+    if (!stored) {
+        // ローカルにデータなし → リモートをそのまま採用
+        localStorage.setItem('waonfes-data', JSON.stringify(remote));
+        console.log('リモートデータをローカルに初期展開しました');
+        return;
+    }
+
+    const local = JSON.parse(stored);
+    const localMod = local._lastModified || 0;
+    const remoteMod = remote._lastModified || 0;
+
+    if (localMod === 0 || localMod <= remoteMod) {
+        // ローカルが古い or タイムスタンプなし → リモートを優先採用
+        remote._lastModified = remoteMod;
+        localStorage.setItem('waonfes-data', JSON.stringify(remote));
+        console.log('リモートデータがローカルより新しいため、リモートを採用しました');
+    } else {
+        // ローカルが新しい → リモートの新キーだけ補完
+        const merged = deepMerge(local, remote);
+        merged._lastModified = localMod;
+        localStorage.setItem('waonfes-data', JSON.stringify(merged));
+        console.log('ローカルデータにリモートの不足分をマージしました');
+    }
+}
+
+/**
+ * 公開前にリモートの最新データを取得し、ローカルの変更とマージしたうえで公開する。
+ * これにより他の人が先に公開した変更を上書きしない。
+ */
+async function mergeBeforePublish() {
+    const config = getGitHubConfig();
+    if (!config.token || !config.owner || !config.repo) return;
+
+    const headers = {
+        'Authorization': `token ${config.token}`,
+        'Accept': 'application/vnd.github.v3+json'
+    };
+
+    try {
+        const apiBase = `https://api.github.com/repos/${config.owner}/${config.repo}/contents/data.json`;
+        const getRes = await fetch(`${apiBase}?ref=${config.branch}`, { headers });
+        if (!getRes.ok) return; // ファイルがまだない場合はスキップ
+
+        const fileInfo = await getRes.json();
+        // Base64デコード
+        const remoteJson = JSON.parse(decodeURIComponent(escape(atob(fileInfo.content.replace(/\n/g, '')))));
+        const local = getStorageData();
+
+        const localMod = local._lastModified || 0;
+        const remoteMod = remoteJson._lastModified || 0;
+
+        if (remoteMod > localMod) {
+            // リモートの方が新しい → リモートベースにローカルの変更を上書き
+            // ※ローカルで最後に保存したセクションのデータがリモートに反映される
+            const merged = deepMerge(local, remoteJson);
+            merged._lastModified = Date.now();
+            saveToStorage(merged);
+            console.log('公開前マージ: リモートベースにローカル変更を統合しました');
+        }
+    } catch (e) {
+        console.warn('公開前マージスキップ:', e);
     }
 }
 
@@ -315,11 +446,18 @@ document.addEventListener('DOMContentLoaded', () => {
     // リセットボタン
     document.getElementById('resetBtn').addEventListener('click', resetToDefault);
 
-    // 最初のセクションをロード
-    loadSection('hero');
-
     // GitHub設定を読み込み
     loadGitHubSettings();
+
+    // リモート（data.json）から最新データを取得してローカルとマージ
+    fetchLatestAndMerge().then(() => {
+        // マージ完了後にセクションをロード
+        loadSection('hero');
+        console.log('管理画面: 最新データの同期完了');
+    }).catch(e => {
+        console.warn('リモートデータ同期エラー:', e);
+        loadSection('hero');
+    });
 });
 
 // ===================================
@@ -1190,11 +1328,16 @@ async function publishToGitHub() {
     const publishBtn = document.getElementById('publishBtn');
     if (publishBtn) {
         publishBtn.disabled = true;
-        publishBtn.textContent = '公開中...';
+        publishBtn.textContent = '同期中...';
     }
 
     try {
+        // 公開前にリモートの最新データとマージ（他の人の変更を保護）
+        await mergeBeforePublish();
+
         const data = getStorageData();
+        data._lastModified = Date.now(); // 公開時刻を記録
+        saveToStorage(data); // ローカルにも反映
         const jsonContent = JSON.stringify(data, null, 4);
         const base64Content = btoa(unescape(encodeURIComponent(jsonContent)));
 
