@@ -180,10 +180,7 @@ function loadContentFromStorage() {
         if (footerLogo) footerLogo.textContent = footer.logo;
         const footerSubtitle = document.getElementById('footerSubtitle');
         if (footerSubtitle) footerSubtitle.textContent = footer.subtitle;
-        const footerEmail = document.getElementById('footerEmail');
-        if (footerEmail) footerEmail.textContent = footer.email;
-        const footerTel = document.getElementById('footerTel');
-        if (footerTel) footerTel.textContent = footer.tel;
+
         const footerCopyright = document.getElementById('footerCopyright');
         if (footerCopyright) {
             footerCopyright.innerHTML = footer.copyright;
@@ -289,6 +286,7 @@ const SECTION_LABELS = {
     home: 'TOP',
     concept: 'CONCEPT',
     entry: 'ENTRY',
+    qna: 'Q&A',
     timetable: 'TIMETABLE',
     artist: 'ARTIST',
     goods: 'GOODS',

@@ -843,6 +843,13 @@ ul {
     background-color: var(--color-bg-dark);
     padding: 60px 20px 30px;
     border-top: 1px solid var(--color-border);
+    position: relative;
+    overflow: hidden;
+}
+
+.footer > .container {
+    position: relative;
+    z-index: 1;
 }
 
 .footer-content {
