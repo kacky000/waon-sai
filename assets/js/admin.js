@@ -507,20 +507,9 @@ function loadSection(section) {
         renderArtistCards(data.artists);
         const flag = document.getElementById('comingSoon-artists');
         if (flag) flag.checked = !!data.sectionFlags.artists;
-    } else if (section === 'footer') {
-        document.getElementById('footerLogo').value = data.footer.logo;
-        document.getElementById('footerSubtitle').value = data.footer.subtitle;
-        document.getElementById('footerEmail').value = data.footer.email;
-        document.getElementById('footerTel').value = data.footer.tel;
-        document.getElementById('footerCopyright').value = data.footer.copyright;
-        const flag = document.getElementById('comingSoon-footer');
-        if (flag) flag.checked = !!data.sectionFlags.footer;
     } else if (section === 'titles') {
         renderSectionTitles(data.sectionTitles || {});
-    } else if (section === 'settings') {
-        document.getElementById('comingSoonText').value = data.comingSoonText || 'Coming Soon';
-        const ticketsAccessTitle = document.getElementById('ticketsAccessTitle');
-        if (ticketsAccessTitle) ticketsAccessTitle.value = data.tickets?.accessTitle || 'ACCESS';
+    // settingsセクション削除
     } else if (section === 'qna') {
         renderQnaCards(data.qna || []);
         const flag = document.getElementById('comingSoon-qna');
@@ -648,22 +637,9 @@ function saveSection(section) {
         } else if (section === 'artists') {
             data.artists = collectArtists();
             data.sectionFlags.artists = document.getElementById('comingSoon-artists')?.checked || false;
-        } else if (section === 'footer') {
-            data.footer = {
-                logo: document.getElementById('footerLogo').value,
-                subtitle: document.getElementById('footerSubtitle').value,
-                email: document.getElementById('footerEmail').value,
-                tel: document.getElementById('footerTel').value,
-                copyright: document.getElementById('footerCopyright').value
-            };
-            data.sectionFlags.footer = document.getElementById('comingSoon-footer')?.checked || false;
         } else if (section === 'titles') {
             data.sectionTitles = collectSectionTitles();
-        } else if (section === 'settings') {
-            data.comingSoonText = document.getElementById('comingSoonText').value;
-            if (data.tickets) {
-                data.tickets.accessTitle = document.getElementById('ticketsAccessTitle').value;
-            }
+        // settingsセクション削除
         } else if (section === 'qna') {
             data.qna = collectQnaItems();
             data.sectionFlags.qna = document.getElementById('comingSoon-qna')?.checked || false;

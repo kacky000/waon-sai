@@ -48,8 +48,8 @@
                         <li><a href="#info" class="nav-link" data-section="info">開催情報</a></li>
                         <li><a href="#order" class="nav-link" data-section="order">表示順</a></li>
                         <li><a href="#titles" class="nav-link" data-section="titles">セクションタイトル</a></li>
-                        <li><a href="#settings" class="nav-link" data-section="settings">その他設定</a></li>
-                        <li><a href="#footer" class="nav-link" data-section="footer">フッター</a></li>
+                        <!-- <li><a href="#settings" class="nav-link" data-section="settings">その他設定</a></li> -->
+                        <!-- <li><a href="#footer" class="nav-link" data-section="footer">フッター</a></li> -->
                         <li style="margin-top: 12px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 12px;"><a href="#github" class="nav-link" data-section="github" style="color: #58a6ff;">GitHub連携</a></li>
                     </ul>
                 </nav>
@@ -62,66 +62,7 @@
                     <h2 class="panel-title">TOP（トップ）編集</h2>
                     <p style="color: var(--text-secondary); margin-bottom: 16px;">トップ動画に表示内容が含まれているため、編集項目はComing Soon設定のみです。動画を差し替える場合は <code>assets/media/top-video.mp4</code> を上書きしてください。</p>
 
-                    <div class="form-group">
-                        <label class="checkbox-label">
-                            <input type="checkbox" id="comingSoon-hero">
-                            このセクションをComing Soonにする
-                        </label>
-                    </div>
-                    <div class="form-group">
-                        <label class="checkbox-label">
-                            <input type="checkbox" id="hidden-hero">
-                            このセクションを非表示にする
-                        </label>
-                    </div>
-
-                    <button class="btn btn-primary" onclick="saveSection('hero')">保存</button>
-                </div>
-
-                <!-- コンセプト編集 -->
-                <div class="edit-panel" id="concept" data-section="concept">
-                    <h2 class="panel-title">コンセプト編集</h2>
-
-                    <div class="form-group">
-                        <label class="checkbox-label">
-                            <input type="checkbox" id="comingSoon-concept">
-                            このセクションをComing Soonにする
-                        </label>
-                    </div>
-                    <div class="form-group">
-                        <label class="checkbox-label">
-                            <input type="checkbox" id="hidden-concept">
-                            このセクションを非表示にする
-                        </label>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="conceptBgImage">背景（画像）</label>
-                        <input type="file" id="conceptBgImage" class="form-input" accept="image/*">
-                        <p class="form-hint">現在の画像：<span id="conceptBgImageCurrent">デフォルト</span></p>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="conceptCopyImage">コピー（画像）</label>
-                        <input type="file" id="conceptCopyImage" class="form-input" accept="image/*">
-                        <p class="form-hint">現在の画像：<span id="conceptCopyImageCurrent">デフォルト</span></p>
-                    </div>
-
-                    <div id="conceptTextContainer"></div>
-                    <button class="btn btn-success" type="button" onclick="addConceptText()">+ メッセージを追加</button>
-
-                    <h3 class="subsection-title" style="margin-top:24px;">メッセージ（キャッチコピー）</h3>
-                    <div class="form-group">
-                        <label for="messageText">メッセージ</label>
-                        <textarea id="messageText" class="form-input" rows="3" placeholder="例：あなたの本気で、この夜を動かそう。"></textarea>
-                    </div>
-
-                    <button class="btn btn-primary" onclick="saveSection('concept')">保存</button>
-                </div>
-
-                <!-- 出演者募集編集 -->
-                <div class="edit-panel" id="entry" data-section="entry">
-                    <h2 class="panel-title">出演者募集情報編集</h2>
+                    <!-- その他設定・フッター編集パネル削除済み -->
 
                     <div class="form-group">
                         <label class="checkbox-label">
