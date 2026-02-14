@@ -222,6 +222,17 @@ ul {
 }
 
 @media (max-width: 1024px) {
+    .nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+    }
+
+    body {
+        padding-top: 60px;
+    }
+
     .nav-container {
         justify-content: flex-end;
     }
