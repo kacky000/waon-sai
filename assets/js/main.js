@@ -67,13 +67,13 @@ function loadContentFromStorage() {
     // コンセプト
     if (data.concept) {
         const concept = data.concept;
+        const conceptBgImg = document.getElementById('conceptBgImg');
+        if (conceptBgImg && concept.bgImage && concept.bgImage.trim() !== '') {
+            conceptBgImg.src = concept.bgImage;
+        }
         const conceptCopyImg = document.getElementById('conceptCopyImg');
         if (conceptCopyImg && concept.copyImage && concept.copyImage.trim() !== '') {
             conceptCopyImg.src = concept.copyImage;
-        }
-        const conceptLead = document.getElementById('conceptLead');
-        if (conceptLead && concept.lead) {
-            conceptLead.innerHTML = concept.lead.replace(/\n/g, '<br>');
         }
         const conceptTextList = document.getElementById('conceptTextList');
         if (conceptTextList) {
@@ -81,6 +81,14 @@ function loadContentFromStorage() {
                 ? concept.texts
                 : [concept.text1, concept.text2, concept.text3].filter(Boolean);
             conceptTextList.innerHTML = texts.map(text => `<p>${text}</p>`).join('');
+        }
+    }
+
+    // メッセージ
+    if (data.message) {
+        const messageText = document.getElementById('messageText');
+        if (messageText && data.message.text) {
+            messageText.innerHTML = data.message.text.replace(/\n/g, '<br>');
         }
     }
 
@@ -213,6 +221,7 @@ function loadContentFromStorage() {
     if (data.sectionFlags) {
         setSectionComingSoon(document.getElementById('home'), data.sectionFlags.hero);
         setSectionComingSoon(document.getElementById('concept'), data.sectionFlags.concept);
+        setSectionComingSoon(document.getElementById('message'), data.sectionFlags.message);
         setSectionComingSoon(document.getElementById('entry'), data.sectionFlags.entry);
         setSectionComingSoon(document.getElementById('qna'), data.sectionFlags.qna);
         setSectionComingSoon(document.getElementById('timetable'), data.sectionFlags.timetable);
@@ -249,6 +258,7 @@ function loadContentFromStorage() {
 const SECTION_LABELS = {
     home: 'TOP',
     concept: 'CONCEPT',
+    message: 'MESSAGE',
     entry: 'ENTRY',
     timetable: 'TIMETABLE',
     artist: 'ARTIST',
@@ -298,6 +308,7 @@ function applySectionOrder(order) {
 function updateSectionTitles(titles) {
     const sectionIdMap = {
         concept: '#concept',
+        message: '#message',
         entry: '#entry',
         qna: '#qna',
         timetable: '#timetable',

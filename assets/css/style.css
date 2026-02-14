@@ -309,12 +309,24 @@ ul {
     margin: 0;
 }
 
-.concept-cta {
+/* ===================================
+   Message Section
+   =================================== */
+.message {
+    background-color: var(--color-bg-dark);
+    padding: 80px 20px;
+}
+
+.message-inner {
+    max-width: 800px;
+    margin: 0 auto;
     text-align: center;
+}
+
+.message-text {
     font-size: clamp(1.2rem, 2.2vw, 1.6rem);
     font-weight: 700;
     color: #fff;
-    margin-top: 30px;
     line-height: 1.8;
     letter-spacing: 0.1em;
 }

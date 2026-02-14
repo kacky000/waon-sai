@@ -7,6 +7,7 @@ const defaultData = {
     sectionFlags: {
         hero: false,
         concept: false,
+        message: false,
         entry: false,
         qna: false,
         timetable: false,
@@ -19,6 +20,7 @@ const defaultData = {
     sectionOrder: [
         "home",
         "concept",
+        "message",
         "entry",
         "qna",
         "timetable",
@@ -40,7 +42,7 @@ const defaultData = {
     comingSoonText: "Coming Soon",
     hero: {},
     concept: {
-        lead: "あなたの本気で、\nこの夜を動かそう。",
+        bgImage: "",
         copyImage: "",
         texts: [
             "オトナの皆さんへ。",
@@ -50,6 +52,9 @@ const defaultData = {
             "ここは、ダンス・歌を中心に、",
             "コメディや映像作品など、幅広いエンタメに挑む場所。"
         ]
+    },
+    message: {
+        text: "あなたの本気で、\nこの夜を動かそう。"
     },
     info: {
         cards: [
@@ -314,7 +319,10 @@ function loadSection(section) {
         const flag = document.getElementById('comingSoon-hero');
         if (flag) flag.checked = !!data.sectionFlags.hero;
     } else if (section === 'concept') {
-        document.getElementById('conceptLead').value = data.concept.lead;
+        const conceptBgImageInput = document.getElementById('conceptBgImage');
+        if (conceptBgImageInput) conceptBgImageInput.value = '';
+        const conceptBgImageCurrent = document.getElementById('conceptBgImageCurrent');
+        if (conceptBgImageCurrent) conceptBgImageCurrent.textContent = data.concept.bgImage ? '設定済み' : 'デフォルト';
         const conceptCopyImageInput = document.getElementById('conceptCopyImage');
         if (conceptCopyImageInput) conceptCopyImageInput.value = '';
         const conceptCopyImageCurrent = document.getElementById('conceptCopyImageCurrent');
@@ -322,6 +330,10 @@ function loadSection(section) {
         renderConceptTexts(data.concept.texts || []);
         const flag = document.getElementById('comingSoon-concept');
         if (flag) flag.checked = !!data.sectionFlags.concept;
+    } else if (section === 'message') {
+        document.getElementById('messageText').value = data.message?.text || '';
+        const flag = document.getElementById('comingSoon-message');
+        if (flag) flag.checked = !!data.sectionFlags.message;
     } else if (section === 'info') {
         renderInfoCards(data.info.cards || []);
         const flag = document.getElementById('comingSoon-info');
@@ -391,33 +403,44 @@ function saveSection(section) {
         if (section === 'hero') {
             data.sectionFlags.hero = document.getElementById('comingSoon-hero')?.checked || false;
         } else if (section === 'concept') {
+            const conceptBgImageInput = document.getElementById('conceptBgImage');
             const conceptCopyImageInput = document.getElementById('conceptCopyImage');
             const conceptPayload = {
-                lead: document.getElementById('conceptLead').value,
+                bgImage: data.concept.bgImage || '',
                 copyImage: data.concept.copyImage || '',
                 texts: collectConceptTexts()
             };
 
-            if (conceptCopyImageInput && conceptCopyImageInput.files && conceptCopyImageInput.files[0]) {
-                const file = conceptCopyImageInput.files[0];
-                const reader = new FileReader();
-                reader.onload = () => {
-                    conceptPayload.copyImage = reader.result;
+            // 画像読み込みをPromiseで処理
+            const readFile = (input) => new Promise((resolve, reject) => {
+                if (input && input.files && input.files[0]) {
+                    const reader = new FileReader();
+                    reader.onload = () => resolve(reader.result);
+                    reader.onerror = () => reject(new Error('画像の読み込みに失敗'));
+                    reader.readAsDataURL(input.files[0]);
+                } else {
+                    resolve(null);
+                }
+            });
+
+            Promise.all([readFile(conceptBgImageInput), readFile(conceptCopyImageInput)])
+                .then(([bgResult, copyResult]) => {
+                    if (bgResult) conceptPayload.bgImage = bgResult;
+                    if (copyResult) conceptPayload.copyImage = copyResult;
                     data.concept = conceptPayload;
                     data.sectionFlags.concept = document.getElementById('comingSoon-concept')?.checked || false;
                     saveToStorage(data);
                     showNotification('保存しました！', 'success');
                     loadSection('concept');
-                };
-                reader.onerror = () => {
+                })
+                .catch(() => {
                     showNotification('画像の読み込みに失敗しました。', 'error');
-                };
-                reader.readAsDataURL(file);
-                return;
-            }
-
-            data.concept = conceptPayload;
-            data.sectionFlags.concept = document.getElementById('comingSoon-concept')?.checked || false;
+                });
+            return;
+        } else if (section === 'message') {
+            if (!data.message) data.message = {};
+            data.message.text = document.getElementById('messageText').value;
+            data.sectionFlags.message = document.getElementById('comingSoon-message')?.checked || false;
         } else if (section === 'info') {
             data.info = {
                 cards: collectInfoCards()
@@ -737,6 +760,7 @@ function removeTicket(index) {
 const SECTION_LABELS = {
     home: 'TOP',
     concept: 'CONCEPT',
+    message: 'MESSAGE',
     entry: 'ENTRY',
     qna: 'Q&A',
     timetable: 'TIMETABLE',

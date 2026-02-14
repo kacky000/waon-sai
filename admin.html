@@ -35,6 +35,7 @@
                     <ul class="nav-list">
                         <li><a href="#hero" class="nav-link active" data-section="hero">TOP</a></li>
                         <li><a href="#concept" class="nav-link" data-section="concept">コンセプト</a></li>
+                        <li><a href="#message" class="nav-link" data-section="message">メッセージ</a></li>
                         <li><a href="#entry" class="nav-link" data-section="entry">出演者募集</a></li>
                         <li><a href="#qna" class="nav-link" data-section="qna">Q&A</a></li>
                         <li><a href="#timetable" class="nav-link" data-section="timetable">タイムテーブル</a></li>
@@ -77,22 +78,42 @@
                             このセクションをComing Soonにする
                         </label>
                     </div>
+
+                    <div class="form-group">
+                        <label for="conceptBgImage">背景（画像）</label>
+                        <input type="file" id="conceptBgImage" class="form-input" accept="image/*">
+                        <p class="form-hint">現在の画像：<span id="conceptBgImageCurrent">デフォルト</span></p>
+                    </div>
                     
                     <div class="form-group">
-                        <label for="conceptCopyImage">コピー画像（アップロード）</label>
+                        <label for="conceptCopyImage">コピー（画像）</label>
                         <input type="file" id="conceptCopyImage" class="form-input" accept="image/*">
                         <p class="form-hint">現在の画像：<span id="conceptCopyImageCurrent">デフォルト</span></p>
                     </div>
 
-                    <div class="form-group">
-                        <label for="conceptLead">リード文</label>
-                        <textarea id="conceptLead" class="form-input" rows="3" placeholder="例：あなたの本気で、この夜を動かそう。"></textarea>
-                    </div>
-
                     <div id="conceptTextContainer"></div>
-                    <button class="btn btn-success" type="button" onclick="addConceptText()">+ 説明を追加</button>
+                    <button class="btn btn-success" type="button" onclick="addConceptText()">+ メッセージを追加</button>
 
                     <button class="btn btn-primary" onclick="saveSection('concept')">保存</button>
+                </div>
+
+                <!-- メッセージ編集 -->
+                <div class="edit-panel" id="message" data-section="message">
+                    <h2 class="panel-title">メッセージ編集</h2>
+
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="comingSoon-message">
+                            このセクションをComing Soonにする
+                        </label>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="messageText">メッセージ</label>
+                        <textarea id="messageText" class="form-input" rows="3" placeholder="例：あなたの本気で、この夜を動かそう。"></textarea>
+                    </div>
+
+                    <button class="btn btn-primary" onclick="saveSection('message')">保存</button>
                 </div>
 
                 <!-- 出演者募集編集 -->
