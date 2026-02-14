@@ -310,20 +310,16 @@ ul {
 }
 
 /* ===================================
-   Message Section
+   Concept Message (inside concept section)
    =================================== */
-.message {
-    background-color: var(--color-bg-dark);
-    padding: 80px 20px;
-}
-
-.message-inner {
-    max-width: 800px;
-    margin: 0 auto;
+.concept-message {
     text-align: center;
+    padding: 60px 20px 0;
+    position: relative;
+    z-index: 1;
 }
 
-.message-text {
+.concept-message .message-text {
     font-size: clamp(1.2rem, 2.2vw, 1.6rem);
     font-weight: 700;
     color: #fff;
@@ -429,11 +425,13 @@ ul {
 }
 
 .entry-icons {
-    display: flex;
-    justify-content: center;
-    gap: 40px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
     margin-bottom: 40px;
-    flex-wrap: wrap;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .entry-icon-item {
@@ -972,6 +970,11 @@ ul {
 
     .entry-requirements {
         padding: 0 10px;
+    }
+
+    .entry-icons {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 25px;
     }
 
     .btn-entry {

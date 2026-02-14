@@ -222,7 +222,6 @@ function loadContentFromStorage() {
     if (data.sectionFlags) {
         setSectionComingSoon(document.getElementById('home'), data.sectionFlags.hero);
         setSectionComingSoon(document.getElementById('concept'), data.sectionFlags.concept);
-        setSectionComingSoon(document.getElementById('message'), data.sectionFlags.message);
         setSectionComingSoon(document.getElementById('entry'), data.sectionFlags.entry);
         setSectionComingSoon(document.getElementById('qna'), data.sectionFlags.qna);
         setSectionComingSoon(document.getElementById('timetable'), data.sectionFlags.timetable);
@@ -238,7 +237,6 @@ function loadContentFromStorage() {
         const hideMap = {
             hero: '#home',
             concept: '#concept',
-            message: '#message',
             entry: '#entry',
             qna: '#qna',
             timetable: '#timetable',
@@ -282,7 +280,6 @@ function loadContentFromStorage() {
 const SECTION_LABELS = {
     home: 'TOP',
     concept: 'CONCEPT',
-    message: 'MESSAGE',
     entry: 'ENTRY',
     timetable: 'TIMETABLE',
     artist: 'ARTIST',
@@ -332,7 +329,6 @@ function applySectionOrder(order) {
 function updateSectionTitles(titles) {
     const sectionIdMap = {
         concept: '#concept',
-        message: '#message',
         entry: '#entry',
         qna: '#qna',
         timetable: '#timetable',

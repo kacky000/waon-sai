@@ -7,7 +7,6 @@ const defaultData = {
     sectionFlags: {
         hero: false,
         concept: false,
-        message: false,
         entry: false,
         qna: false,
         timetable: false,
@@ -20,7 +19,6 @@ const defaultData = {
     sectionHidden: {
         hero: false,
         concept: false,
-        message: false,
         entry: false,
         qna: false,
         timetable: false,
@@ -33,7 +31,6 @@ const defaultData = {
     sectionOrder: [
         "home",
         "concept",
-        "message",
         "entry",
         "qna",
         "timetable",
@@ -341,12 +338,10 @@ function loadSection(section) {
         const conceptCopyImageCurrent = document.getElementById('conceptCopyImageCurrent');
         if (conceptCopyImageCurrent) conceptCopyImageCurrent.textContent = data.concept.copyImage ? '設定済み' : 'デフォルト';
         renderConceptTexts(data.concept.texts || []);
+        // メッセージも読み込み
+        document.getElementById('messageText').value = data.message?.text || '';
         const flag = document.getElementById('comingSoon-concept');
         if (flag) flag.checked = !!data.sectionFlags.concept;
-    } else if (section === 'message') {
-        document.getElementById('messageText').value = data.message?.text || '';
-        const flag = document.getElementById('comingSoon-message');
-        if (flag) flag.checked = !!data.sectionFlags.message;
     } else if (section === 'info') {
         renderInfoCards(data.info.cards || []);
         const flag = document.getElementById('comingSoon-info');
@@ -453,6 +448,9 @@ function saveSection(section) {
                     if (copyResult) conceptPayload.copyImage = copyResult;
                     data.concept = conceptPayload;
                     data.sectionFlags.concept = document.getElementById('comingSoon-concept')?.checked || false;
+                    // メッセージも保存
+                    if (!data.message) data.message = {};
+                    data.message.text = document.getElementById('messageText').value;
                     // 非表示フラグ
                     if (!data.sectionHidden) data.sectionHidden = {};
                     const hiddenFlag = document.getElementById('hidden-concept');
@@ -465,10 +463,6 @@ function saveSection(section) {
                     showNotification('画像の読み込みに失敗しました。', 'error');
                 });
             return;
-        } else if (section === 'message') {
-            if (!data.message) data.message = {};
-            data.message.text = document.getElementById('messageText').value;
-            data.sectionFlags.message = document.getElementById('comingSoon-message')?.checked || false;
         } else if (section === 'info') {
             data.info = {
                 cards: collectInfoCards()
@@ -814,7 +808,6 @@ function removeTicket(index) {
 const SECTION_LABELS = {
     home: 'TOP',
     concept: 'CONCEPT',
-    message: 'MESSAGE',
     entry: 'ENTRY',
     qna: 'Q&A',
     timetable: 'TIMETABLE',
