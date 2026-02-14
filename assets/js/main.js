@@ -129,6 +129,8 @@ function loadContentFromStorage() {
         if (entryButton) {
             entryButton.textContent = entry.buttonText;
             entryButton.href = entry.buttonLink;
+            entryButton.target = '_blank';
+            entryButton.rel = 'noopener noreferrer';
         }
         const entryNote = document.getElementById('entryNote');
         if (entryNote) entryNote.textContent = entry.note;
