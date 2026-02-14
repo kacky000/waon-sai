@@ -47,9 +47,43 @@ const artistsData = [
 ];
 
 // ===================================
-// LocalStorage管理
+// データ管理（data.json → localStorage フォールバック）
 // ===================================
+
+// サイトデータをキャッシュ（fetch 後に格納）
+let _siteDataCache = null;
+
+/**
+ * data.json を fetch し、取得できなければ localStorage にフォールバック。
+ * 取得したデータは _siteDataCache に保持し、同一セッション内で再利用する。
+ */
+async function fetchSiteData() {
+    // 1. data.json をfetch（GitHub Pages / 任意サーバーで全員共有）
+    try {
+        const res = await fetch('data.json?t=' + Date.now());
+        if (res.ok) {
+            const json = await res.json();
+            _siteDataCache = json;
+            return json;
+        }
+    } catch (e) {
+        console.warn('data.json fetch failed, falling back to localStorage:', e);
+    }
+    // 2. フォールバック: localStorage
+    const stored = localStorage.getItem('waonfes-data');
+    if (stored) {
+        _siteDataCache = JSON.parse(stored);
+        return _siteDataCache;
+    }
+    return null;
+}
+
+/**
+ * 同期版（キャッシュ or localStorage）。
+ * fetchSiteData() が完了した後であれば _siteDataCache を返す。
+ */
 function getSiteData() {
+    if (_siteDataCache) return _siteDataCache;
     const stored = localStorage.getItem('waonfes-data');
     return stored ? JSON.parse(stored) : null;
 }
@@ -57,16 +91,8 @@ function getSiteData() {
 // ===================================
 // データの動的反映
 // ===================================
-function loadContentFromStorage() {
-    const data = getSiteData();
-
-    // Q&A Coming Soonフラグを強制的にオフ（既存のlocalStorageデータ修正）
-    if (data && data.sectionFlags && data.sectionFlags.qna === true) {
-        data.sectionFlags.qna = false;
-        localStorage.setItem('waonfes-data', JSON.stringify(data));
-    }
-
-    if (!data) return; // LocalStorageにデータがない場合はスキップ
+function applyDataToPage(data) {
+    if (!data) return;
 
     // TOP（トップ）
     // 動画はHTMLに直接埋め込み済み、管理画面からの差し替え不要
@@ -290,7 +316,7 @@ function loadContentFromStorage() {
     }
 
     if (data.sectionOrder) {
-        applySectionOrder(data.sectionOrder);
+        applySectionOrder(data.sectionOrder, data);
     }
 }
 
@@ -306,10 +332,10 @@ const SECTION_LABELS = {
     information: 'INFO'
 };
 
-function applySectionOrder(order) {
+function applySectionOrder(order, data) {
     if (!Array.isArray(order) || order.length === 0) return;
 
-    const data = getSiteData();
+    if (!data) data = getSiteData();
 
     // Coming Soon または非表示のセクションをメニューから除外するためのマッピング
     const flagKeyMap = {
@@ -546,52 +572,25 @@ function initHamburgerMenu() {
 // ===================================
 // 初期化処理
 // ===================================
-document.addEventListener('DOMContentLoaded', () => {
-    // LocalStorageからデータを読み込む
+document.addEventListener('DOMContentLoaded', async () => {
     try {
-        loadContentFromStorage();
-    } catch(e) {
-        console.error('loadContentFromStorage error:', e);
+        // data.json → localStorage の優先順位でデータ取得
+        const data = await fetchSiteData();
+
+        // ページにデータを反映
+        if (data) {
+            applyDataToPage(data);
+        }
+
+        // アーティスト情報を描画
+        const artists = data && data.artists ? data.artists : artistsData;
+        renderArtists(artists);
+    } catch (e) {
+        console.error('データ読み込みエラー:', e);
+        // フォールバック: ダミーアーティストだけ描画
+        renderArtists(artistsData);
     }
 
-    // Q&Aを確実に描画（loadContentFromStorageとは独立）
-    try {
-        const storedData = getSiteData();
-        const qnaData = (storedData && storedData.qna && Array.isArray(storedData.qna) && storedData.qna.length > 0) ? storedData.qna : [
-            { question: "出演の応募条件はありますか？年齢や実績などの動画が必要ですか？", answer: "特別な応募条件はありません。5歳から応募可能です。PR動画2〜3分をご提出いただきます。" },
-            { question: "SNSチャンネルやチャンネルをもっていないと参加できませんか？", answer: "SNSチャンネルは必須ではありません。ただし、集客につながるためあると望ましいです。" },
-            { question: "バンドやチームでの参加の場合、メンバー人数に制限はありますか？", answer: "1〜6名までのチームでの参加が可能です。" },
-            { question: "1人でチームを組みたいのですが、他のメンバーを探すサポートはありますか？", answer: "はい、コミュニティ内でメンバー募集のお手伝いをしています。" },
-            { question: "1人でゲーム実況や実況、講談○○ゲーム実況なども出演できますか？", answer: "はい、ジャンル不問ですので、説得力のあるPR動画をお送りください。面白いと思ったら何でも歓迎です！" }
-        ];
-        const qnaList = document.getElementById('qnaList');
-        if (qnaList) {
-            qnaList.innerHTML = qnaData.map(item => `
-                <div class="qna-item">
-                    <button class="qna-question" onclick="this.parentElement.classList.toggle('open')">
-                        <span>${item.question || ''}</span>
-                        <span class="qna-icon"></span>
-                    </button>
-                    <div class="qna-answer">
-                        <div class="qna-answer-inner">${item.answer || ''}</div>
-                    </div>
-                </div>
-            `).join('');
-        }
-        // Q&A Coming Soonを強制解除
-        const qnaSection = document.getElementById('qna');
-        if (qnaSection) {
-            qnaSection.classList.remove('is-coming-soon');
-        }
-    } catch(e) {
-        console.error('Q&A render error:', e);
-    }
-
-    // アーティスト情報を描画（LocalStorageまたはダミーデータ）
-    const storedData2 = getSiteData();
-    const artists = storedData2 && storedData2.artists ? storedData2.artists : artistsData;
-    renderArtists(artists);
-    
     // スムーススクロールを初期化
     initSmoothScroll();
     
@@ -604,28 +603,4 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('WA音祭サイト初期化完了');
 });
 
-// ===================================
-// API連携用の関数（将来の拡張用）
-// ===================================
-/**
- * MicroCMS等のAPIからアーティストデータを取得する関数（サンプル）
- * 実装時にはこの関数を使用してください
- */
-async function fetchArtistsFromAPI() {
-    try {
-        // 実際のAPIエンドポイントに置き換えてください
-        // const response = await fetch('https://your-microcms-endpoint.com/api/v1/artists', {
-        //     headers: {
-        //         'X-MICROCMS-API-KEY': 'YOUR_API_KEY'
-        //     }
-        // });
-        // const data = await response.json();
-        // renderArtists(data.contents);
-        
-        console.log('API連携はまだ実装されていません。ダミーデータを使用しています。');
-    } catch (error) {
-        console.error('API取得エラー:', error);
-        // エラー時はダミーデータを表示
-        renderArtists(artistsData);
-    }
-}
+

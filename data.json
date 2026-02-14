@@ -1,0 +1,177 @@
+{
+  "sectionFlags": {
+    "hero": false,
+    "concept": false,
+    "entry": false,
+    "qna": false,
+    "timetable": false,
+    "artists": false,
+    "goods": false,
+    "tickets": false,
+    "info": false,
+    "footer": false
+  },
+  "sectionHidden": {
+    "hero": false,
+    "concept": false,
+    "entry": false,
+    "qna": false,
+    "timetable": false,
+    "artists": false,
+    "goods": false,
+    "tickets": false,
+    "info": false,
+    "footer": false
+  },
+  "sectionOrder": [
+    "home",
+    "concept",
+    "entry",
+    "qna",
+    "timetable",
+    "artist",
+    "goods",
+    "tickets",
+    "information"
+  ],
+  "sectionTitles": {
+    "concept": { "en": "CONCEPT", "ja": "開催趣旨" },
+    "entry": { "en": "ENTRY", "ja": "出演募集" },
+    "qna": { "en": "Q&A", "ja": "よくある質問" },
+    "timetable": { "en": "TIMETABLE", "ja": "タイムテーブル" },
+    "artist": { "en": "ARTIST", "ja": "出演者" },
+    "goods": { "en": "GOODS", "ja": "グッズ" },
+    "tickets": { "en": "TICKETS", "ja": "チケット" },
+    "information": { "en": "INFORMATION", "ja": "開催概要" }
+  },
+  "comingSoonText": "Coming Soon",
+  "hero": {},
+  "concept": {
+    "bgImage": "",
+    "copyImage": "",
+    "texts": [
+      "オトナの皆さんへ。",
+      "あの時抱えていた衝動は、まだ燃えていますか。",
+      "祭りの輪をくぐれば、そこはもう",
+      "あなたの魂を解き放つ舞台です。",
+      "ここは、ダンス・歌を中心に、",
+      "コメディや映像作品など、幅広いエンタメに挑む場所。"
+    ]
+  },
+  "message": {
+    "text": "あなたの本気で、\nこの夜を動かそう。"
+  },
+  "info": {
+    "cards": [
+      {
+        "title": "日時",
+        "detail": "2026年7月12日（日）\n詳細はお問い合わせください"
+      },
+      {
+        "title": "会場",
+        "detail": "東京都新宿 HOLIDAY SHINJUKU\nアクセス：JR新宿駅東口から徒歩8〜10分"
+      },
+      {
+        "title": "観客チケット",
+        "detail": "詳細は決定次第発表予定\nグッズ販売あり"
+      },
+      {
+        "title": "お問い合わせ",
+        "detail": "Email: info@waonfes.jp\nTel: 03-XXXX-XXXX"
+      }
+    ]
+  },
+  "entry": {
+    "bgImage": "",
+    "lead": "WA音祭（わおんさい）は、皆で作る「大人の文化祭」です。\n現在、出演者を募集しています。\nジャンルは、歌・ダンスを中心に、\nバンド・大道芸・コメディ・映像・演劇など.......\n幅広い「エンタメ」のエントリーをお待ちしています。",
+    "requirements": [
+      "出演枠｜8〜9組",
+      "持ち時間｜10〜20分",
+      "形態｜1〜6名のチーム",
+      "備考｜地方＆海外オンライン出演OK！",
+      "応募締切｜2月28日（土）"
+    ],
+    "buttonText": "応募フォーム",
+    "buttonLink": "https://forms.gle/BRV8vJiQ9vdCodnL9",
+    "note": "必要事項｜PR動画 2〜3分　オーディション｜3月上旬開催　参加費｜5,000円"
+  },
+  "tickets": {
+    "items": [
+      {
+        "title": "一般",
+        "desc": "スタンディング / 再入場1回",
+        "price": "¥8,000"
+      },
+      {
+        "title": "学生",
+        "desc": "要学生証 / ドリンク1杯付き",
+        "price": "¥6,000"
+      },
+      {
+        "title": "VIP（限定特典）",
+        "desc": "前方リザーブ / バックステージ見学 / 記念ノベルティ",
+        "price": "¥15,000"
+      }
+    ],
+    "accessTitle": "ACCESS",
+    "accessCopy": "SHINJUKU SPECIAL STAGE（新宿駅から徒歩5分）"
+  },
+  "timetable": {
+    "items": [
+      { "time": "18:00", "title": "Opening Ceremonies", "detail": "開場・オープニングセレモニー" },
+      { "time": "18:30", "title": "Artist A", "detail": "和太鼓 × Drumstep" },
+      { "time": "19:30", "title": "Artist B", "detail": "尺八 × Future Bass" },
+      { "time": "20:30", "title": "Artist C", "detail": "琴 × Techno" },
+      { "time": "21:30", "title": "All-Star Session", "detail": "出演者全員によるコラボレーション" },
+      { "time": "22:30", "title": "Closing", "detail": "クロージング" }
+    ]
+  },
+  "artists": [
+    {
+      "id": "1",
+      "name": "出演者募集中",
+      "image": "https://placehold.jp/30/C3002F/ffffff/300x300.png?text=出演者募集",
+      "description": "WA音祭では様々なジャンルの出演者を募集しています。歌、ダンス、バンド、コメディ、映像、演劇など、あなたの才能を発揮できるチャンスです！",
+      "member": "",
+      "hidden": false
+    }
+  ],
+  "footer": {
+    "logo": "WA音祭",
+    "subtitle": "WAON FES",
+    "email": "info@waonfes.jp",
+    "tel": "03-XXXX-XXXX",
+    "copyright": "&copy; 2026 WA音祭（WAON FES）All Rights Reserved."
+  },
+  "qna": [
+    {
+      "question": "出演の応募条件はありますか？年齢や実績などの動画が必要ですか？",
+      "answer": "特別な応募条件はありません。5歳から応募可能です。PR動画2〜3分をご提出いただきます。"
+    },
+    {
+      "question": "SNSチャンネルやチャンネルをもっていないと参加できませんか？",
+      "answer": "SNSチャンネルは必須ではありません。ただし、集客につながるためあると望ましいです。"
+    },
+    {
+      "question": "バンドやチームでの参加の場合、メンバー人数に制限はありますか？",
+      "answer": "1〜6名までのチームでの参加が可能です。"
+    },
+    {
+      "question": "1人でチームを組みたいのですが、他のメンバーを探すサポートはありますか？",
+      "answer": "はい、コミュニティ内でメンバー募集のお手伝いをしています。"
+    },
+    {
+      "question": "1人でゲーム実況や実況、講談○○ゲーム実況なども出演できますか？",
+      "answer": "はい、ジャンル不問ですので、説得力のあるPR動画をお送りください。面白いと思ったら何でも歓迎です！"
+    }
+  ],
+  "goods": {
+    "items": [
+      { "name": "デモ未定", "image": "assets/media/black.png", "price": "¥5,000" },
+      { "name": "デモ未定", "image": "assets/media/black.png", "price": "¥5,000" },
+      { "name": "デモ未定", "image": "assets/media/black.png", "price": "¥5,000" }
+    ],
+    "note": "ここで決済が行われる想定の場所（※ ECサイトリンクでもOK）です",
+    "shopLink": ""
+  }
+}

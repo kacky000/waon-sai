@@ -19,6 +19,7 @@
         <div class="admin-container">
             <h1 class="admin-title">WA音祭 管理画面</h1>
             <div class="admin-actions">
+                <button id="publishBtn" class="btn btn-primary" onclick="publishToGitHub()" style="background: #238636; border-color: #238636;">サイトに公開する</button>
                 <a href="index.html" class="btn btn-secondary" target="_blank">プレビューを開く</a>
                 <button id="resetBtn" class="btn btn-danger">データをリセット</button>
             </div>
@@ -46,6 +47,7 @@
                         <li><a href="#titles" class="nav-link" data-section="titles">セクションタイトル</a></li>
                         <li><a href="#settings" class="nav-link" data-section="settings">その他設定</a></li>
                         <li><a href="#footer" class="nav-link" data-section="footer">フッター</a></li>
+                        <li style="margin-top: 12px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 12px;"><a href="#github" class="nav-link" data-section="github" style="color: #58a6ff;">GitHub連携</a></li>
                     </ul>
                 </nav>
             </aside>
@@ -397,6 +399,39 @@
                     </div>
 
                     <button class="btn btn-primary" onclick="saveSection('footer')">保存</button>
+                </div>
+
+                <!-- GitHub連携パネル -->
+                <div class="edit-panel" id="github" data-section="github">
+                    <h2 class="panel-title">GitHub連携設定</h2>
+                    <p style="color: var(--text-secondary); margin-bottom: 16px;">管理画面で編集したデータを GitHub リポジトリの <code>data.json</code> にコミットします。<br>GitHub Pages や外部サーバーでホスティングしている場合、全員に反映されます。</p>
+
+                    <div class="form-group">
+                        <label for="ghOwner">リポジトリオーナー（ユーザー名 or 組織名）</label>
+                        <input type="text" id="ghOwner" class="form-input" placeholder="例：kacky000">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ghRepo">リポジトリ名</label>
+                        <input type="text" id="ghRepo" class="form-input" placeholder="例：waon-sai">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ghBranch">ブランチ</label>
+                        <input type="text" id="ghBranch" class="form-input" placeholder="main" value="main">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ghToken">Personal Access Token</label>
+                        <input type="password" id="ghToken" class="form-input" placeholder="ghp_xxxxxxxxxxxx">
+                        <p class="form-hint" style="margin-top: 4px; font-size: 12px; color: #8b949e;">
+                            GitHub &gt; Settings &gt; Developer settings &gt; Personal access tokens &gt; Fine-grained tokensで作成。<br>
+                            必要な権限: <strong>Contents (Read and write)</strong>。トークンはこのブラウザのlocalStorageにのみ保存されます。
+                        </p>
+                    </div>
+
+                    <button class="btn btn-primary" onclick="saveGitHubSettings()">設定を保存</button>
+                    <button class="btn btn-primary" onclick="publishToGitHub()" style="margin-left: 8px; background: #238636; border-color: #238636;">今すぐ公開</button>
                 </div>
             </section>
         </div>

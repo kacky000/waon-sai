@@ -317,6 +317,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 最初のセクションをロード
     loadSection('hero');
+
+    // GitHub設定を読み込み
+    loadGitHubSettings();
 });
 
 // ===================================
@@ -402,6 +405,8 @@ function loadSection(section) {
         if (goodsShopLink) goodsShopLink.value = data.goods?.shopLink || '';
         const flag = document.getElementById('comingSoon-goods');
         if (flag) flag.checked = !!data.sectionFlags.goods;
+    } else if (section === 'github') {
+        loadGitHubSettings();
     }
 
     // 非表示フラグの読み込み（全セクション共通）
@@ -1153,4 +1158,121 @@ function showNotification(message, type = 'success') {
     setTimeout(() => {
         notification.remove();
     }, 3000);
+}
+
+// ===================================
+// GitHub API でサイトデータを公開
+// ===================================
+
+// GitHub設定を localStorage に保持
+const GH_CONFIG_KEY = 'waonfes-github-config';
+
+function getGitHubConfig() {
+    const stored = localStorage.getItem(GH_CONFIG_KEY);
+    return stored ? JSON.parse(stored) : { token: '', owner: '', repo: '', branch: 'main' };
+}
+
+function saveGitHubConfig(config) {
+    localStorage.setItem(GH_CONFIG_KEY, JSON.stringify(config));
+}
+
+/**
+ * 管理画面で編集中のデータを GitHub リポジトリの data.json にコミットする。
+ * GitHub Pages 等で配信している場合、数十秒～数分で全員に反映される。
+ */
+async function publishToGitHub() {
+    const config = getGitHubConfig();
+    if (!config.token || !config.owner || !config.repo) {
+        showNotification('GitHub設定が未入力です。「GitHub連携」パネルで設定してください。', 'error');
+        return;
+    }
+
+    const publishBtn = document.getElementById('publishBtn');
+    if (publishBtn) {
+        publishBtn.disabled = true;
+        publishBtn.textContent = '公開中...';
+    }
+
+    try {
+        const data = getStorageData();
+        const jsonContent = JSON.stringify(data, null, 4);
+        const base64Content = btoa(unescape(encodeURIComponent(jsonContent)));
+
+        const apiBase = `https://api.github.com/repos/${config.owner}/${config.repo}/contents/data.json`;
+        const headers = {
+            'Authorization': `token ${config.token}`,
+            'Content-Type': 'application/json',
+            'Accept': 'application/vnd.github.v3+json'
+        };
+
+        // 既存ファイルの SHA を取得（更新時に必要）
+        let sha = null;
+        try {
+            const getRes = await fetch(`${apiBase}?ref=${config.branch}`, { headers });
+            if (getRes.ok) {
+                const fileInfo = await getRes.json();
+                sha = fileInfo.sha;
+            }
+        } catch (e) {
+            // ファイルが存在しない場合は新規作成になるので無視
+        }
+
+        // data.json をコミット
+        const body = {
+            message: '管理画面からサイトデータを更新',
+            content: base64Content,
+            branch: config.branch
+        };
+        if (sha) body.sha = sha;
+
+        const putRes = await fetch(apiBase, {
+            method: 'PUT',
+            headers,
+            body: JSON.stringify(body)
+        });
+
+        if (!putRes.ok) {
+            const errBody = await putRes.json().catch(() => ({}));
+            throw new Error(errBody.message || `HTTP ${putRes.status}`);
+        }
+
+        showNotification('サイトに公開しました！（反映まで数十秒かかる場合があります）', 'success');
+    } catch (error) {
+        console.error('GitHub publish error:', error);
+        showNotification(`公開に失敗しました: ${error.message}`, 'error');
+    } finally {
+        if (publishBtn) {
+            publishBtn.disabled = false;
+            publishBtn.textContent = 'サイトに公開する';
+        }
+    }
+}
+
+/**
+ * GitHub連携設定を保存
+ */
+function saveGitHubSettings() {
+    const config = {
+        token: document.getElementById('ghToken')?.value || '',
+        owner: document.getElementById('ghOwner')?.value || '',
+        repo: document.getElementById('ghRepo')?.value || '',
+        branch: document.getElementById('ghBranch')?.value || 'main'
+    };
+    saveGitHubConfig(config);
+    showNotification('GitHub設定を保存しました。', 'success');
+}
+
+/**
+ * GitHub連携設定をフォームに読み込み
+ */
+function loadGitHubSettings() {
+    const config = getGitHubConfig();
+    const ghToken = document.getElementById('ghToken');
+    const ghOwner = document.getElementById('ghOwner');
+    const ghRepo = document.getElementById('ghRepo');
+    const ghBranch = document.getElementById('ghBranch');
+    if (ghToken) ghToken.value = config.token || '';
+    if (ghOwner) ghOwner.value = config.owner || '';
+    if (ghRepo) ghRepo.value = config.repo || '';
+    if (ghBranch) ghBranch.value = config.branch || 'main';
 }
