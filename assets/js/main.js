@@ -208,7 +208,7 @@ function loadContentFromStorage() {
             <div class="qna-item">
                 <button class="qna-question" onclick="this.parentElement.classList.toggle('open')">
                     <span>${item.question || ''}</span>
-                    <span class="qna-icon">&#x2304;</span>
+                    <span class="qna-icon"></span>
                 </button>
                 <div class="qna-answer">
                     <div class="qna-answer-inner">${item.answer || ''}</div>
@@ -546,7 +546,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="qna-item">
                     <button class="qna-question" onclick="this.parentElement.classList.toggle('open')">
                         <span>${item.question || ''}</span>
-                        <span class="qna-icon">&#x2304;</span>
+                        <span class="qna-icon"></span>
                     </button>
                     <div class="qna-answer">
                         <div class="qna-answer-inner">${item.answer || ''}</div>
