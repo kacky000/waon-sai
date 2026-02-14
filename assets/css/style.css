@@ -577,7 +577,7 @@ ul {
 
 .qna-item {
     background: #2a2a2e;
-    border-radius: 8px;
+    border-radius: 0;
     overflow: hidden;
 }
 
