@@ -61,50 +61,26 @@ function loadContentFromStorage() {
     const data = getSiteData();
     if (!data) return; // LocalStorageにデータがない場合はスキップ
 
-    // ヘロー
-    if (data.hero) {
-        const hero = data.hero;
-        const heroElement = document.querySelector('.hero');
-        const heroTitle = document.getElementById('heroTitle');
-        if (heroTitle) heroTitle.textContent = hero.title;
-        const heroSubtitle = document.getElementById('heroSubtitle');
-        if (heroSubtitle) heroSubtitle.textContent = hero.subtitle;
-        const heroCatchphrase = document.getElementById('heroCatchphrase');
-        if (heroCatchphrase) heroCatchphrase.textContent = hero.catchphrase;
-        const heroDate = document.getElementById('heroDate');
-        if (heroDate) heroDate.textContent = hero.date;
-        const heroVenue = document.getElementById('heroVenue');
-        if (heroVenue) heroVenue.textContent = hero.venue;
-        if (heroElement) {
-            if (hero.image && hero.image.trim() !== '') {
-                heroElement.style.backgroundImage = `url("${hero.image}")`;
-                heroElement.style.backgroundPosition = 'center';
-                heroElement.style.backgroundSize = 'cover';
-                heroElement.style.backgroundRepeat = 'no-repeat';
-            } else {
-                heroElement.style.backgroundImage = '';
-                heroElement.style.backgroundPosition = '';
-                heroElement.style.backgroundSize = '';
-                heroElement.style.backgroundRepeat = '';
-            }
-        }
-    }
+    // TOP（トップ）
+    // 動画はHTMLに直接埋め込み済み、管理画面からの差し替え不要
 
     // コンセプト
     if (data.concept) {
         const concept = data.concept;
+        const conceptDecoration = document.getElementById('conceptDecoration');
+        if (conceptDecoration && concept.decoration) {
+            conceptDecoration.innerHTML = concept.decoration.replace(/\n/g, '<br>');
+        }
         const conceptLead = document.getElementById('conceptLead');
-        if (conceptLead) conceptLead.textContent = concept.lead;
+        if (conceptLead && concept.lead) {
+            conceptLead.innerHTML = concept.lead.replace(/\n/g, '<br>');
+        }
         const conceptTextList = document.getElementById('conceptTextList');
         if (conceptTextList) {
             const texts = Array.isArray(concept.texts)
                 ? concept.texts
                 : [concept.text1, concept.text2, concept.text3].filter(Boolean);
             conceptTextList.innerHTML = texts.map(text => `<p>${text}</p>`).join('');
-        }
-        const verticalText = document.querySelector('.vertical-text');
-        if (verticalText && concept.decoration) {
-            verticalText.textContent = concept.decoration;
         }
     }
 
@@ -142,6 +118,8 @@ function loadContentFromStorage() {
         }
         const entryNote = document.getElementById('entryNote');
         if (entryNote) entryNote.textContent = entry.note;
+        const entryFee = document.getElementById('entryFee');
+        if (entryFee) entryFee.textContent = entry.participationFee || '';
     }
 
     // タイムテーブル
@@ -195,13 +173,51 @@ function loadContentFromStorage() {
         }
     }
 
+    // Q&A
+    if (data.qna && Array.isArray(data.qna)) {
+        const qnaList = document.getElementById('qnaList');
+        if (qnaList) {
+            qnaList.innerHTML = data.qna.map(item => `
+                <div class="qna-item">
+                    <button class="qna-question" onclick="this.parentElement.classList.toggle('open')">
+                        <span class="qna-icon">+</span>
+                        <span>${item.question || ''}</span>
+                    </button>
+                    <div class="qna-answer">
+                        <div class="qna-answer-inner">${item.answer || ''}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+    }
+
+    // Goods
+    if (data.goods) {
+        const goodsList = document.getElementById('goodsList');
+        if (goodsList && data.goods.items) {
+            goodsList.innerHTML = data.goods.items.map(item => `
+                <div class="goods-card">
+                    <img src="${item.image || ''}" alt="${item.name || ''}" class="goods-card-image" loading="lazy">
+                    <div class="goods-card-info">
+                        <p class="goods-card-name">${item.name || ''}</p>
+                        <p class="goods-card-price">${item.price || ''}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+        const goodsNote = document.getElementById('goodsNote');
+        if (goodsNote && data.goods.note) goodsNote.textContent = data.goods.note;
+    }
+
     // Coming Soon
     if (data.sectionFlags) {
         setSectionComingSoon(document.getElementById('home'), data.sectionFlags.hero);
         setSectionComingSoon(document.getElementById('concept'), data.sectionFlags.concept);
         setSectionComingSoon(document.getElementById('entry'), data.sectionFlags.entry);
+        setSectionComingSoon(document.getElementById('qna'), data.sectionFlags.qna);
         setSectionComingSoon(document.getElementById('timetable'), data.sectionFlags.timetable);
         setSectionComingSoon(document.getElementById('artist'), data.sectionFlags.artists);
+        setSectionComingSoon(document.getElementById('goods'), data.sectionFlags.goods);
         setSectionComingSoon(document.getElementById('tickets'), data.sectionFlags.tickets);
         setSectionComingSoon(document.getElementById('information'), data.sectionFlags.info);
         setSectionComingSoon(document.querySelector('.footer'), data.sectionFlags.footer);
@@ -231,12 +247,13 @@ function loadContentFromStorage() {
 }
 
 const SECTION_LABELS = {
-    home: 'HOME',
+    home: 'TOP',
     concept: 'CONCEPT',
     entry: 'ENTRY',
     timetable: 'TIMETABLE',
     artist: 'ARTIST',
-    tickets: 'TICKETS',
+    goods: 'GOODS',
+    tickets: 'TICKET',
     information: 'INFO'
 };
 
@@ -282,8 +299,10 @@ function updateSectionTitles(titles) {
     const sectionIdMap = {
         concept: '#concept',
         entry: '#entry',
+        qna: '#qna',
         timetable: '#timetable',
         artist: '#artist',
+        goods: '#goods',
         tickets: '#tickets',
         information: '#information'
     };
@@ -340,9 +359,9 @@ function renderArtists(data) {
         return `
             <article class="artist-card" data-artist-id="${artist.id}">
                 <img src="${artist.image}" alt="${artist.name}" class="artist-image" loading="lazy">
-                <div class="artist-info">
+                <div class="artist-overlay">
                     <h3 class="artist-name">${artist.name}</h3>
-                    ${(artist.member || artist.area) ? `<p class="artist-area">メンバー：${artist.member || artist.area}</p>` : ''}
+                    ${(artist.member || artist.area) ? `<p class="artist-area">${artist.member || artist.area}</p>` : ''}
                     <p class="artist-description">${artist.description}</p>
                 </div>
             </article>

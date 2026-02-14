@@ -15,11 +15,13 @@
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-    <!-- Header / Hero Area -->
+    <!-- Header / Top Area -->
     <header class="hero" id="home">
+        <video class="hero-video" autoplay muted loop playsinline>
+            <source src="assets/media/top-video.mp4" type="video/mp4">
+        </video>
         <div class="hero-overlay"></div>
-                <div class="hero-content section-body"></div>
-                <div class="section-coming-soon" data-section="home">Coming Soon</div>
+        <div class="section-coming-soon" data-section="home">Coming Soon</div>
     </header>
 
     <!-- Navigation -->
@@ -31,11 +33,12 @@
                 <span></span>
             </button>
             <ul class="nav-list" id="navMenu">
-                <li><a href="#home">HOME</a></li>
                 <li><a href="#concept">CONCEPT</a></li>
                 <li><a href="#entry">ENTRY</a></li>
+                <li><a href="#timetable">TIMETABLE</a></li>
                 <li><a href="#artist">ARTIST</a></li>
-                <li><a href="#tickets">TICKETS</a></li>
+                <li><a href="#goods">GOODS</a></li>
+                <li><a href="#tickets">TICKET</a></li>
                 <li><a href="#information">INFO</a></li>
             </ul>
         </div>
@@ -46,23 +49,19 @@
     <main>
         <!-- Concept Section -->
         <section class="section concept" id="concept" data-section-key="concept">
-            <div class="container">
-                <h2 class="section-title">
-                    <span class="title-en">CONCEPT</span>
-                    <span class="title-ja">開催趣旨</span>
-                </h2>
-                <div class="section-coming-soon" data-section="concept">Coming Soon</div>
-                <div class="section-body">
-                    <div class="concept-content">
-                        <div class="concept-text">
-                            <p class="concept-lead" id="conceptLead">
-                                ダンス・歌を中心にそれ以外の出し物も検討中です
-                            </p>
-                            <div class="concept-text-list" id="conceptTextList"></div>
-                        </div>
-                        <div class="concept-decoration">
-                            <span class="vertical-text">いい大人の、本気のエンタメ・チャレンジ</span>
-                        </div>
+            <div class="concept-hero">
+                <img src="assets/media/concept.png" alt="" class="concept-hero-bg">
+                <div class="concept-hero-overlay"></div>
+                <div class="concept-hero-text">
+                    <p class="concept-catchphrase" id="conceptDecoration">いい大人の、本気の<br>エンタメチャレンジ。</p>
+                </div>
+            </div>
+            <div class="section-coming-soon" data-section="concept">Coming Soon</div>
+            <div class="section-body">
+                <div class="container">
+                    <div class="concept-body">
+                        <div class="concept-text-list" id="conceptTextList"></div>
+                        <p class="concept-cta" id="conceptLead">あなたの本気で、<br>この夜を動かそう。</p>
                     </div>
                 </div>
             </div>
@@ -70,6 +69,7 @@
 
         <!-- Entry Section -->
         <section class="section entry" id="entry" data-section-key="entry">
+            <div class="entry-top-gradient"></div>
             <div class="container">
                 <h2 class="section-title">
                     <span class="title-en">ENTRY</span>
@@ -78,12 +78,34 @@
                 <div class="section-coming-soon" data-section="entry">Coming Soon</div>
                 <div class="section-body">
                     <div class="entry-content">
-                        <p class="entry-lead" id="entryLead" style="white-space: pre-line;">
-                            みんなで作る大人の音楽祭！！
-出演募集ジャンル：歌・ダンス、バンド・大道芸、コメディ・映像・演劇など
-                        </p>
+                        <p class="entry-lead" id="entryLead" style="white-space: pre-line;">WA音祭（わおんさい）は、観て作る「大人の文化祭」です。
+歌・ダンス・バンド・大道芸・コメディ・映像・演劇など
+ジャンル不問、出演者エントリー受付中！</p>
+
+                        <div class="entry-icons">
+                            <div class="entry-icon-item">
+                                <img src="assets/media/icon-01 1.png" alt="MUSIC">
+                                <span>MUSIC</span>
+                            </div>
+                            <div class="entry-icon-item">
+                                <img src="assets/media/icon-02 1.png" alt="DANCE">
+                                <span>DANCE</span>
+                            </div>
+                            <div class="entry-icon-item">
+                                <img src="assets/media/icon-03 1.png" alt="COMEDY">
+                                <span>COMEDY</span>
+                            </div>
+                            <div class="entry-icon-item">
+                                <img src="assets/media/icon-04 1.png" alt="PERFORMANCE">
+                                <span>PERFORMANCE</span>
+                            </div>
+                        </div>
+
+                        <div class="entry-cta">
+                            <a href="https://forms.gle/BRV8vJiQ9vdCodnL9" id="entryButton" class="btn btn-primary">応募フォーム</a>
+                        </div>
+
                         <div class="entry-requirements">
-                            <h3>募集要項</h3>
                             <ul class="requirements-list" id="entryRequirementsList">
                                 <li>出演枠：8〜9組</li>
                                 <li>持ち時間：10〜20分</li>
@@ -92,15 +114,27 @@
                                 <li>応募締切：2月28日（土）</li>
                             </ul>
                         </div>
-                        <div class="entry-cta">
-                            <a href="https://forms.gle/BRV8vJiQ9vdCodnL9" id="entryButton" class="btn btn-primary">応募フォーム</a>
-                        </div>
-                        <p class="entry-note" id="entryNote" style="white-space: pre-line;">
-応募方法：専用フォーム（https://forms.gle/BRV8vJiQ9vdCodnL9）より
+
+                        <p class="entry-note" id="entryNote" style="white-space: pre-line;">応募方法：専用フォームより
 必要事項：PR動画 2〜3分
-オーディション：3月上旬開催
-参加費：5,000円
-                        </p>
+オーディション：3月上旬開催</p>
+                        <p class="entry-fee" id="entryFee">参加費：5,000円</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Q&A Section -->
+        <section class="section qna" id="qna" data-section-key="qna">
+            <div class="container">
+                <h2 class="section-title">
+                    <span class="title-en">Q&A</span>
+                    <span class="title-ja">よくある質問</span>
+                </h2>
+                <div class="section-coming-soon" data-section="qna">Coming Soon</div>
+                <div class="section-body">
+                    <div class="qna-list" id="qnaList">
+                        <!-- JavaScriptで動的に生成 -->
                     </div>
                 </div>
             </div>
@@ -138,6 +172,23 @@
             </div>
         </section>
 
+        <!-- Goods Section -->
+        <section class="section goods" id="goods" data-section-key="goods">
+            <div class="container">
+                <h2 class="section-title">
+                    <span class="title-en">GOODS</span>
+                    <span class="title-ja">グッズ</span>
+                </h2>
+                <div class="section-coming-soon" data-section="goods">Coming Soon</div>
+                <div class="section-body">
+                    <div class="goods-grid" id="goodsList">
+                        <!-- JavaScriptで動的に生成 -->
+                    </div>
+                    <p class="goods-note" id="goodsNote">ここで決済が行われる想定の場所（※ ECサイトリンクでもOK）です</p>
+                </div>
+            </div>
+        </section>
+
         <section id="tickets" class="section" data-section-key="tickets">
             <div class="container">
                 <h2 class="section-title">
@@ -169,6 +220,9 @@
                 <div class="section-coming-soon" data-section="info">Coming Soon</div>
                 <div class="section-body">
                     <div class="info-grid" id="infoGrid"></div>
+                    <div class="info-contact" id="infoContact">
+                        <p>Email: <span id="infoEmail">info@waonfes.jp</span> ｜ Tel: <span id="infoTel">03-XXXX-XXXX</span></p>
+                    </div>
                     <div class="map-container">
                         <iframe 
                             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3240.206406934638!2d139.69854931525893!3d35.694003980192975!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60188cd0d6b1ba1f%3A0x1c32a1f665e6db8c!2z5paw5a6_!5e0!3m2!1sja!2sjp!4v1234567890123!5m2!1sja!2sjp" 
@@ -183,57 +237,6 @@
                 </div>
             </div>
         </section>
-
-        <!-- Information Section -->
-        <section class="section information" id="information">
-            <div class="container">
-                <h2 class="section-title">
-                    <span class="title-en">INFORMATION</span>
-                    <span class="title-ja">開催概要</span>
-                </h2>
-                <div class="info-grid">
-                    <div class="info-card">
-                        <h3 class="info-title">日時</h3>
-                        <p class="info-detail">
-                            <span id="infoDate">2026年7月12日（日）</span><br>
-                            <span id="infoTime">詳細はお問い合わせください</span>
-                        </p>
-                    </div>
-                    <div class="info-card">
-                        <h3 class="info-title">会場</h3>
-                        <p class="info-detail">
-                            <span id="infoVenueName">東京都新宿 HOLIDAY SHINJUKU</span><br>
-                            <span id="infoVenueAddress" style="white-space: pre-line;">アクセス：JR新宿駅東口から徒歩8〜10分</span>
-                        </p>
-                    </div>
-                    <div class="info-card">
-                        <h3 class="info-title">観客チケット</h3>
-                        <p class="info-detail">
-                            <span id="infoPriceAdvance">詳細は決定次第発表予定</span><br>
-                            <span id="infoPriceDay">グッズ販売あり</span>
-                        </p>
-                    </div>
-                    <div class="info-card">
-                        <h3 class="info-title">お問い合わせ</h3>
-                        <p class="info-detail">
-                            Email: <span id="infoEmail">info@waonfes.jp</span><br>
-                            Tel: <span id="infoTel">03-XXXX-XXXX</span>
-                        </p>
-                    </div>
-                </div>
-                <div class="map-container">
-                    <iframe 
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3240.206406934638!2d139.69854931525893!3d35.694003980192975!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60188cd0d6b1ba1f%3A0x1c32a1f665e6db8c!2z5paw5a6_!5e0!3m2!1sja!2sjp!4v1234567890123!5m2!1sja!2sjp" 
-                        width="100%" 
-                        height="400" 
-                        style="border:0;" 
-                        allowfullscreen="" 
-                        loading="lazy"
-                        title="新宿HOLIDAY 地図">
-                    </iframe>
-                </div>
-            </div>
-        </section>
     </main>
 
     <!-- Footer -->
@@ -243,21 +246,21 @@
             <div class="section-body">
                 <div class="footer-content">
                     <div class="footer-logo">
-                        <h3 id="footerLogo">WA音祭</h3>
-                        <p id="footerSubtitle">WAON FES</p>
-                    </div>
-                    <div class="footer-links" id="footerLinks">
-                        <a href="#home">HOME</a>
-                        <a href="#concept">CONCEPT</a>
-                        <a href="#entry">ENTRY</a>
-                        <a href="#artist">ARTIST</a>
-                        <a href="#tickets">TICKETS</a>
-                        <a href="#information">INFO</a>
+                        <img src="assets/media/white.png" alt="WA音祭" class="footer-logo-img">
                     </div>
                     <div class="footer-contact">
                         <p>Email: <span id="footerEmail">info@waonfes.jp</span></p>
                         <p>Tel: <span id="footerTel">03-XXXX-XXXX</span></p>
                     </div>
+                </div>
+                <div class="footer-links" id="footerLinks">
+                    <a href="#concept">CONCEPT</a>
+                    <a href="#entry">ENTRY</a>
+                    <a href="#timetable">TIMETABLE</a>
+                    <a href="#artist">ARTIST</a>
+                    <a href="#goods">GOODS</a>
+                    <a href="#tickets">TICKET</a>
+                    <a href="#information">INFO</a>
                 </div>
                 <div class="footer-copyright">
                     <p id="footerCopyright">&copy; 2026 WA音祭（WAON FES）All Rights Reserved.</p>

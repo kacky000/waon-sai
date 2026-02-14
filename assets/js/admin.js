@@ -8,8 +8,10 @@ const defaultData = {
         hero: false,
         concept: false,
         entry: false,
+        qna: false,
         timetable: false,
         artists: false,
+        goods: false,
         tickets: false,
         info: false,
         footer: false
@@ -18,28 +20,25 @@ const defaultData = {
         "home",
         "concept",
         "entry",
+        "qna",
         "timetable",
         "artist",
+        "goods",
         "tickets",
         "information"
     ],
     sectionTitles: {
         concept: { en: "CONCEPT", ja: "開催趣旨" },
         entry: { en: "ENTRY", ja: "出演者募集" },
+        qna: { en: "Q&A", ja: "よくある質問" },
         timetable: { en: "TIMETABLE", ja: "タイムテーブル" },
         artist: { en: "ARTIST", ja: "出演者" },
+        goods: { en: "GOODS", ja: "グッズ" },
         tickets: { en: "TICKETS", ja: "チケット" },
         information: { en: "INFORMATION", ja: "開催概要" }
     },
     comingSoonText: "Coming Soon",
-    hero: {
-        title: "WA音祭",
-        subtitle: "WAON FES",
-        catchphrase: "いい大人の、本気のエンタメ・チャレンジ",
-        date: "2026年7月12日（日）",
-        venue: "東京都新宿 HOLIDAY SHINJUKU",
-        image: "assets/media/thumb-02.png"
-    },
+    hero: {},
     concept: {
         lead: "ダンス・歌を中心にそれ以外の出し物も検討中です",
         decoration: "いい大人の、本気のエンタメ・チャレンジ",
@@ -80,7 +79,8 @@ const defaultData = {
         ],
         buttonText: "応募フォーム",
         buttonLink: "https://forms.gle/BRV8vJiQ9vdCodnL9",
-        note: "応募方法：専用フォームより\n必要事項：PR動画 2〜3分\nオーディション：3月上旬開催"
+        note: "応募方法：専用フォームより\n必要事項：PR動画 2〜3分\nオーディション：3月上旬開催",
+        participationFee: "参加費：5,000円"
     },
     tickets: {
         items: [
@@ -129,6 +129,37 @@ const defaultData = {
         email: "info@waonfes.jp",
         tel: "03-XXXX-XXXX",
         copyright: "&copy; 2026 WA音祭（WAON FES）All Rights Reserved."
+    },
+    qna: [
+        {
+            question: "出演の応募条件はありますか？年齢や実績などの動画が必要ですか？",
+            answer: "特別な応募条件はありません。5歳から応募可能です。PR動画2〜3分をご提出いただきます。"
+        },
+        {
+            question: "SNSチャンネルやチャンネルをもっていないと参加できませんか？",
+            answer: "SNSチャンネルは必須ではありません。ただし、集客につながるためあると望ましいです。"
+        },
+        {
+            question: "バンドやチームでの参加の場合、メンバー人数に制限はありますか？",
+            answer: "1〜6名までのチームでの参加が可能です。"
+        },
+        {
+            question: "1人でチームを組みたいのですが、他のメンバーを探すサポートはありますか？",
+            answer: "はい、コミュニティ内でメンバー募集のお手伝いをしています。"
+        },
+        {
+            question: "1人でゲーム実況や実況、講談○○ゲーム実況なども出演できますか？",
+            answer: "はい、ジャンル不問ですので、説得力のあるPR動画をお送りください。面白いと思ったら何でも歓迎です！"
+        }
+    ],
+    goods: {
+        items: [
+            { name: "デモ未定", image: "assets/media/black.png", price: "¥5,000" },
+            { name: "デモ未定", image: "assets/media/black.png", price: "¥5,000" },
+            { name: "デモ未定", image: "assets/media/black.png", price: "¥5,000" }
+        ],
+        note: "ここで決済が行われる想定の場所（※ ECサイトリンクでもOK）です",
+        shopLink: ""
     }
 };
 
@@ -216,6 +247,14 @@ function getStorageData() {
         data.tickets.accessTitle = 'ACCESS';
     }
 
+    if (!Array.isArray(data.qna)) {
+        data.qna = JSON.parse(JSON.stringify(defaultData.qna));
+    }
+
+    if (!data.goods) {
+        data.goods = JSON.parse(JSON.stringify(defaultData.goods));
+    }
+
     return data;
 }
 
@@ -269,15 +308,6 @@ function loadSection(section) {
     const data = getStorageData();
     
     if (section === 'hero') {
-        document.getElementById('heroTitle').value = data.hero.title;
-        document.getElementById('heroSubtitle').value = data.hero.subtitle;
-        document.getElementById('heroCatchphrase').value = data.hero.catchphrase;
-        document.getElementById('heroDate').value = data.hero.date;
-        document.getElementById('heroVenue').value = data.hero.venue;
-        const heroImageInput = document.getElementById('heroImage');
-        if (heroImageInput) heroImageInput.value = '';
-        const heroImageCurrent = document.getElementById('heroImageCurrent');
-        if (heroImageCurrent) heroImageCurrent.textContent = data.hero.image || '未設定';
         const flag = document.getElementById('comingSoon-hero');
         if (flag) flag.checked = !!data.sectionFlags.hero;
     } else if (section === 'concept') {
@@ -295,6 +325,8 @@ function loadSection(section) {
         document.getElementById('entryButtonText').value = data.entry.buttonText;
         document.getElementById('entryButtonLink').value = data.entry.buttonLink;
         document.getElementById('entryNote').value = data.entry.note;
+        const entryFee = document.getElementById('entryParticipationFee');
+        if (entryFee) entryFee.value = data.entry.participationFee || '';
         renderEntryRequirements(data.entry.requirements || []);
         const flag = document.getElementById('comingSoon-entry');
         if (flag) flag.checked = !!data.sectionFlags.entry;
@@ -328,6 +360,18 @@ function loadSection(section) {
         document.getElementById('comingSoonText').value = data.comingSoonText || 'Coming Soon';
         const ticketsAccessTitle = document.getElementById('ticketsAccessTitle');
         if (ticketsAccessTitle) ticketsAccessTitle.value = data.tickets?.accessTitle || 'ACCESS';
+    } else if (section === 'qna') {
+        renderQnaCards(data.qna || []);
+        const flag = document.getElementById('comingSoon-qna');
+        if (flag) flag.checked = !!data.sectionFlags.qna;
+    } else if (section === 'goods') {
+        renderGoodsCards(data.goods?.items || []);
+        const goodsNote = document.getElementById('goodsNoteInput');
+        if (goodsNote) goodsNote.value = data.goods?.note || '';
+        const goodsShopLink = document.getElementById('goodsShopLink');
+        if (goodsShopLink) goodsShopLink.value = data.goods?.shopLink || '';
+        const flag = document.getElementById('comingSoon-goods');
+        if (flag) flag.checked = !!data.sectionFlags.goods;
     }
 }
 
@@ -339,36 +383,6 @@ function saveSection(section) {
     
     try {
         if (section === 'hero') {
-            const heroImageInput = document.getElementById('heroImage');
-            const heroPayload = {
-                title: document.getElementById('heroTitle').value,
-                subtitle: document.getElementById('heroSubtitle').value,
-                catchphrase: document.getElementById('heroCatchphrase').value,
-                date: document.getElementById('heroDate').value,
-                venue: document.getElementById('heroVenue').value,
-                image: data.hero.image || ''
-            };
-
-            if (heroImageInput && heroImageInput.files && heroImageInput.files[0]) {
-                const file = heroImageInput.files[0];
-                const reader = new FileReader();
-                reader.onload = () => {
-                    heroPayload.image = reader.result;
-                    data.hero = heroPayload;
-                    data.sectionFlags.hero = document.getElementById('comingSoon-hero')?.checked || false;
-                    saveToStorage(data);
-                    showNotification('保存しました！', 'success');
-                    loadSection('hero');
-                };
-                reader.onerror = () => {
-                    console.error('Error reading hero image file');
-                    showNotification('画像の読み込みに失敗しました。', 'error');
-                };
-                reader.readAsDataURL(file);
-                return;
-            }
-
-            data.hero = heroPayload;
             data.sectionFlags.hero = document.getElementById('comingSoon-hero')?.checked || false;
         } else if (section === 'concept') {
             data.concept = {
@@ -388,7 +402,8 @@ function saveSection(section) {
                 requirements: collectEntryRequirements(),
                 buttonText: document.getElementById('entryButtonText').value,
                 buttonLink: document.getElementById('entryButtonLink').value,
-                note: document.getElementById('entryNote').value
+                note: document.getElementById('entryNote').value,
+                participationFee: document.getElementById('entryParticipationFee').value
             };
             data.sectionFlags.entry = document.getElementById('comingSoon-entry')?.checked || false;
         } else if (section === 'timetable') {
@@ -423,6 +438,16 @@ function saveSection(section) {
             if (data.tickets) {
                 data.tickets.accessTitle = document.getElementById('ticketsAccessTitle').value;
             }
+        } else if (section === 'qna') {
+            data.qna = collectQnaItems();
+            data.sectionFlags.qna = document.getElementById('comingSoon-qna')?.checked || false;
+        } else if (section === 'goods') {
+            data.goods = {
+                items: collectGoodsItems(),
+                note: document.getElementById('goodsNoteInput')?.value || '',
+                shopLink: document.getElementById('goodsShopLink')?.value || ''
+            };
+            data.sectionFlags.goods = document.getElementById('comingSoon-goods')?.checked || false;
         }
         
         saveToStorage(data);
@@ -683,12 +708,14 @@ function removeTicket(index) {
 // セクション順管理
 // ===================================
 const SECTION_LABELS = {
-    home: 'HOME',
+    home: 'TOP',
     concept: 'CONCEPT',
     entry: 'ENTRY',
+    qna: 'Q&A',
     timetable: 'TIMETABLE',
     artist: 'ARTIST',
-    tickets: 'TICKETS',
+    goods: 'GOODS',
+    tickets: 'TICKET',
     information: 'INFO'
 };
 
@@ -847,7 +874,7 @@ function renderSectionTitles(titles) {
     if (!container) return;
     container.innerHTML = '';
 
-    const sections = ['concept', 'entry', 'timetable', 'artist', 'tickets', 'information'];
+    const sections = ['concept', 'entry', 'qna', 'timetable', 'artist', 'goods', 'tickets', 'information'];
     sections.forEach(key => {
         const title = titles[key] || { en: '', ja: '' };
         const row = document.createElement('div');
@@ -869,7 +896,7 @@ function renderSectionTitles(titles) {
 
 function collectSectionTitles() {
     const titles = {};
-    const sections = ['concept', 'entry', 'timetable', 'artist', 'tickets', 'information'];
+    const sections = ['concept', 'entry', 'qna', 'timetable', 'artist', 'goods', 'tickets', 'information'];
     
     sections.forEach(key => {
         const enInput = document.querySelector(`.section-title-en[data-section="${key}"]`);
@@ -881,6 +908,133 @@ function collectSectionTitles() {
     });
     
     return titles;
+}
+
+// ===================================
+// Goods管理
+// ===================================
+function renderGoodsCards(items) {
+    const container = document.getElementById('goodsContainer');
+    if (!container) return;
+    container.innerHTML = '';
+
+    items.forEach((item, index) => {
+        const card = document.createElement('div');
+        card.className = 'goods-edit-card';
+        card.innerHTML = `
+            <div class="artist-card-header">
+                <h4 class="artist-card-title">商品 ${index + 1}</h4>
+                <button type="button" class="artist-card-remove" onclick="removeGoodsItem(${index})">削除</button>
+            </div>
+            <div class="form-group">
+                <label>商品名</label>
+                <input type="text" class="form-input goods-item-name" value="${(item.name || '').replace(/"/g, '&quot;')}" placeholder="例：WA音祭 Tシャツ">
+            </div>
+            <div class="form-group">
+                <label>画像（アップロード）</label>
+                <input type="file" class="form-input goods-image-file" accept="image/*">
+                <input type="hidden" class="goods-image-data" value="${item.image || ''}">
+                <img class="artist-preview" src="${item.image || 'https://placehold.jp/30/999999/ffffff/300x300.png?text=Image'}" alt="">
+            </div>
+            <div class="form-group">
+                <label>価格</label>
+                <input type="text" class="form-input goods-item-price" value="${item.price || ''}" placeholder="例：¥5,000">
+            </div>
+        `;
+        container.appendChild(card);
+
+        const fileInput = card.querySelector('.goods-image-file');
+        const imageData = card.querySelector('.goods-image-data');
+        const preview = card.querySelector('.artist-preview');
+        if (fileInput && imageData && preview) {
+            fileInput.addEventListener('change', () => {
+                const file = fileInput.files && fileInput.files[0];
+                if (!file) return;
+                const reader = new FileReader();
+                reader.onload = () => {
+                    imageData.value = reader.result;
+                    preview.src = reader.result;
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+    });
+}
+
+function collectGoodsItems() {
+    const cards = document.querySelectorAll('.goods-edit-card');
+    return Array.from(cards).map(card => ({
+        name: card.querySelector('.goods-item-name').value,
+        image: card.querySelector('.goods-image-data').value,
+        price: card.querySelector('.goods-item-price').value
+    })).filter(item => item.name || item.price);
+}
+
+function addGoodsItem() {
+    const data = getStorageData();
+    data.goods.items = data.goods.items || [];
+    data.goods.items.push({ name: '', image: 'assets/media/black.png', price: '' });
+    saveToStorage(data);
+    renderGoodsCards(data.goods.items);
+}
+
+function removeGoodsItem(index) {
+    const data = getStorageData();
+    data.goods.items.splice(index, 1);
+    saveToStorage(data);
+    renderGoodsCards(data.goods.items);
+}
+
+// ===================================
+// Q&A管理
+// ===================================
+function renderQnaCards(items) {
+    const container = document.getElementById('qnaContainer');
+    if (!container) return;
+    container.innerHTML = '';
+
+    items.forEach((item, index) => {
+        const card = document.createElement('div');
+        card.className = 'qna-edit-card';
+        card.innerHTML = `
+            <div class="artist-card-header">
+                <h4 class="artist-card-title">Q&A ${index + 1}</h4>
+                <button type="button" class="artist-card-remove" onclick="removeQnaItem(${index})">削除</button>
+            </div>
+            <div class="form-group">
+                <label>質問</label>
+                <input type="text" class="form-input qna-question-input" value="${(item.question || '').replace(/"/g, '&quot;')}" placeholder="質問を入力">
+            </div>
+            <div class="form-group">
+                <label>回答</label>
+                <textarea class="form-textarea qna-answer-input" rows="3" placeholder="回答を入力">${item.answer || ''}</textarea>
+            </div>
+        `;
+        container.appendChild(card);
+    });
+}
+
+function collectQnaItems() {
+    const cards = document.querySelectorAll('.qna-edit-card');
+    return Array.from(cards).map(card => ({
+        question: card.querySelector('.qna-question-input').value,
+        answer: card.querySelector('.qna-answer-input').value
+    })).filter(item => item.question || item.answer);
+}
+
+function addQnaItem() {
+    const data = getStorageData();
+    data.qna = data.qna || [];
+    data.qna.push({ question: '', answer: '' });
+    saveToStorage(data);
+    renderQnaCards(data.qna);
+}
+
+function removeQnaItem(index) {
+    const data = getStorageData();
+    data.qna.splice(index, 1);
+    saveToStorage(data);
+    renderQnaCards(data.qna);
 }
 
 // ===================================

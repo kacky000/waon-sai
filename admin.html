@@ -33,11 +33,13 @@
                 <nav class="admin-nav">
                     <h2 class="nav-title">編集項目</h2>
                     <ul class="nav-list">
-                        <li><a href="#hero" class="nav-link active" data-section="hero">ヘロー</a></li>
+                        <li><a href="#hero" class="nav-link active" data-section="hero">TOP</a></li>
                         <li><a href="#concept" class="nav-link" data-section="concept">コンセプト</a></li>
                         <li><a href="#entry" class="nav-link" data-section="entry">出演者募集</a></li>
+                        <li><a href="#qna" class="nav-link" data-section="qna">Q&A</a></li>
                         <li><a href="#timetable" class="nav-link" data-section="timetable">タイムテーブル</a></li>
                         <li><a href="#artists" class="nav-link" data-section="artists">アーティスト</a></li>
+                        <li><a href="#goods" class="nav-link" data-section="goods">グッズ</a></li>
                         <li><a href="#tickets" class="nav-link" data-section="tickets">チケット</a></li>
                         <li><a href="#info" class="nav-link" data-section="info">開催情報</a></li>
                         <li><a href="#order" class="nav-link" data-section="order">表示順</a></li>
@@ -50,46 +52,16 @@
 
             <!-- 編集パネル -->
             <section class="admin-content">
-                <!-- ヘロー編集 -->
+                <!-- TOP（トップ）編集 -->
                 <div class="edit-panel active" id="hero" data-section="hero">
-                    <h2 class="panel-title">ヘロー（トップバナー）編集</h2>
+                    <h2 class="panel-title">TOP（トップ）編集</h2>
+                    <p style="color: var(--text-secondary); margin-bottom: 16px;">トップ動画に表示内容が含まれているため、編集項目はComing Soon設定のみです。動画を差し替える場合は <code>assets/media/top-video.mp4</code> を上書きしてください。</p>
 
                     <div class="form-group">
                         <label class="checkbox-label">
                             <input type="checkbox" id="comingSoon-hero">
                             このセクションをComing Soonにする
                         </label>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="heroTitle">イベント名</label>
-                        <input type="text" id="heroTitle" class="form-input" placeholder="例：WA音祭">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="heroSubtitle">サブタイトル</label>
-                        <input type="text" id="heroSubtitle" class="form-input" placeholder="例：WAON FES">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="heroCatchphrase">キャッチコピー</label>
-                        <input type="text" id="heroCatchphrase" class="form-input" placeholder="例：和と洋が交錯する、音の祭典。">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="heroDate">開催日</label>
-                        <input type="text" id="heroDate" class="form-input" placeholder="例：202X年7月14日（土）">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="heroVenue">会場名</label>
-                        <input type="text" id="heroVenue" class="form-input" placeholder="例：新宿HOLIDAY">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="heroImage">ヘッダー画像（アップロード）</label>
-                        <input type="file" id="heroImage" class="form-input" accept="image/*">
-                        <p class="form-hint">現在の画像：<span id="heroImageCurrent">未設定</span></p>
                     </div>
 
                     <button class="btn btn-primary" onclick="saveSection('hero')">保存</button>
@@ -157,7 +129,29 @@
                         <textarea id="entryNote" class="form-textarea" rows="3" placeholder="例：※応募多数の場合は選考とさせていただきます。"></textarea>
                     </div>
 
+                    <div class="form-group">
+                        <label for="entryParticipationFee">参加費</label>
+                        <input type="text" id="entryParticipationFee" class="form-input" placeholder="例：参加費：5,000円">
+                    </div>
+
                     <button class="btn btn-primary" onclick="saveSection('entry')">保存</button>
+                </div>
+
+                <!-- Q&A編集 -->
+                <div class="edit-panel" id="qna" data-section="qna">
+                    <h2 class="panel-title">Q&A編集</h2>
+                    <p class="panel-description">よくある質問と回答を編集してください。</p>
+
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="comingSoon-qna">
+                            このセクションをComing Soonにする
+                        </label>
+                    </div>
+
+                    <div id="qnaContainer"></div>
+                    <button class="btn btn-success" type="button" onclick="addQnaItem()">+ Q&Aを追加</button>
+                    <button class="btn btn-primary" onclick="saveSection('qna')">保存</button>
                 </div>
 
                 <!-- アーティスト編集 -->
@@ -176,6 +170,34 @@
                     
                     <button class="btn btn-success" onclick="addArtist()">+ アーティストを追加</button>
                     <button class="btn btn-primary" onclick="saveSection('artists')">保存</button>
+                </div>
+
+                <!-- グッズ編集 -->
+                <div class="edit-panel" id="goods" data-section="goods">
+                    <h2 class="panel-title">グッズ編集</h2>
+                    <p class="panel-description">グッズ商品を編集できます。</p>
+
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="comingSoon-goods">
+                            このセクションをComing Soonにする
+                        </label>
+                    </div>
+
+                    <div id="goodsContainer"></div>
+                    <button class="btn btn-success" type="button" onclick="addGoodsItem()">+ 商品を追加</button>
+
+                    <div class="form-group">
+                        <label for="goodsNoteInput">注釈</label>
+                        <input type="text" id="goodsNoteInput" class="form-input" placeholder="例：ECサイトへのリンク説明">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="goodsShopLink">ショップリンク</label>
+                        <input type="text" id="goodsShopLink" class="form-input" placeholder="例：https://shop.waonfes.jp">
+                    </div>
+
+                    <button class="btn btn-primary" onclick="saveSection('goods')">保存</button>
                 </div>
 
                 <!-- タイムテーブル編集 -->
