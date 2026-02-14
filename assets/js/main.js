@@ -59,6 +59,13 @@ function getSiteData() {
 // ===================================
 function loadContentFromStorage() {
     const data = getSiteData();
+
+    // Q&A Coming Soonフラグを強制的にオフ（既存のlocalStorageデータ修正）
+    if (data && data.sectionFlags && data.sectionFlags.qna === true) {
+        data.sectionFlags.qna = false;
+        localStorage.setItem('waonfes-data', JSON.stringify(data));
+    }
+
     if (!data) return; // LocalStorageにデータがない場合はスキップ
 
     // TOP（トップ）
@@ -188,21 +195,26 @@ function loadContentFromStorage() {
     }
 
     // Q&A
-    if (data.qna && Array.isArray(data.qna)) {
-        const qnaList = document.getElementById('qnaList');
-        if (qnaList) {
-            qnaList.innerHTML = data.qna.map(item => `
-                <div class="qna-item">
-                    <button class="qna-question" onclick="this.parentElement.classList.toggle('open')">
-                        <span class="qna-icon">+</span>
-                        <span>${item.question || ''}</span>
-                    </button>
-                    <div class="qna-answer">
-                        <div class="qna-answer-inner">${item.answer || ''}</div>
-                    </div>
+    const qnaData = (data.qna && Array.isArray(data.qna) && data.qna.length > 0) ? data.qna : [
+        { question: "出演の応募条件はありますか？年齢や実績などの動画が必要ですか？", answer: "特別な応募条件はありません。5歳から応募可能です。PR動画2〜3分をご提出いただきます。" },
+        { question: "SNSチャンネルやチャンネルをもっていないと参加できませんか？", answer: "SNSチャンネルは必須ではありません。ただし、集客につながるためあると望ましいです。" },
+        { question: "バンドやチームでの参加の場合、メンバー人数に制限はありますか？", answer: "1〜6名までのチームでの参加が可能です。" },
+        { question: "1人でチームを組みたいのですが、他のメンバーを探すサポートはありますか？", answer: "はい、コミュニティ内でメンバー募集のお手伝いをしています。" },
+        { question: "1人でゲーム実況や実況、講談○○ゲーム実況なども出演できますか？", answer: "はい、ジャンル不問ですので、説得力のあるPR動画をお送りください。面白いと思ったら何でも歓迎です！" }
+    ];
+    const qnaList = document.getElementById('qnaList');
+    if (qnaList) {
+        qnaList.innerHTML = qnaData.map(item => `
+            <div class="qna-item">
+                <button class="qna-question" onclick="this.parentElement.classList.toggle('open')">
+                    <span class="qna-icon">+</span>
+                    <span>${item.question || ''}</span>
+                </button>
+                <div class="qna-answer">
+                    <div class="qna-answer-inner">${item.answer || ''}</div>
                 </div>
-            `).join('');
-        }
+            </div>
+        `).join('');
     }
 
     // Goods
