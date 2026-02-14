@@ -389,18 +389,30 @@ ul {
    Entry Section
    =================================== */
 .entry {
-    background-color: var(--color-bg-dark);
     position: relative;
+    padding: 0;
     overflow: hidden;
 }
 
-.entry-top-gradient {
+.entry-bg {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    height: 6px;
-    background: linear-gradient(90deg, #ff6b35, #f7c948, #2ecc71, #3498db, #9b59b6, #e74c3c);
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+}
+
+.entry-inner {
+    position: relative;
+    z-index: 1;
+    padding: 80px 20px;
+}
+
+.entry .section-title {
+    position: relative;
+    z-index: 1;
 }
 
 .entry-content {
@@ -412,7 +424,7 @@ ul {
     text-align: center;
     font-size: 1rem;
     margin-bottom: 40px;
-    color: var(--color-text-gray);
+    color: rgba(255, 255, 255, 0.85);
     line-height: 2;
 }
 
@@ -436,31 +448,68 @@ ul {
     height: 64px;
     object-fit: contain;
     filter: brightness(0) invert(1);
-    opacity: 0.7;
+    opacity: 0.8;
 }
 
 .entry-icon-item span {
     font-family: var(--font-en);
     font-size: 0.7rem;
     letter-spacing: 0.15em;
-    color: var(--color-text-gray);
+    color: rgba(255, 255, 255, 0.7);
     font-weight: 700;
 }
 
-.entry-requirements {
-    background-color: var(--color-bg-dark-alt);
-    padding: 40px;
-    border: 1px solid var(--color-border);
+.entry-cta {
+    text-align: center;
     margin-bottom: 40px;
 }
 
-.entry-requirements h3 {
-    font-family: var(--font-en);
-    font-size: 1.25rem;
+.btn-entry {
+    display: inline-block;
+    padding: 18px 60px;
+    font-family: var(--font-ja);
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: rgba(180, 170, 220, 0.45);
+    color: #fff;
+    text-decoration: none;
+    backdrop-filter: blur(8px);
+}
+
+.btn-entry:hover {
+    background: rgba(180, 170, 220, 0.65);
+}
+
+.entry-divider {
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.entry-divider::before,
+.entry-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.entry-divider span {
+    padding: 0 20px;
+    font-size: 0.85rem;
     font-weight: 700;
     color: var(--color-accent);
-    margin-bottom: 25px;
     letter-spacing: 0.1em;
+    white-space: nowrap;
+}
+
+.entry-requirements {
+    margin-bottom: 30px;
 }
 
 .requirements-list {
@@ -468,63 +517,28 @@ ul {
 }
 
 .requirements-list li {
-    padding: 12px 0;
-    border-bottom: 1px solid var(--color-border);
-    color: var(--color-text-gray);
-}
-
-.requirements-list li:last-child {
-    border-bottom: none;
+    padding: 8px 0;
+    color: rgba(255, 255, 255, 0.8);
+    text-align: center;
+    font-size: 0.95rem;
 }
 
 .requirements-list strong {
-    color: var(--color-text-light);
+    color: #fff;
     font-weight: 700;
-}
-
-.entry-cta {
-    text-align: center;
-    margin-bottom: 30px;
-}
-
-.btn {
-    display: inline-block;
-    padding: 18px 60px;
-    font-family: var(--font-en);
-    font-size: 1rem;
-    font-weight: 700;
-    letter-spacing: 0.15em;
-    border: 2px solid transparent;
-    border-radius: 50px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.btn-primary {
-    background-color: var(--color-primary);
-    color: var(--color-text-light);
-    border-color: var(--color-primary);
-}
-
-.btn-primary:hover {
-    background-color: transparent;
-    color: var(--color-primary);
-    border-color: var(--color-primary);
 }
 
 .entry-note {
     text-align: center;
-    font-size: 0.875rem;
-    color: var(--color-text-gray);
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.6);
     line-height: 1.8;
+    margin-bottom: 30px;
 }
 
-.entry-fee {
-    text-align: center;
-    font-size: 1rem;
-    font-weight: 700;
-    color: var(--color-accent);
-    margin-top: 1rem;
+.entry-divider-bottom {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.2);
 }
 
 /* ===================================
@@ -957,10 +971,10 @@ ul {
     }
 
     .entry-requirements {
-        padding: 25px;
+        padding: 0 10px;
     }
 
-    .btn {
+    .btn-entry {
         padding: 15px 40px;
         font-size: 0.9rem;
     }

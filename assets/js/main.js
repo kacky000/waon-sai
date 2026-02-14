@@ -126,8 +126,9 @@ function loadContentFromStorage() {
         }
         const entryNote = document.getElementById('entryNote');
         if (entryNote) entryNote.textContent = entry.note;
-        const entryFee = document.getElementById('entryFee');
-        if (entryFee) entryFee.textContent = entry.participationFee || '';
+        // 背景画像
+        const entryBgImg = document.getElementById('entryBgImg');
+        if (entryBgImg && entry.bgImage) entryBgImg.src = entry.bgImage;
     }
 
     // タイムテーブル

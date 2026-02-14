@@ -44,7 +44,7 @@ const defaultData = {
     ],
     sectionTitles: {
         concept: { en: "CONCEPT", ja: "開催趣旨" },
-        entry: { en: "ENTRY", ja: "出演者募集" },
+        entry: { en: "ENTRY", ja: "出演募集" },
         qna: { en: "Q&A", ja: "よくある質問" },
         timetable: { en: "TIMETABLE", ja: "タイムテーブル" },
         artist: { en: "ARTIST", ja: "出演者" },
@@ -90,18 +90,18 @@ const defaultData = {
         ]
     },
     entry: {
-        lead: "みんなで作る大人の音楽祭！！\n出演募集ジャンル：歌・ダンス、バンド・大道芸、コメディ・映像・演劇など",
+        bgImage: "",
+        lead: "WA音祭（わおんさい）は、皆で作る「大人の文化祭」です。\n現在、出演者を募集しています。\nジャンルは、歌・ダンスを中心に、\nバンド・大道芸・コメディ・映像・演劇など.......\n幅広い「エンタメ」のエントリーをお待ちしています。",
         requirements: [
-            "出演枠：8〜9組",
-            "持ち時間：10〜20分",
-            "形態：1〜6名のチーム",
-            "備考：地方＆海外オンライン出演OK！",
-            "応募締切：2月28日（土）"
+            "出演枠｜8〜9組",
+            "持ち時間｜10〜20分",
+            "形態｜1〜6名のチーム",
+            "備考｜地方＆海外オンライン出演OK！",
+            "応募締切｜2月28日（土）"
         ],
         buttonText: "応募フォーム",
         buttonLink: "https://forms.gle/BRV8vJiQ9vdCodnL9",
-        note: "応募方法：専用フォームより\n必要事項：PR動画 2〜3分\nオーディション：3月上旬開催",
-        participationFee: "参加費：5,000円"
+        note: "必要事項｜PR動画 2〜3分　オーディション｜3月上旬開催　参加費｜5,000円"
     },
     tickets: {
         items: [
@@ -356,8 +356,12 @@ function loadSection(section) {
         document.getElementById('entryButtonText').value = data.entry.buttonText;
         document.getElementById('entryButtonLink').value = data.entry.buttonLink;
         document.getElementById('entryNote').value = data.entry.note;
-        const entryFee = document.getElementById('entryParticipationFee');
-        if (entryFee) entryFee.value = data.entry.participationFee || '';
+        // 背景画像プレビュー
+        const entryBgPreview = document.getElementById('entryBgImagePreview');
+        if (entryBgPreview && data.entry.bgImage) {
+            entryBgPreview.src = data.entry.bgImage;
+            entryBgPreview.style.display = 'block';
+        }
         renderEntryRequirements(data.entry.requirements || []);
         const flag = document.getElementById('comingSoon-entry');
         if (flag) flag.checked = !!data.sectionFlags.entry;
@@ -471,15 +475,36 @@ function saveSection(section) {
             };
             data.sectionFlags.info = document.getElementById('comingSoon-info')?.checked || false;
         } else if (section === 'entry') {
-            data.entry = {
+            const entryBgFile = document.getElementById('entryBgImage').files[0];
+            const prevBgImage = data.entry?.bgImage || '';
+
+            const entryData = {
+                bgImage: prevBgImage,
                 lead: document.getElementById('entryLead').value,
                 requirements: collectEntryRequirements(),
                 buttonText: document.getElementById('entryButtonText').value,
                 buttonLink: document.getElementById('entryButtonLink').value,
-                note: document.getElementById('entryNote').value,
-                participationFee: document.getElementById('entryParticipationFee').value
+                note: document.getElementById('entryNote').value
             };
             data.sectionFlags.entry = document.getElementById('comingSoon-entry')?.checked || false;
+
+            if (entryBgFile) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    entryData.bgImage = e.target.result;
+                    data.entry = entryData;
+                    // hidden flag
+                    const hiddenKey = 'entry';
+                    const hiddenEl = document.getElementById('hidden-' + hiddenKey);
+                    if (hiddenEl && data.sectionHidden) data.sectionHidden[hiddenKey] = hiddenEl.checked;
+                    localStorage.setItem('waonfes-data', JSON.stringify(data));
+                    showNotification('出演者募集セクションを保存しました');
+                };
+                reader.readAsDataURL(entryBgFile);
+                return;
+            } else {
+                data.entry = entryData;
+            }
         } else if (section === 'timetable') {
             data.timetable = {
                 items: collectTimetableItems()
