@@ -1171,6 +1171,13 @@ function renderGoodsCards(items) {
                 <label>価格</label>
                 <input type="text" class="form-input goods-item-price" value="${item.price || ''}" placeholder="例：¥5,000">
             </div>
+            <div class="form-group">
+                <label>画像フィット</label>
+                <select class="form-input goods-item-fit">
+                    <option value="cover"${(item.imageFit || 'cover') === 'cover' ? ' selected' : ''}>cover（トリミングして埋める）</option>
+                    <option value="contain"${item.imageFit === 'contain' ? ' selected' : ''}>contain（全体を表示）</option>
+                </select>
+            </div>
         `;
         container.appendChild(card);
 
@@ -1197,7 +1204,8 @@ function collectGoodsItems() {
     return Array.from(cards).map(card => ({
         name: card.querySelector('.goods-item-name').value,
         image: card.querySelector('.goods-image-data').value,
-        price: card.querySelector('.goods-item-price').value
+        price: card.querySelector('.goods-item-price').value,
+        imageFit: card.querySelector('.goods-item-fit').value
     })).filter(item => item.name || item.price);
 }
 

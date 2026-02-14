@@ -232,7 +232,7 @@ function applyDataToPage(data) {
         if (goodsList && data.goods.items) {
             goodsList.innerHTML = data.goods.items.map(item => `
                 <div class="goods-card">
-                    <img src="${item.image || ''}" alt="${item.name || ''}" class="goods-card-image" loading="lazy">
+                    <img src="${item.image || ''}" alt="${item.name || ''}" class="goods-card-image" style="object-fit: ${item.imageFit || 'cover'}" loading="lazy">
                     <div class="goods-card-info">
                         <p class="goods-card-name">${item.name || ''}</p>
                         <p class="goods-card-price">${item.price || ''}</p>
