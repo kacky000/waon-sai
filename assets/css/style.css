@@ -576,7 +576,7 @@ ul {
 }
 
 .qna-item {
-    background: rgba(0, 0, 0, 0.2);
+    background: #202020;
     border-radius: 0;
     overflow: hidden;
 }
