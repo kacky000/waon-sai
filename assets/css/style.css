@@ -20,6 +20,7 @@
     /* フォント */
     --font-ja: 'Noto Serif JP', serif;
     --font-en: 'Montserrat', sans-serif;
+    --font-gothic: 'YuGothic', 'Yu Gothic', 'ヒラギノ角ゴ ProN', 'Hiragino Kaku Gothic ProN', 'メイリオ', Meiryo, sans-serif;
 
     /* スペーシング */
     --section-padding: 80px 20px;
@@ -27,7 +28,7 @@
 }
 
 body {
-    font-family: var(--font-ja);
+    font-family: var(--font-gothic);
     background-color: var(--color-bg-dark);
     color: var(--color-text-light);
     line-height: 1.8;
@@ -79,19 +80,23 @@ ul {
 .section-title .title-en {
     font-family: var(--font-en);
     font-size: 2.5rem;
-    font-weight: 900;
+    font-weight: 300;
     display: block;
     letter-spacing: 0.1em;
     color: var(--color-text-light);
 }
 
 .section-title .title-ja {
-    font-family: var(--font-ja);
+    font-family: var(--font-gothic);
     font-size: 0.875rem;
+    font-weight: bold;
     display: block;
     margin-top: 10px;
-    color: var(--color-text-gray);
     letter-spacing: 0.3em;
+    background: linear-gradient(90deg, rgba(120, 130, 200, 1), rgba(180, 140, 220, 1), rgba(100, 160, 220, 1));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 /* ===================================
@@ -465,22 +470,39 @@ ul {
 .btn-entry {
     display: inline-block;
     padding: 18px 60px;
-    font-family: var(--font-ja);
+    font-family: var(--font-gothic);
     font-size: 1rem;
     font-weight: 700;
     letter-spacing: 0.15em;
     border: none;
     border-radius: 50px;
     cursor: pointer;
-    transition: background-position 0.4s ease;
+    transition: all 0.3s ease;
     background: linear-gradient(90deg, rgba(120, 130, 200, 1) 0%, rgba(160, 120, 200, 1) 50%, rgba(100, 140, 210, 1) 100%);
-    background-size: 200% 100%;
     color: #fff;
     text-decoration: none;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
 }
 
-.btn-entry:hover {
-    background-position: 100% 0;
+.btn-entry::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 140px;
+    background: linear-gradient(90deg, rgba(160, 120, 200, 1), rgba(100, 140, 210, 1), rgba(120, 130, 200, 1));
+    transform: skewY(-10deg) scale(1, 0);
+    transform-origin: center;
+    transition: transform 0.4s ease;
+    z-index: -1;
+    margin-top: -70px;
+}
+
+.btn-entry:hover::after {
+    transform: skewY(-10deg) scale(1, 1);
 }
 
 .entry-divider {
