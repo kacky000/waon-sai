@@ -91,7 +91,7 @@ ul {
     font-size: 0.875rem;
     font-weight: bold;
     display: inline-block;
-    margin-top: 10px;
+    margin-top: 5px;
     letter-spacing: 0.3em;
     color: transparent !important;
     background: linear-gradient(90deg, #7B8AE0, #B89CEC, #6EB0E8) !important;
@@ -218,7 +218,7 @@ ul {
 }
 
 .nav-list a:hover {
-    color: var(--color-primary);
+    color: rgb(66, 158, 215);
 }
 
 @media (max-width: 1024px) {
@@ -500,14 +500,16 @@ ul {
     border: none;
     border-radius: 50px;
     cursor: pointer;
-    transition: transform 0.4s ease;
+    transition: background 0.4s ease, color 0.4s ease, -webkit-text-fill-color 0.4s ease;
     background: linear-gradient(90deg, #429ED7 0%, #8366A1 100%);
     color: #fff;
     text-decoration: none;
 }
 
 .btn-entry:hover {
-    transform: scale(1.1);
+    background: rgb(255, 255, 255);
+    color: rgb(66, 158, 215);
+    -webkit-text-fill-color: rgb(66, 158, 215);
 }
 
 .entry-divider {
@@ -545,7 +547,7 @@ ul {
     padding: 8px 0;
     color: rgba(255, 255, 255, 0.85);
     text-align: center;
-    font-size: 1.1rem;
+    font-size: 1rem;
     letter-spacing: 0.05em;
 }
 
@@ -998,6 +1000,11 @@ ul {
 
 /* スマホ */
 @media (max-width: 480px) {
+    .hero {
+        height: 60vh;
+        min-height: 360px;
+    }
+
     .logo h1 {
         font-size: 2.5rem;
     }
