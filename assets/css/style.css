@@ -84,6 +84,7 @@ ul {
     display: block;
     letter-spacing: 0.1em;
     color: var(--color-text-light);
+    line-height: 1;
 }
 
 .section-title .title-ja {
