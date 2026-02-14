@@ -311,7 +311,7 @@ ul {
 }
 
 .concept-copy-img {
-    width: clamp(280px, 55vw, 650px);
+    width: clamp(170px, 33vw, 390px);
     height: auto;
 }
 
