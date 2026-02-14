@@ -524,11 +524,48 @@ function initHamburgerMenu() {
 // ===================================
 document.addEventListener('DOMContentLoaded', () => {
     // LocalStorageからデータを読み込む
-    loadContentFromStorage();
+    try {
+        loadContentFromStorage();
+    } catch(e) {
+        console.error('loadContentFromStorage error:', e);
+    }
+
+    // Q&Aを確実に描画（loadContentFromStorageとは独立）
+    try {
+        const storedData = getSiteData();
+        const qnaData = (storedData && storedData.qna && Array.isArray(storedData.qna) && storedData.qna.length > 0) ? storedData.qna : [
+            { question: "出演の応募条件はありますか？年齢や実績などの動画が必要ですか？", answer: "特別な応募条件はありません。5歳から応募可能です。PR動画2〜3分をご提出いただきます。" },
+            { question: "SNSチャンネルやチャンネルをもっていないと参加できませんか？", answer: "SNSチャンネルは必須ではありません。ただし、集客につながるためあると望ましいです。" },
+            { question: "バンドやチームでの参加の場合、メンバー人数に制限はありますか？", answer: "1〜6名までのチームでの参加が可能です。" },
+            { question: "1人でチームを組みたいのですが、他のメンバーを探すサポートはありますか？", answer: "はい、コミュニティ内でメンバー募集のお手伝いをしています。" },
+            { question: "1人でゲーム実況や実況、講談○○ゲーム実況なども出演できますか？", answer: "はい、ジャンル不問ですので、説得力のあるPR動画をお送りください。面白いと思ったら何でも歓迎です！" }
+        ];
+        const qnaList = document.getElementById('qnaList');
+        if (qnaList) {
+            qnaList.innerHTML = qnaData.map(item => `
+                <div class="qna-item">
+                    <button class="qna-question" onclick="this.parentElement.classList.toggle('open')">
+                        <span class="qna-icon">+</span>
+                        <span>${item.question || ''}</span>
+                    </button>
+                    <div class="qna-answer">
+                        <div class="qna-answer-inner">${item.answer || ''}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+        // Q&A Coming Soonを強制解除
+        const qnaSection = document.getElementById('qna');
+        if (qnaSection) {
+            qnaSection.classList.remove('is-coming-soon');
+        }
+    } catch(e) {
+        console.error('Q&A render error:', e);
+    }
 
     // アーティスト情報を描画（LocalStorageまたはダミーデータ）
-    const storedData = getSiteData();
-    const artists = storedData && storedData.artists ? storedData.artists : artistsData;
+    const storedData2 = getSiteData();
+    const artists = storedData2 && storedData2.artists ? storedData2.artists : artistsData;
     renderArtists(artists);
     
     // スムーススクロールを初期化
