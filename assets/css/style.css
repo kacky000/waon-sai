@@ -90,13 +90,14 @@ ul {
     font-family: var(--font-gothic);
     font-size: 0.875rem;
     font-weight: bold;
-    display: block;
+    display: inline-block;
     margin-top: 10px;
     letter-spacing: 0.3em;
-    background: linear-gradient(90deg, rgba(120, 130, 200, 1), rgba(180, 140, 220, 1), rgba(100, 160, 220, 1));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: transparent !important;
+    background: linear-gradient(90deg, #7B8AE0, #B89CEC, #6EB0E8) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
 }
 
 /* ===================================
