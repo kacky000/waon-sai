@@ -321,6 +321,7 @@ ul {
 
 .concept-text-list p {
     font-size: clamp(0.85rem, 1.2vw, 1rem);
+    font-weight: 700;
     line-height: 2.2;
     color: rgba(255, 255, 255, 0.85);
     text-align: center;
