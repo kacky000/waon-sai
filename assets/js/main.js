@@ -309,6 +309,28 @@ const SECTION_LABELS = {
 function applySectionOrder(order) {
     if (!Array.isArray(order) || order.length === 0) return;
 
+    const data = getSiteData();
+
+    // Coming Soon または非表示のセクションをメニューから除外するためのマッピング
+    const flagKeyMap = {
+        home: 'hero', concept: 'concept', entry: 'entry', qna: 'qna',
+        timetable: 'timetable', artist: 'artists', goods: 'goods',
+        tickets: 'tickets', information: 'info'
+    };
+    const hiddenKeyMap = {
+        home: 'hero', concept: 'concept', entry: 'entry', qna: 'qna',
+        timetable: 'timetable', artist: 'artists', goods: 'goods',
+        tickets: 'tickets', information: 'info'
+    };
+
+    function isVisible(key) {
+        const flagKey = flagKeyMap[key];
+        const hiddenKey = hiddenKeyMap[key];
+        if (data && data.sectionFlags && flagKey && data.sectionFlags[flagKey]) return false;
+        if (data && data.sectionHidden && hiddenKey && data.sectionHidden[hiddenKey]) return false;
+        return true;
+    }
+
     const main = document.querySelector('main');
     if (main) {
         const sections = new Map();
@@ -325,9 +347,11 @@ function applySectionOrder(order) {
         });
     }
 
+    const visibleOrder = order.filter(key => isVisible(key));
+
     const navMenu = document.getElementById('navMenu');
     if (navMenu) {
-        navMenu.innerHTML = order.map(key => {
+        navMenu.innerHTML = visibleOrder.map(key => {
             const label = SECTION_LABELS[key] || key;
             const href = key === 'home' ? '#home' : `#${key}`;
             return `<li><a href="${href}">${label}</a></li>`;
@@ -336,7 +360,7 @@ function applySectionOrder(order) {
 
     const footerLinks = document.getElementById('footerLinks');
     if (footerLinks) {
-        footerLinks.innerHTML = order.map(key => {
+        footerLinks.innerHTML = visibleOrder.map(key => {
             const label = SECTION_LABELS[key] || key;
             const href = key === 'home' ? '#home' : `#${key}`;
             return `<a href="${href}">${label}</a>`;
