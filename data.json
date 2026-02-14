@@ -21,7 +21,7 @@
         "goods": true,
         "tickets": true,
         "info": true,
-        "footer": true
+        "footer": false
     },
     "sectionOrder": [
         "home",
@@ -265,5 +265,5 @@
         "note": "ここで決済が行われる想定の場所（※ ECサイトリンクでもOK）です",
         "shopLink": ""
     },
-    "_lastModified": 1771068449530
+    "_lastModified": 1771068641329
 }
