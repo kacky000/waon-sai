@@ -16,12 +16,12 @@
         "concept": false,
         "entry": false,
         "qna": false,
-        "timetable": false,
-        "artists": false,
-        "goods": false,
-        "tickets": false,
-        "info": false,
-        "footer": false
+        "timetable": true,
+        "artists": true,
+        "goods": true,
+        "tickets": true,
+        "info": true,
+        "footer": true
     },
     "sectionOrder": [
         "home",
@@ -137,8 +137,8 @@
                 "price": "¥15,000"
             }
         ],
-        "accessTitle": "ACCESS",
-        "accessCopy": "SHINJUKU SPECIAL STAGE（新宿駅から徒歩5分）"
+        "accessCopy": "SHINJUKU SPECIAL STAGE（新宿駅から徒歩5分）",
+        "accessTitle": "ACCESS"
     },
     "timetable": {
         "items": [
@@ -246,21 +246,24 @@
             {
                 "name": "デモ未定",
                 "image": "assets/media/black.png",
-                "price": "¥5,000"
+                "price": "¥5,000",
+                "imageFit": "cover"
             },
             {
                 "name": "デモ未定",
                 "image": "assets/media/black.png",
-                "price": "¥5,000"
+                "price": "¥5,000",
+                "imageFit": "cover"
             },
             {
                 "name": "デモ未定",
                 "image": "assets/media/black.png",
-                "price": "¥5,000"
+                "price": "¥5,000",
+                "imageFit": "cover"
             }
         ],
         "note": "ここで決済が行われる想定の場所（※ ECサイトリンクでもOK）です",
         "shopLink": ""
     },
-    "_lastModified": 1771068253954
+    "_lastModified": 1771068345316
 }
