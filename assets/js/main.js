@@ -237,8 +237,9 @@ function applyDataToPage(data) {
     ];
     const qnaList = document.getElementById('qnaList');
     if (qnaList) {
-        qnaList.innerHTML = qnaData.map(item => `
-            <div class="qna-item">
+        const QNA_INITIAL_COUNT = 5;
+        qnaList.innerHTML = qnaData.map((item, i) => `
+            <div class="qna-item${i >= QNA_INITIAL_COUNT ? ' qna-hidden' : ''}">
                 <button class="qna-question" onclick="this.parentElement.classList.toggle('open')">
                     <span>${item.question || ''}</span>
                     <span class="qna-icon"></span>
@@ -248,6 +249,17 @@ function applyDataToPage(data) {
                 </div>
             </div>
         `).join('');
+        // 「もっと見る」ボタン
+        if (qnaData.length > QNA_INITIAL_COUNT) {
+            const moreBtn = document.createElement('button');
+            moreBtn.className = 'qna-more-btn';
+            moreBtn.textContent = 'もっと見る';
+            moreBtn.addEventListener('click', function() {
+                qnaList.querySelectorAll('.qna-hidden').forEach(el => el.classList.remove('qna-hidden'));
+                this.remove();
+            });
+            qnaList.appendChild(moreBtn);
+        }
     }
 
     // Goods

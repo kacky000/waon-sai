@@ -592,6 +592,31 @@ ul {
     gap: 12px;
 }
 
+.qna-item.qna-hidden {
+    display: none;
+}
+
+.qna-more-btn {
+    display: block;
+    margin: 24px auto 0;
+    padding: 12px 40px;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50px;
+    color: rgba(255, 255, 255, 0.7);
+    font-family: var(--font-gothic);
+    font-size: 0.9rem;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.qna-more-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.6);
+}
+
 .qna-item {
     background: #202020;
     border-radius: 0;
