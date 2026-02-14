@@ -564,30 +564,32 @@ ul {
    Q&A Section
    =================================== */
 .qna {
-    background-color: var(--color-bg-dark-alt);
+    background-color: var(--color-bg-dark);
 }
 
 .qna-list {
     max-width: 800px;
     margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 }
 
 .qna-item {
-    border-bottom: 1px solid var(--color-border);
-}
-
-.qna-item:first-child {
-    border-top: 1px solid var(--color-border);
+    background: #2a2a2e;
+    border-radius: 8px;
+    overflow: hidden;
 }
 
 .qna-question {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 16px;
-    padding: 20px 0;
+    padding: 20px 24px;
     cursor: pointer;
     user-select: none;
-    transition: color 0.3s ease;
+    transition: background 0.3s ease;
     width: 100%;
     background: none;
     border: none;
@@ -599,7 +601,7 @@ ul {
 }
 
 .qna-question:hover {
-    color: var(--color-accent);
+    background: rgba(255, 255, 255, 0.03);
 }
 
 .qna-question .qna-icon {
@@ -611,16 +613,18 @@ ul {
     justify-content: center;
     font-size: 1.2rem;
     transition: transform 0.3s ease;
+    order: 1;
 }
 
 .qna-item.open .qna-icon {
-    transform: rotate(45deg);
+    transform: rotate(180deg);
 }
 
 .qna-answer {
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.4s ease, padding 0.3s ease;
+    transition: max-height 0.4s ease;
+    background: rgba(0, 0, 0, 0.2);
 }
 
 .qna-item.open .qna-answer {
@@ -628,7 +632,7 @@ ul {
 }
 
 .qna-answer-inner {
-    padding: 0 0 20px 40px;
+    padding: 20px 24px 24px;
     font-size: 0.9rem;
     line-height: 1.8;
     color: var(--color-text-gray);

@@ -207,8 +207,8 @@ function loadContentFromStorage() {
         qnaList.innerHTML = qnaData.map(item => `
             <div class="qna-item">
                 <button class="qna-question" onclick="this.parentElement.classList.toggle('open')">
-                    <span class="qna-icon">+</span>
                     <span>${item.question || ''}</span>
+                    <span class="qna-icon">&#x2304;</span>
                 </button>
                 <div class="qna-answer">
                     <div class="qna-answer-inner">${item.answer || ''}</div>
@@ -545,8 +545,8 @@ document.addEventListener('DOMContentLoaded', () => {
             qnaList.innerHTML = qnaData.map(item => `
                 <div class="qna-item">
                     <button class="qna-question" onclick="this.parentElement.classList.toggle('open')">
-                        <span class="qna-icon">+</span>
                         <span>${item.question || ''}</span>
+                        <span class="qna-icon">&#x2304;</span>
                     </button>
                     <div class="qna-answer">
                         <div class="qna-answer-inner">${item.answer || ''}</div>
