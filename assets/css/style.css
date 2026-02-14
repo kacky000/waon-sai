@@ -529,7 +529,7 @@ ul {
 }
 
 .entry-requirements {
-    margin-bottom: 30px;
+    margin-bottom: 40px;
 }
 
 .requirements-list {
@@ -537,23 +537,31 @@ ul {
 }
 
 .requirements-list li {
-    padding: 8px 0;
-    color: rgba(255, 255, 255, 0.8);
+    padding: 14px 0;
+    color: rgba(255, 255, 255, 0.85);
     text-align: center;
-    font-size: 0.95rem;
+    font-size: 1.05rem;
+    letter-spacing: 0.05em;
 }
 
-.requirements-list strong {
+.requirements-list li strong {
     color: #fff;
     font-weight: 700;
 }
 
+.requirements-list .req-sep {
+    color: rgba(255, 255, 255, 0.35);
+    margin: 0 0.5em;
+}
+
 .entry-note {
     text-align: center;
-    font-size: 0.8rem;
-    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.7);
     line-height: 1.8;
-    margin-bottom: 30px;
+    margin-bottom: 40px;
+    letter-spacing: 0.03em;
+}
 }
 
 .entry-divider-bottom {

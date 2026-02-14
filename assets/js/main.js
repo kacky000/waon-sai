@@ -117,7 +117,13 @@ function loadContentFromStorage() {
             const requirements = Array.isArray(entry.requirements)
                 ? entry.requirements
                 : [entry.requirement1, entry.requirement2, entry.requirement3, entry.requirement4, entry.requirement5].filter(Boolean);
-            requirementsList.innerHTML = requirements.map(item => `<li>${item}</li>`).join('');
+            requirementsList.innerHTML = requirements.map(item => {
+                if (item.includes('｜')) {
+                    const [label, ...rest] = item.split('｜');
+                    return `<li><strong>${label}</strong><span class="req-sep">｜</span>${rest.join('｜')}</li>`;
+                }
+                return `<li>${item}</li>`;
+            }).join('');
         }
         const entryButton = document.getElementById('entryButton');
         if (entryButton) {
