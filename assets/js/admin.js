@@ -17,6 +17,19 @@ const defaultData = {
         info: false,
         footer: false
     },
+    sectionHidden: {
+        hero: false,
+        concept: false,
+        message: false,
+        entry: false,
+        qna: false,
+        timetable: false,
+        artists: false,
+        goods: false,
+        tickets: false,
+        info: false,
+        footer: false
+    },
     sectionOrder: [
         "home",
         "concept",
@@ -391,6 +404,13 @@ function loadSection(section) {
         const flag = document.getElementById('comingSoon-goods');
         if (flag) flag.checked = !!data.sectionFlags.goods;
     }
+
+    // 非表示フラグの読み込み（全セクション共通）
+    const hiddenFlag = document.getElementById('hidden-' + section);
+    if (hiddenFlag) {
+        if (!data.sectionHidden) data.sectionHidden = {};
+        hiddenFlag.checked = !!data.sectionHidden[section];
+    }
 }
 
 // ===================================
@@ -429,6 +449,10 @@ function saveSection(section) {
                     if (copyResult) conceptPayload.copyImage = copyResult;
                     data.concept = conceptPayload;
                     data.sectionFlags.concept = document.getElementById('comingSoon-concept')?.checked || false;
+                    // 非表示フラグ
+                    if (!data.sectionHidden) data.sectionHidden = {};
+                    const hiddenFlag = document.getElementById('hidden-concept');
+                    if (hiddenFlag) data.sectionHidden.concept = hiddenFlag.checked;
                     saveToStorage(data);
                     showNotification('保存しました！', 'success');
                     loadSection('concept');
@@ -499,6 +523,11 @@ function saveSection(section) {
             };
             data.sectionFlags.goods = document.getElementById('comingSoon-goods')?.checked || false;
         }
+
+        // 非表示フラグの保存（全セクション共通）
+        if (!data.sectionHidden) data.sectionHidden = {};
+        const hiddenFlag = document.getElementById('hidden-' + section);
+        if (hiddenFlag) data.sectionHidden[section] = hiddenFlag.checked;
         
         saveToStorage(data);
         showNotification('保存しました！', 'success');

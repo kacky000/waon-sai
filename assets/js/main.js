@@ -232,6 +232,29 @@ function loadContentFromStorage() {
         setSectionComingSoon(document.querySelector('.footer'), data.sectionFlags.footer);
     }
 
+    // セクション非表示
+    if (data.sectionHidden) {
+        const hideMap = {
+            hero: '#home',
+            concept: '#concept',
+            message: '#message',
+            entry: '#entry',
+            qna: '#qna',
+            timetable: '#timetable',
+            artists: '#artist',
+            goods: '#goods',
+            tickets: '#tickets',
+            info: '#information',
+            footer: '.footer'
+        };
+        Object.entries(hideMap).forEach(([key, selector]) => {
+            const el = document.querySelector(selector);
+            if (el) {
+                el.style.display = data.sectionHidden[key] ? 'none' : '';
+            }
+        });
+    }
+
     // セクションタイトル
     if (data.sectionTitles) {
         updateSectionTitles(data.sectionTitles);
