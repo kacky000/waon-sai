@@ -249,14 +249,26 @@ function applyDataToPage(data) {
                 </div>
             </div>
         `).join('');
-        // 「もっと見る」ボタン
+        // 「もっと見る / 閉じる」ボタン
         if (qnaData.length > QNA_INITIAL_COUNT) {
+            let qnaExpanded = false;
             const moreBtn = document.createElement('button');
             moreBtn.className = 'qna-more-btn';
             moreBtn.textContent = 'もっと見る';
             moreBtn.addEventListener('click', function() {
-                qnaList.querySelectorAll('.qna-hidden').forEach(el => el.classList.remove('qna-hidden'));
-                this.remove();
+                qnaExpanded = !qnaExpanded;
+                if (qnaExpanded) {
+                    qnaList.querySelectorAll('.qna-hidden').forEach(el => el.classList.remove('qna-hidden'));
+                    moreBtn.textContent = '閉じる';
+                } else {
+                    qnaList.querySelectorAll('.qna-item').forEach((el, i) => {
+                        if (i >= QNA_INITIAL_COUNT) {
+                            el.classList.add('qna-hidden');
+                            el.classList.remove('open');
+                        }
+                    });
+                    moreBtn.textContent = 'もっと見る';
+                }
             });
             qnaList.appendChild(moreBtn);
         }
