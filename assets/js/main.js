@@ -1,52 +1,4 @@
 // ===================================
-// ダミーデータ（将来的にMicroCMSのAPIから取得予定）
-// ===================================
-const artistsData = [
-    {
-        id: "1",
-        name: "和音楽団",
-        image: "https://placehold.jp/30/C3002F/ffffff/300x300.png?text=和音楽団",
-        description: "伝統的な和楽器とロックサウンドを融合させた革新的なバンド。三味線とエレキギターが奏でる新しい音楽を体験してください。",
-        sns: "https://twitter.com/waon_gakudan"
-    },
-    {
-        id: "2",
-        name: "ALPHA WAVES",
-        image: "https://placehold.jp/30/D4AF37/000000/300x300.png?text=ALPHA+WAVES",
-        description: "エレクトロニカとジャズの要素を取り入れた実験的なサウンドが特徴。独自の世界観で聴衆を魅了します。",
-        sns: "https://twitter.com/alpha_waves_jp"
-    },
-    {
-        id: "3",
-        name: "紅蓮",
-        image: "https://placehold.jp/30/C3002F/ffffff/300x300.png?text=紅蓮",
-        description: "激しくも美しい、和風メタルバンド。尺八とデスボイスが織りなす唯一無二のステージをお届けします。",
-        sns: "https://twitter.com/guren_official"
-    },
-    {
-        id: "4",
-        name: "Moonlight Session",
-        image: "https://placehold.jp/30/333333/ffffff/300x300.png?text=Moonlight",
-        description: "アコースティックギターとピアノを中心とした叙情的なサウンド。心に染み入るメロディーをお楽しみください。",
-        sns: "https://twitter.com/moonlight_sess"
-    },
-    {
-        id: "5",
-        name: "雅-MIYABI-",
-        image: "https://placehold.jp/30/D4AF37/000000/300x300.png?text=雅-MIYABI-",
-        description: "琴と箏を現代的にアレンジした演奏スタイルで注目を集める女性デュオ。和の美しさを再発見できるパフォーマンス。",
-        sns: "https://twitter.com/miyabi_koto"
-    },
-    {
-        id: "6",
-        name: "The Harmonic Blend",
-        image: "https://placehold.jp/30/666666/ffffff/300x300.png?text=Harmonic",
-        description: "ジャズ、ブルース、R&Bを融合させたクロスオーバーバンド。即興演奏の妙技をぜひ生で体感してください。",
-        sns: "https://twitter.com/harmonic_blend"
-    }
-];
-
-// ===================================
 // データ管理（data.json → localStorage フォールバック）
 // ===================================
 
@@ -614,12 +566,11 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
 
         // アーティスト情報を描画
-        const artists = data && data.artists ? data.artists : artistsData;
+        const artists = data && data.artists ? data.artists : [];
         renderArtists(artists);
     } catch (e) {
         console.error('データ読み込みエラー:', e);
-        // フォールバック: ダミーアーティストだけ描画
-        renderArtists(artistsData);
+        renderArtists([]);
     }
 
     // スムーススクロールを初期化
