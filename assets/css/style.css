@@ -414,7 +414,7 @@ ul {
 .entry .section-title {
     position: relative;
     z-index: 1;
-    margin-bottom: 80px;
+    margin-bottom: 50px;
 }
 
 .entry .section-title .title-ja {
@@ -432,7 +432,7 @@ ul {
 .entry-lead {
     text-align: center;
     font-size: 1rem;
-    margin-bottom: 40px;
+    margin-bottom: 30px;
     color: rgba(255, 255, 255, 0.85);
     line-height: 2;
 }
@@ -441,7 +441,7 @@ ul {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 30px;
-    margin-bottom: 50px;
+    margin-bottom: 40px;
     max-width: 700px;
     margin-left: auto;
     margin-right: auto;
@@ -472,7 +472,7 @@ ul {
 
 .entry-cta {
     text-align: center;
-    margin-bottom: 60px;
+    margin-bottom: 50px;
 }
 
 .btn-entry {
@@ -498,7 +498,7 @@ ul {
 .entry-divider {
     display: flex;
     align-items: center;
-    margin-bottom: 50px;
+    margin-bottom: 35px;
 }
 
 .entry-divider::before,
@@ -527,10 +527,10 @@ ul {
 }
 
 .requirements-list li {
-    padding: 22px 0;
+    padding: 15px 0;
     color: rgba(255, 255, 255, 0.85);
     text-align: center;
-    font-size: 1.15rem;
+    font-size: 1.1rem;
     letter-spacing: 0.05em;
 }
 
@@ -549,7 +549,7 @@ ul {
     font-size: 0.85rem;
     color: rgba(255, 255, 255, 0.5);
     line-height: 1.8;
-    margin-bottom: 50px;
+    margin-bottom: 35px;
     letter-spacing: 0.03em;
 }
 
@@ -590,7 +590,7 @@ ul {
     background: none;
     border: none;
     color: var(--color-text-light);
-    font-family: var(--font-ja);
+    font-family: var(--font-gothic);
     font-size: 0.95rem;
     text-align: left;
     line-height: 1.6;
