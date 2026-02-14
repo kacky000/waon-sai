@@ -67,10 +67,6 @@ function loadContentFromStorage() {
     // コンセプト
     if (data.concept) {
         const concept = data.concept;
-        const conceptDecoration = document.getElementById('conceptDecoration');
-        if (conceptDecoration && concept.decoration) {
-            conceptDecoration.innerHTML = concept.decoration.replace(/\n/g, '<br>');
-        }
         const conceptLead = document.getElementById('conceptLead');
         if (conceptLead && concept.lead) {
             conceptLead.innerHTML = concept.lead.replace(/\n/g, '<br>');

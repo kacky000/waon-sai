@@ -261,21 +261,12 @@ ul {
    Concept Section
    =================================== */
 .concept {
-    background-color: var(--color-bg-dark);
-    padding: 0;
-}
-
-.concept-hero {
     position: relative;
-    width: 100%;
-    min-height: 70vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    padding: 0;
     overflow: hidden;
 }
 
-.concept-hero-bg {
+.concept-bg {
     position: absolute;
     top: 0;
     left: 0;
@@ -285,53 +276,45 @@ ul {
     z-index: 0;
 }
 
-.concept-hero-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.35);
-    z-index: 1;
-}
-
-.concept-hero-text {
+.concept-inner {
     position: relative;
-    z-index: 2;
-    text-align: center;
-    padding: 60px 20px;
-}
-
-.concept-catchphrase {
-    font-family: var(--font-ja);
-    font-size: clamp(1.8rem, 4vw, 3.2rem);
-    font-weight: 900;
-    color: #fff;
-    line-height: 1.6;
-    letter-spacing: 0.08em;
-    text-shadow: 0 2px 30px rgba(0, 0, 0, 0.6);
-}
-
-.concept-body {
-    padding: 60px 0 80px;
-    max-width: 750px;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 100px 20px 80px;
+    max-width: 800px;
     margin: 0 auto;
 }
 
-.concept-body .concept-text-list p {
-    font-size: 0.95rem;
-    line-height: 2;
-    color: var(--color-text-gray);
-    margin-bottom: 1.5em;
+.concept-copy {
+    margin-bottom: 60px;
     text-align: center;
+}
+
+.concept-copy-img {
+    width: clamp(280px, 55vw, 650px);
+    height: auto;
+}
+
+.concept-text-list {
+    margin-bottom: 10px;
+}
+
+.concept-text-list p {
+    font-size: clamp(0.85rem, 1.2vw, 1rem);
+    line-height: 2.2;
+    color: rgba(255, 255, 255, 0.85);
+    text-align: center;
+    margin: 0;
 }
 
 .concept-cta {
     text-align: center;
-    font-size: clamp(1.1rem, 2vw, 1.5rem);
+    font-size: clamp(1.2rem, 2.2vw, 1.6rem);
     font-weight: 700;
-    color: var(--color-text-light);
-    margin-top: 40px;
+    color: #fff;
+    margin-top: 30px;
     line-height: 1.8;
     letter-spacing: 0.1em;
 }
@@ -906,13 +889,12 @@ ul {
         font-size: 2rem;
     }
 
-    .concept-content {
-        flex-direction: column;
-        gap: 40px;
+    .concept-inner {
+        padding: 60px 16px 60px;
     }
 
-    .concept-hero {
-        min-height: 50vh;
+    .concept-copy-img {
+        width: 85vw;
     }
 
     .footer-content {
