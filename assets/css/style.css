@@ -531,7 +531,6 @@ ul {
     color: rgba(255, 255, 255, 0.85);
     text-align: center;
     font-size: 1.1rem;
-    font-weight: 700;
     letter-spacing: 0.05em;
 }
 
@@ -549,6 +548,7 @@ ul {
     text-align: center;
     font-size: 0.85rem;
     color: rgba(255, 255, 255, 0.5);
+    font-weight: 700;
     line-height: 1.8;
     margin-bottom: 35px;
     letter-spacing: 0.03em;
