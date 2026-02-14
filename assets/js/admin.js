@@ -282,13 +282,6 @@ function saveToStorage(data) {
     localStorage.setItem('waonfes-data', JSON.stringify(data));
 }
 
-function resetToDefault() {
-    if (confirm('本当にデータをリセットしますか？この操作は取り消せません。')) {
-        localStorage.removeItem('waonfes-data');
-        location.reload();
-    }
-}
-
 // ===================================
 // リモートデータ取得 & マージ
 // ===================================
@@ -442,9 +435,6 @@ document.addEventListener('DOMContentLoaded', () => {
             loadSection(section);
         });
     });
-
-    // リセットボタン
-    document.getElementById('resetBtn').addEventListener('click', resetToDefault);
 
     // GitHub設定を読み込み
     loadGitHubSettings();
