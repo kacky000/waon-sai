@@ -48,8 +48,8 @@
                         <li><a href="#info" class="nav-link" data-section="info">開催情報</a></li>
                         <li><a href="#order" class="nav-link" data-section="order">表示順</a></li>
                         <li><a href="#titles" class="nav-link" data-section="titles">セクションタイトル</a></li>
-                        <li><a href="#settings" class="nav-link" data-section="settings">その他設定</a></li>
-                        <li><a href="#footer" class="nav-link" data-section="footer">フッター</a></li>
+                        <!-- <li><a href="#settings" class="nav-link" data-section="settings">その他設定</a></li> -->
+                        <!-- <li><a href="#footer" class="nav-link" data-section="footer">フッター</a></li> -->
                         <li style="margin-top: 12px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 12px;"><a href="#github" class="nav-link" data-section="github" style="color: #58a6ff;">GitHub連携</a></li>
                     </ul>
                 </nav>
@@ -338,71 +338,7 @@
                     <button class="btn btn-primary" onclick="saveSection('titles')">保存</button>
                 </div>
 
-                <!-- その他設定 -->
-                <div class="edit-panel" id="settings" data-section="settings">
-                    <h2 class="panel-title">その他設定</h2>
-                    
-                    <div class="form-group">
-                        <label for="comingSoonText">Coming Soon テキスト</label>
-                        <input type="text" id="comingSoonText" class="form-input" placeholder="例：Coming Soon">
-                    </div>
-
-                    <h3 class="subsection-title">チケットセクション設定</h3>
-                    <div class="form-group">
-                        <label for="ticketsAccessTitle">アクセス見出し</label>
-                        <input type="text" id="ticketsAccessTitle" class="form-input" placeholder="例：ACCESS">
-                    </div>
-
-                    <button class="btn btn-primary" onclick="saveSection('settings')">保存</button>
-                </div>
-
-                <!-- フッター編集 -->
-                <div class="edit-panel" id="footer" data-section="footer">
-                    <h2 class="panel-title">フッター編集</h2>
-
-                    <div class="form-group">
-                        <label class="checkbox-label">
-                            <input type="checkbox" id="comingSoon-footer">
-                            このセクションをComing Soonにする
-                        </label>
-                    </div>
-                    <div class="form-group">
-                        <label class="checkbox-label">
-                            <input type="checkbox" id="hidden-footer">
-                            このセクションを非表示にする
-                        </label>
-                    </div>
-                    
-                    <h3 class="subsection-title">フッターロゴ</h3>
-                    <div class="form-group">
-                        <label for="footerLogo">ロゴテキスト</label>
-                        <input type="text" id="footerLogo" class="form-input" placeholder="例：WA音祭">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="footerSubtitle">サブタイトル</label>
-                        <input type="text" id="footerSubtitle" class="form-input" placeholder="例：WAON FES">
-                    </div>
-
-                    <h3 class="subsection-title">お問い合わせ</h3>
-                    <div class="form-group">
-                        <label for="footerEmail">メールアドレス</label>
-                        <input type="email" id="footerEmail" class="form-input" placeholder="例：info@waonfes.jp">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="footerTel">電話番号</label>
-                        <input type="text" id="footerTel" class="form-input" placeholder="例：03-XXXX-XXXX">
-                    </div>
-
-                    <h3 class="subsection-title">著作権</h3>
-                    <div class="form-group">
-                        <label for="footerCopyright">著作権表示</label>
-                        <input type="text" id="footerCopyright" class="form-input" placeholder="例：&copy; 2026 WA音祭（WAON FES）All Rights Reserved.">
-                    </div>
-
-                    <button class="btn btn-primary" onclick="saveSection('footer')">保存</button>
-                </div>
+                <!-- その他設定・フッター編集パネル削除済み -->
 
                 <!-- GitHub連携パネル -->
                 <div class="edit-panel" id="github" data-section="github">

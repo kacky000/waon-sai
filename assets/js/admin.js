@@ -14,7 +14,7 @@ const defaultData = {
         goods: false,
         tickets: false,
         info: false,
-        footer: false
+        // footer: false // 完全削除
     },
     sectionHidden: {
         hero: false,
@@ -26,7 +26,7 @@ const defaultData = {
         goods: false,
         tickets: false,
         info: false,
-        footer: false
+        // footer: false // 完全削除
     },
     sectionOrder: [
         "home",
@@ -38,7 +38,7 @@ const defaultData = {
         "goods",
         "tickets",
         "information"
-    ],
+    ], // footer/settingsは除外
     sectionTitles: {
         concept: { en: "CONCEPT", ja: "開催趣旨" },
         entry: { en: "ENTRY", ja: "出演募集" },
@@ -49,7 +49,7 @@ const defaultData = {
         tickets: { en: "TICKETS", ja: "チケット" },
         information: { en: "INFORMATION", ja: "開催概要" }
     },
-    comingSoonText: "Coming Soon",
+    // comingSoonText, footer, settingsは除外
     hero: {},
     concept: {
         bgImage: "",
@@ -141,13 +141,7 @@ const defaultData = {
             hidden: false
         }
     ],
-    footer: {
-        logo: "WA音祭",
-        subtitle: "WAON FES",
-        email: "info@waonfes.jp",
-        tel: "03-XXXX-XXXX",
-        copyright: "&copy; 2026 WA音祭（WAON FES）All Rights Reserved."
-    },
+    // footer: { ... } 完全削除
     qna: [
         {
             question: "出演の応募条件はありますか？年齢や実績などの動画が必要ですか？",
